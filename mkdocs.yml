@@ -1,0 +1,123 @@
+site_name: Bayesian Clinical Reasoning
+site_description: Open-source ebook on Bayesian statistics, decision analysis, and evidence for neurologists and clinician-scientists.
+site_url: https://rkalani1.github.io/bayesian-clinical-reasoning/
+site_author: Rizwan Kalani
+repo_url: https://github.com/rkalani1/bayesian-clinical-reasoning
+repo_name: rkalani1/bayesian-clinical-reasoning
+copyright: >
+  Open-source ebook · CC BY 4.0 content · ISC site code · Educational only — not medical advice.
+
+theme:
+  name: material
+  custom_dir: overrides
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+  features:
+    - navigation.tracking
+    - navigation.top
+    - navigation.footer
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+    - toc.follow
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - def_list
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - toc:
+      permalink: true
+
+extra_javascript:
+  - javascripts/katex.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js
+  - javascripts/header-controls.js
+
+extra_css:
+  - https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css
+  - stylesheets/extra.css
+  - stylesheets/page-orientation.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rkalani1/bayesian-clinical-reasoning
+
+use_directory_urls: false
+
+nav:
+  - Introduction: index.md
+  - How to use this book: how-to-use.md
+  - Evidence register: evidence-register.md
+  - Book:
+    - Part I — Foundations:
+      - "01. Why Bayesian Thinking Matters": curriculum/01-why-bayesian-thinking-matters.md
+      - "02. Probability, Odds, and Uncertainty": curriculum/02-probability-odds-uncertainty.md
+      - "03. Bayes’ Theorem": curriculum/03-bayes-theorem.md
+      - "04. Priors": curriculum/04-priors.md
+    - Part II — Inference with R:
+      - "05. Likelihoods and Conjugate Models": curriculum/05-likelihoods-conjugate-models.md
+      - "06. Hierarchical Models": curriculum/06-hierarchical-models.md
+      - "07. Computational Inference": curriculum/07-computational-inference.md
+      - "08. Model Checking": curriculum/08-model-checking.md
+      - "09. Estimation, ROPE, and Bayes Factors": curriculum/09-estimation-rope-bayes-factors.md
+    - Part III — Design and Synthesis:
+      - "10. Sample Size and Adaptive Designs": curriculum/10-sample-size-adaptive-designs.md
+      - "11. Diagnostic Accuracy": curriculum/11-diagnostic-accuracy.md
+      - "12. Survival and Competing Risks": curriculum/12-survival-competing-risks.md
+      - "13. Bayesian Meta-Analysis": curriculum/13-bayesian-meta-analysis.md
+    - Part IV — Decision and Communication:
+      - "14. Decision Theory and Thresholds": curriculum/14-decision-theory-thresholds.md
+      - "15. Decision Curves and Value of Information": curriculum/15-decision-curves-voi.md
+      - "16. Bedside and Shared Decisions": curriculum/16-bedside-shared-decisions.md
+      - "17. Communicating Uncertainty": curriculum/17-communicating-uncertainty.md
+    - Part V — Synthesis:
+      - "18. Integrated Case Studies": curriculum/18-integrated-case-studies.md
+      - "19. A Complete Workflow": curriculum/19-complete-workflow.md
+      - "20. Reproducible Pipelines": curriculum/20-reproducible-pipelines.md
+  - Appendices:
+    - "A. R Setup and Cheatsheet": appendices/a-r-setup.md
+    - "B. Prior Elicitation Worksheets": appendices/b-prior-elicitation.md
+    - "C. Solutions to Exercises": appendices/c-solutions.md
+    - "D. Glossary and Checklists": appendices/d-glossary.md

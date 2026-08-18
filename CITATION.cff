@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this teaching ebook, please cite it as below."
+title: "Bayesian Clinical Reasoning: Statistics, Decision Analysis, and Evidence for Neurologists and Clinician-Scientists"
+abstract: >-
+  Open-source teaching ebook on Bayesian clinical reasoning for neurology and
+  related specialties. Twenty chapters move from probability language and Bayes'
+  theorem through hierarchical models in R (brms) to decision analysis, net
+  benefit, and shared decision-making. Educational only — not medical advice,
+  not local policy, not institutional endorsement.
+type: software
+authors:
+  - family-names: Kalani
+    given-names: Rizwan
+url: "https://rkalani1.github.io/bayesian-clinical-reasoning/"
+repository-code: "https://github.com/rkalani1/bayesian-clinical-reasoning"
+license: CC-BY-4.0
+keywords:
+  - Bayesian statistics
+  - clinical reasoning
+  - decision analysis
+  - neurology
+  - stroke
+  - medical education
+  - brms
+  - evidence-based medicine
