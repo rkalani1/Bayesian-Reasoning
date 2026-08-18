@@ -157,7 +157,7 @@ Rounds sentence for the 0.001 row: “In a one-in-a-thousand disease, a 95-perce
 
 **C.12.1.** Time to the composite “dead or mRS \(\geq 4\),” or a Fine–Gray model for the subdistribution of “mRS \(\leq 2\)” with death as competing. Estimand: cumulative incidence of good function at day 90, with death occupying its own incidence. Death is an event in the first version and a competitor in the second; it is not a censor.
 
-**C.12.2.** (a) Cox for death: D is censored at day 40; contribution \(S_{\text{death}}(40 \mid x_D)\). (b) Cox for time to mRS \(\leq 2\) treating death as competitor: D has not had the event and has not died by 40, so if you *incorrectly* censor at 40 you write \(S_{\text{good}}(40)\); the honest competing-risks contribution is the survival in the good-event *cause-specific* hazard, still at risk. (c) Ordinal day-90 mRS with D missing: D contributes the marginal likelihood of the missing ordinal, or is dropped — which is a different, worse estimand.
+**C.12.2.** (a) Cox for death: D is last seen alive at day 40, so the contribution is a survival term \(S_{\text{death}}(40 \mid x_D)\). (b) Cause-specific Cox for time to mRS \(\leq 2\): D has neither the good event nor death by day 40. Administrative censoring at last contact *is* the correct CS contribution, \(S_{\text{cs, good}}(40 \mid x_D)\). Death, had it occurred, would also be a CS-censor for this hazard; it is not a “failure.” A Fine–Gray / CIF likelihood is a different object and would use the subdistribution risk set, not this survival term. (c) Ordinal day-90 mRS with D missing: D contributes the marginal likelihood of the missing ordinal under a named MAR/MNAR model (Chapter 24), or is dropped — which is a different, worse estimand.
 
 **C.12.3.** No recovery before day 30, no death after day 30. Day-90 good-outcome CIF \(= (1-0.28)\times 0.31 = 0.223\). A death-censored \(1-\mathrm{KM}\) is tempted to report 0.31 — the probability among *survivors* — as if the dead had been merely unobserved. That is the number families do not ask for.
 
@@ -171,7 +171,7 @@ Rounds sentence for the 0.001 row: “In a one-in-a-thousand disease, a 95-perce
 
 **C.13.2.** SEs \(\times 1/10\) make each study look huge. The likelihood for \(\tau\) becomes a spike near the observed between-study SD. The half-Cauchy versus half-normal debate then *stops* mattering for \(\tau\) and for \(\theta_{\text{new}}\); both priors are overwhelmed. With the original SEs and three studies, the prior on \(\tau\) is most of the result.
 
-**C.13.3.** First table, add 0.5: \((0.5/90.5) / (3.5/92.5) \to\) log-OR \(= \log(0.5\times 92.5 / 3.5\times 90.5) \approx \log(0.146) \approx -1.92\). Prefer two independent binomials (or a logistic GLM) with a weakly informative prior on the log-OR; zeros stay zeros. Do not put the continuity-corrected \(-1.92\) in a forest plot as if it were data.
+**C.13.3.** Cells are 0/90 versus 3/92, so non-events are 90 and 89. Add 0.5 to *each cell*: \((0.5/90.5)/(3.5/89.5) = (0.5\times 89.5)/(3.5\times 90.5) \approx 0.141\), log-OR \(\approx -1.96\). The ratio \((0.5/90.5)/(3.5/92.5)\) is a continuity-corrected *risk ratio*, not an odds ratio — do not put it in an OR forest. Prefer two independent binomials (or a logistic GLM) with a weakly informative prior on the log-OR; zeros stay zeros. Do not put the continuity-corrected \(-1.96\) in a forest plot as if it were data.
 
 **C.13.4.** Put an indicator for “perfusion-gated late window” on \(\mu_i\). Prior on that \(\beta\): \(\mathcal{N}(0, 0.4^{2})\) on the log-OR — wide enough to let C differ, too tight to let three studies invent a 4-fold modifier. C can then sit off the A–B pool without being a separate meta-analysis of one.
 
@@ -214,7 +214,7 @@ The interval vanishes when \(T_t \geq T_{tt}\), which solves to \(R \approx 0.08
 
 **C.16.2.** “DAWN-positive, we take her” treats a trial-eligibility flag as a command. That is the effective-care error: strong evidence of *average* benefit in a selected population is being used as if the threshold cannot move with prestroke mRS 3, age 89, and the daughter’s utilities. Late-window EVT here is preference-sensitive care. The scan is beautiful. The decision is still hers.
 
-**C.16.3.** Alive and not mRS 5: without EVT, \(1-0.16-0.40 = 0.44\); with EVT, \(1-0.12-0.33 = 0.55\). Teaching draws would put a band around a 0.11 absolute gain. To the daughter: “About 11 more people in 100 are alive and not needing full care with the procedure than without it.” No “posterior.”
+**C.16.3.** The teaching Dirichlet means recover the table: alive and not mRS 5 is \(\operatorname{Beta}(44,56)\) without EVT (mean 0.44) and \(\operatorname{Beta}(55,45)\) with EVT (mean 0.55). The mean increment is 0.11. Independent draws give \(P(\text{EVT better}) \approx 0.94\). That is the number the exercise asked for. To the daughter: “In almost every way we can redraw this table, more people are alive and not needing full care with the procedure — about eleven extra in a hundred.” No “posterior probability.”
 
 **C.16.4.** Best-case: the 90th percentile of the *with-EVT* predictive distribution, states 0–3 heavier. Worst-case: the 10th percentile, states 5–6 heavier. Do not quote the best with-EVT against the worst without-EVT; that is two different worlds. Pair quantiles *within* an action, then show the contrast of medians.
 
@@ -229,6 +229,8 @@ The interval vanishes when \(T_t \geq T_{tt}\), which solves to \(R \approx 0.08
 **C.17.3.** “Thank you — we agree the prior should be labeled precisely. Beta(8, 12) has mean 0.40 and prior sample size 20; it was chosen to encode a skeptical historical independence rate, not to stay out of the way. ‘Weakly informative’ would describe a prior that rules out cartoons while remaining dominated by 62 observations at any plausible mean. This prior can still move the success probability from 0.96 (flat) to 0.93 (ours) to 0.88 (more skeptical). We will call it skeptical and show the sensitivity, and we will not call it weakly informative.”
 
 **C.17.4.** Sequential Beta starting at (8, 12), adding one Bernoulli at a time toward 31/62. The mean walks from 0.40 toward 0.48; the 95% band narrows. A naive reader who ignores the pre-specified \(P(\theta>0.40)>0.95\) rule will declare victory the first time the *mean* crosses 0.45 or the first time the interval excludes 0.40 — on these teaching numbers, well before \(n=62\), and well before the actual functional hits 0.95 (it never does). Mark that \(n\) on the fan and write “not the rule.”
+
+**C.17.6.** Let \(\eta \sim \mathcal{N}(0, 10^2)\) and \(\pi = \operatorname{logit}^{-1}(\eta)\). Then \(\pi \notin (0.01, 0.99)\) iff \(|\eta| > \operatorname{logit}(0.99) = \log 99 \approx 4.595\). The two-tailed Normal probability is \(2\Phi(-4.595/10) = 2\Phi(-0.4595) \approx 0.646\), about two-thirds, not more than 80%. The prior is U-shaped on the probability scale. It is not a point mass at 0 and 1, and it is not “uninformative.”
 
 ---
 
@@ -276,9 +278,70 @@ A rename then dies before Stan compiles a model on the wrong columns.
 
 ---
 
+
+## Chapter 21 — Transporting Evidence and HTE
+
+**C.21.1.** The sentence answered Question 1 (the trial ATE in a DAWN-like frame) and pretended to answer Question 3 (this woman). It did not answer Question 2 either: prestroke mRS 3 is not a trial subgroup with overlap. Six sentences to the daughter: “The scan shows a mismatch like the ones in a late-window trial. That trial enrolled people who were independent before the stroke. She needed a cane and help to bathe. We do not have a trial answer for someone already living that life. Opening the vessel can still help her get back to *her* life; the size of that help is a judgment, not a number we can read off the paper. The decision is yours with her values, not a protocol because a box was ticked.”
+
+**C.21.2.** Trial-weighted ATE \(= 0.28\cdot 0.40 + 0.20\cdot 0.35 + 0.12\cdot 0.20 + 0.04\cdot 0.05 = 0.208\). Hospital-standardized contrast \(= 0.28\cdot 0.15 + 0.20\cdot 0.25 + 0.12\cdot 0.35 + 0.04\cdot 0.25 = 0.144\). The hospital number is still Question 2-for-a-mix, not Question 3: it averages over last year’s admissions, including the 75% who are not this woman. It equals her number (0.04) only if the hospital mix is 100% her phenotype, or if every row has the same risk difference.
+
+**C.21.3.** Hierarchical estimator: the slice log-OR is a noisy draw around a shared mean \(\mu_\beta\); \(\tau_\beta\) is how much genuine modification you will believe across pre-specified slices. With \(n = 16\), the local 1.05 (0.22 to 5.1) is pulled almost to \(\mu_\beta\). If you *refuse* to shrink: “In sixteen patients aged 85 or more the data cannot separate a large benefit from a large harm; we will not export the trial average into this cell.” You are declining exchangeability of the slice with the ATE — the same refusal Chapter 6 makes for a pediatric site in an adult hierarchy.
+
+**C.21.4.** The `brm()` call is a specification. Without the locked teaching file there is no numerical interval to quote as a result. Qualitatively: her posterior predictive under the skeptical \(N(0, 0.25^2)\) interaction is almost the transported ATE; switching to \(N(0, 2^2)\) lets the prestroke-mRS-3 increment roam, so her interval widens and can change sign. That movement is the prior doing the transport. The data past prestroke mRS 3 are too thin to argue.
+
+## Chapter 22 — Causal Target Trials
+
+**C.22.1.** New arrows: treatment \(\to\) PH2 \(\to\) day-90 mRS, and treatment \(\to\) mRS directly. PH2 is a *mediator* of part of the effect, and a *collider* on any open back-door that also points at hemorrhage (severity, anticoagulation, procedure time). It is not a confounder of the ITT contrast: it sits after assignment. Conditioning on it estimates a direct-effect hybrid in the stratum that did not bleed — not the ITT functional the committee asked for. Report PH2 as a secondary harm, not as a covariate.
+
+**C.22.2.** Eligibility: imaging-confirmed LVO presenting to a spoke or mothership in the network, last-known-well within the pre-declared window, device choice still open. Strategies: “mothership EVT” versus “spoke thrombolysis then transfer for EVT,” assigned at first medical contact. Time zero: that contact, not hub-door and not puncture. Follow-up: 90-day mRS on everyone, including those who never reach the hub. Estimand: contrast in 90-day ordinal mRS under the two strategies. Immortal-time error: starting the clock at last-known-well and classifying exposure by whether the patient *arrived* at the hub credits survivors of the transfer to the mothership arm and deletes the dead-en-route from it.
+
+**C.22.3.** Crude RD mixes indication and center volume. The hierarchical intercept without severity partial-pools noisy centers; it removes center-level sampling noise, not confounding by indication. The standardized RD from the full outcome model is the one that adjusts the back-door set and then g-computes. Tell the committee: the middle number is a shrunken association, not a treatment effect; print the standardized contrast or do not print a contrast.
+
+**C.22.4.** Restricting to “no WLST in 72 hours” conditions on a descendant of early severity and of the treatment decision. It closes the path treatment \(\to\) early course \(\to\) WLST \(\to\) mRS and opens collider paths through whatever predicted withdrawal. Offer the ITT contrast in everyone, with WLST as a secondary event, and accept only *baseline* covariates (age, GCS, volume, anticoagulant, prestroke mRS) on the right-hand side.
+
+## Chapter 23 — Clinical Prediction Models
+
+**C.23.1.** 24-hour NIHSS and TICI are measured *after* the admission note is written. They leak future information into a “baseline” probability, so the apparent AUC is the AUC of a 24-hour model, not of the note. TRIPOD item on predictors (timing of measurement / whether predictors are available at the intended moment of use) should have made the leakage visible even if the software fitted cleanly.
+
+**C.23.2.** You may claim that a spline is slightly better *inside this sample* on PSIS-LOO, with a SE that already includes “no difference.” You may not claim the spline will travel. Two of seven sites preferring linear is a transport warning. Before the spline reaches the note: lock a pre-specified functional form or a hierarchical smoother, check leave-one-hospital-out calibration, and refuse to promote a within-sample ELPD of \(+6\) (SE 4) as a go-live.
+
+**C.23.3.** Mean predicted 0.41 versus observed 0.31 with a slope interval that includes 1 (0.61 to 1.28) is an intercept problem, not a slope collapse. Recalibrate the intercept on the new spoke; do not re-estimate the slope on \(n = 90\). Abstract sentence: “At the new spoke the locked model over-predicted independence (0.41 vs 0.31); the calibration slope was compatible with 1, so we updated the intercept and did not refit coefficients.”
+
+**C.23.4.** Discrimination of 0.81 does not imply the model helps *this* decision. The top calibration bin sitting above the band means the patients you would call “likely independent” are less independent than advertised. The decision curve beats treat-all only below \(p_t = 0.08\); the service will not act unless \(\hat\pi\) for mRS 0–2 is below 0.70, i.e. at thresholds far above where the model has net benefit. Do not put it on the admission note for that action. Build a model for the decision they will actually take, or change the action.
+
+## Chapter 24 — Missing Data and Measurement Error
+
+**C.24.1.** Six sentences: “The estimand is the 90-day ordinal contrast in treated LVO, late versus early window. Complete-case analysis estimates that contrast in the 312 who were found, not in the 400 who were treated. Calling 22% ‘acceptable’ assumes the missing are a coin flip given the covariates you kept — that is MAR, and you did not argue it. Transfers and non-English speakers are over-represented among the 88, so the complete cases are the easy-to-find locals. One MNAR mechanism you cannot rule out from the complete-case table: patients who worsened after a good-looking discharge stop answering the phone. The hole is part of the likelihood, not a footnote.”
+
+**C.24.2.** Complete-case \(P(\text{mRS }0\text{–}2) = 118/312 \approx 0.378\). LOCF adds the 51 discharge 0–2 scores: \(169/400 = 0.423\). Recode the four in-hospital deaths as 6 and shift the 84 living missing one category worse than discharge: independence falls toward the chapter’s teaching 0.36 (the 51 discharge 0–2 are no longer all successes). Put a MAR imputation plus one named MNAR shift in the abstract. Complete-case and LOCF are labeled sensitivity rows, not “the registry result.”
+
+**C.24.3.** Selection steps: presented with late-window LVO \(\to\) taken for EVT \(\to\) CTP obtained \(\to\) favorable map \(\to\) in the 168. The 0.18 is the association of a favorable map with independence *among imaged, treated, late-window patients*. It is not the effect of treating on a favorable map, and it is not the accuracy of CTP in presenting patients.
+
+**C.24.4.** Sketch: latent true ASPECTS as a varying intercept; resident and attending readings as two observation equations; ordinal mRS on the latent score. In `brms`, a measurement submodel (`me()` if the attending error SD is treated as known; a bivariate or hierarchical measurement model if not) plus `family = cumulative("logit")` for \(Y\). Prior on the resident’s extra error: a half-normal that puts most mass below one ASPECTS point and still allows two. If the over-read subset is “interesting” scans, say so: the attending reading is MNAR with respect to true ASPECTS, and the latent score in the un-over-read majority is identified only by the resident plus that selection story.
+
+## Chapter 25 — GRADE and Evidence-to-Decision
+
+**C.25.1.** Estimand: “posterior probability that late-window EVT beats control on UW-mRS in the *trial-like* populations of A and B.” Certainty: still only moderate-to-high for *that* estimand, because transport and unblinded mRS remain. Strength: Class I is a recommendation, not a posterior. Stratum: A/B, not consecutive late-window LVO. The 0.95 is allowed to support only the estimand sentence.
+
+**C.25.2.** A (0.07 to 0.21): entirely above 0 and above 0.03; not above 0.10. B (0.01 to 0.15): entirely above 0; not above 0.03 or 0.10. C (−0.03 to 0.11): none of the three. Imprecision is location relative to a named threshold, not width. “The interval is wide” does not say whether the whole mass sits above the worthwhile increment.
+
+**C.25.3.** Risk of bias: prior on reader- and center-dependent Se/Sp. Indirectness: transport parameter from comprehensive-center scans to spoke overnight reads. Imprecision: posterior width on the LR, or on post-test probability at the spoke’s pre-test. Yes, a strong recommendation to transfer on a positive flag can coexist with a conditional recommendation to withhold on a negative flag: LR\(^+\) and LR\(^-\) face different thresholds (Chapter 14), and the same Se/Sp posterior can clear one and not the other.
+
+**C.25.4.** Chapter 14’s \(p^{\star} = H/(B+H) = 1/(1+B/H)\) is a *probability* threshold. The teaching increment 0.04 (−0.03 to 0.11) is a UW-mRS contrast. Do not drop \(p^{\star}\) into that interval. On the utility scale, treat when the posterior on (increment − scaled harm) is mostly positive. With increment 0.04 (−0.03 to 0.11) and harm 0.02 (0.01 to 0.04) the net interval includes 0 for any \(B/H\) that does not dwarf the lower tail. In that range the panel owes the fellow a values question and a split recommendation, not a single Class I/III sentence.
+
+## Chapter 26 — Ethics and Adaptive Governance
+
+**C.26.1.** Five contents, short: (1) this is research, not decided care; (2) both treatments are in use and the community of experts is not sure which is better *for people like you*; (3) a computer will tilt future assignments toward whichever arm is looking better, so later patients may not get a 50/50 draw; (4) you can decline and still receive ordinary care; (5) we will stop a bad-looking arm if a pre-set rule says so. Mark: a GCS-13 patient may still miss that “looking better” is a group pattern, not a promise about *their* outcome.
+
+**C.26.2.** The platform posterior moved (0.45 \(\to\) 0.84). The DSMB recomputes \(\pi_{\text{comm}}\) first: the overnight frequentist interval is a new likelihood about a slightly different population, and community equipoise is the consent object. If the platform continues, tomorrow’s consent says the community is less evenly split than at launch and names the current tilt; it does not say the other trial “proved” harm in *this* population.
+
+**C.26.3.** Efficacy \(T\): \(P(\delta > 0.03 \mid y) > 0.99\) and \(n \ge 80\) \(\to\) graduate evacuation. Harm \(T\): \(P(\delta_{\text{dead}} > 0.02 \mid y) > 0.90\) and \(n \ge 60\) \(\to\) drop evacuation. Equity \(T\): expected assignments to the currently inferior arm among age \(\ge 80\) exceed 1.3 times the marginal rate and \(n_{\ge 80} \ge 40\) \(\to\) pause adaptation in that slice and report. If you cannot name the action, you do not yet have a charter item.
+
+**C.26.4.** To the advisor: yes, 32 fewer people on the worse arm when surgery is truly better is a real gain, and the type I move from 0.03 to 0.04 is the price; say whether *that* price is acceptable, not whether RAR is “more ethical” in the abstract. To the IRB: look also at duration (47 vs 48 months — almost no time saved), at the harm row (96 still assigned to worse surgery; futility is not magic), and at the design-prior row (assurance 0.55, 130 on the currently worse arm) — that is the world you are sending patients into. Approve the tilt only if those cells, not the brochure, are the ones you can defend.
+
 ## How to use these solutions
 
 If your second decimal disagrees, check odds versus probabilities and whether an LR was treated as independent of a base rate that already contained the same sign. If your *action* disagrees, write the utility you used. These solutions are not institutional policy.
 
 !!! success "Key Takeaway"
-    Eighty solutions, one standard: a number, a contrast, an action. Teaching numbers stay teaching numbers. Where the chapter asked for a sentence, the solution is a sentence. Where it asked for algebra, the algebra is here. Real Friday afternoons run the same loop with a messier \(u\).
+    Solutions for every numbered exercise, one standard: a number, a contrast, an action. Teaching numbers stay teaching numbers. Where the chapter asked for a sentence, the solution is a sentence. Where it asked for algebra, the algebra is here. Real Friday afternoons run the same loop with a messier \(u\).

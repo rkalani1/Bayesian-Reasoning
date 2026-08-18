@@ -91,7 +91,7 @@ A teaching checklist you can paste into a cover letter follows. It is a union of
 | No claim that a flat prior made the analysis objective | Entire manuscript |  |
 
 !!! note "Mathematical Detail"
-    A prior with a large variance is not “uninformative” on the scale that matters. A logistic intercept prior \(N(0, 10^2)\) is nearly a point mass on probabilities near 0 and 1. A Beta(1, 1) prior is uniform on a probability and aggressive on a log-odds. Report the prior on the scale of the decision, not only on the scale of the sampler.
+    A prior with a large variance is not “uninformative” on the scale that matters. A logistic intercept prior \(N(0, 10^2)\) puts about two-thirds of its mass outside \((0.01, 0.99)\) on the probability scale — a U-shaped prior, not a flat one, and not a point mass at the edges either. A Beta(1, 1) prior is uniform on a probability and aggressive on a log-odds. Report the prior on the scale of the decision, not only on the scale of the sampler.
 
 ## What not to say
 
@@ -243,7 +243,7 @@ The PI’s sentence fails every row of the checklist: the prior was not uninform
 3. A reviewer asks you to call the Beta(8, 12) prior “weakly informative.” Draft a one-paragraph refusal that still thanks the reviewer.
 4. Draw, by hand, a fan chart of the teaching sequential Beta update. Mark the first \(n\) at which a naive reader would declare victory if they ignored the pre-specified rule.
 5. Take a published Bayesian stroke paper you like and score it on the twelve-row checklist. Which two rows fail most often in your stack?
-6. Hint for the appendix: show that a logistic \(N(0, 10^2)\) intercept prior puts more than 80% of its mass outside \((0.01, 0.99)\) on the probability scale.
+6. Hint for the appendix: show that a logistic \(N(0, 10^2)\) intercept prior puts about two-thirds of its mass outside \((0.01, 0.99)\) on the probability scale. Give the exact tail probability.
 
 ## Further reading
 

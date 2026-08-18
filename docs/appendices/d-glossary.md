@@ -4,7 +4,7 @@
 
 A field guide to the words, the three pieces of mathematics the rest of the book leans on, a reading list that is not a cargo cult, and five mini-checklists you can put next to a manuscript. Definitions are operational. If a term here disagrees with a chapter, the chapter’s worked example wins.
 
-Educational only. Checklists are memory aids, not official society policy and not a license to submit.
+Checklists are memory aids, not official society policy and not a license to submit.
 
 ---
 
@@ -17,6 +17,8 @@ Educational only. Checklists are memory aids, not official society policy and no
 **Anchoring.** Staying too close to the first number seen. The first NIHSS, the first radiologist’s adjective, last year’s base rate.
 
 **Availability.** Judging probability by the ease of recall. The last fatal tPA ICH you saw is not a likelihood.
+
+**BAO.** Basilar-artery occlusion. A posterior-circulation LVO; not interchangeable with anterior ICA/M1 in priors or transport (Chapter 4).
 
 **Base rate.** \(P(\text{state})\) in the relevant class before the new datum. The number residents skip.
 
@@ -68,7 +70,11 @@ Educational only. Checklists are memory aids, not official society policy and no
 
 **Go/no-go.** A Phase 2 decision rule, preferably on the posterior predictive probability of eventual success, not on \(P(\delta > 0 \mid y_{\text{now}})\).
 
+**GRADE.** A framework for rating certainty of evidence and strength of recommendation. This book treats its domains as Bayesian objects — bias, \(\tau\), transport, threshold, selection — not as a separate qualitative universe (Chapter 25).
+
 **HDI.** Highest-density interval. The shortest interval containing a stated posterior probability.
+
+**HTE.** Heterogeneity of treatment effect. A posterior on a modifier, or a risk-based contrast, not a forest-plot row of unshrunk slices (Chapter 21).
 
 **Hierarchical model.** Parameters that are themselves drawn from a shared distribution. Shrinkage lives here (Chapter 10).
 
@@ -88,7 +94,9 @@ Educational only. Checklists are memory aids, not official society policy and no
 
 **Loss function.** \(-u\). The book speaks in utilities; the math does not care.
 
-**LVO.** Large-vessel occlusion. ICA, M1, or proximal M2 unless a chapter says otherwise.
+**LVO.** Large-vessel occlusion. ICA, M1, or proximal M2 unless a chapter says otherwise. Basilar occlusion is named separately (BAO).
+
+**MAR / MCAR / MNAR.** Missing at random / completely at random / not at random. Statements about \(p(R \mid Y, X)\), not about how hard you tried to call (Chapter 24).
 
 **MCID.** Minimal clinically important difference. A utility in disguise. Should appear in go/no-go priors (Appendix B).
 
@@ -101,6 +109,8 @@ Educational only. Checklists are memory aids, not official society policy and no
 **NIHSS.** National Institutes of Health Stroke Scale, 0–42. Bounded, discrete, rater-noisy.
 
 **Partial pooling.** The hierarchical compromise between a separate estimate per group and a single pooled estimate.
+
+**Pattern-mixture model.** \(p(Y \mid R, X)\, p(R \mid X)\). Needs a named restriction (a shift \(\delta\)) to identify the missing pattern (Chapter 24).
 
 **Pauker–Kassirer threshold.** Treat when \(p > H/(B+H)\). The skeleton of Chapters 5–6.
 
@@ -122,6 +132,8 @@ Educational only. Checklists are memory aids, not official society policy and no
 
 **Representativeness.** Judging probability by similarity to a prototype. “Classic LVO” is a prototype.
 
+**ROPE.** Region of practical equivalence. An interval around a null that you have already called “not a decision-changing effect” (Chapter 9).
+
 **Seed.** An integer that makes a sampler’s draws repeatable *within a toolchain*. Decision-reproducibility is the real target.
 
 **Sensitive decision.** An action that flips when the prior or utility moves within a plausible range. Report the flip.
@@ -133,6 +145,8 @@ Educational only. Checklists are memory aids, not official society policy and no
 **Spot sign.** CTA contrast within an ICH. A marker for expansion, not a treatment.
 
 **System 1 / System 2.** Fast pattern recognition versus slow explicit updating. This book trains System 2 to audit System 1, not to replace it in the first 30 seconds.
+
+**Target trial.** The randomized protocol an observational analysis claims to emulate. If you cannot write eligibility, strategies, time zero, follow-up, and the estimand, you do not have one (Chapter 22).
 
 **\(\tau\).** Between-group SD on the parameter scale (often logit). Worksheet 3.
 

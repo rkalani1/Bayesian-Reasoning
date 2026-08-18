@@ -251,7 +251,6 @@ The decision is preference-sensitive. EVT is not mandated by the mismatch pictur
 
 The chart should record the teaching frequencies, the two named values, the extrapolation (age, prestroke mRS 3, late window), and the choice. If the daughter asks you what you would do, answer as a values question: “If she were my parent and those were her two wishes, I would try to open the vessel, knowing we may fail.” That is a disclosed utility, not an order.
 
-Educational discussion only. Invented vignette. Not a recommendation for any real person.
 
 !!! success "Key Takeaway"
     The posterior becomes a decision only after it is turned into absolute risks for the outcomes the patient already named.

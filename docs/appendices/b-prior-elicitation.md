@@ -4,7 +4,7 @@
 
 A prior that was never written down was never elicited. It was a default wearing a lab coat. This appendix is a set of printable worksheets — Markdown tables you can copy into a note, a protocol, or a consent-to-analyze file — plus a recommended-default table for the neurology models this book uses. Defaults are starting points for *weakly* informative regularization when no expert is in the room. They are not a substitute for the worksheets when the prior will move a decision.
 
-Educational only. Do not paste a default into a protocol and call it an expert prior.
+Do not paste a default into a protocol and call it an expert prior.
 
 ---
 
