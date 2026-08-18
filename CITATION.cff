@@ -3,9 +3,10 @@ message: "If you use this book, please cite it as below."
 title: "Bayesian Clinical Reasoning: Statistics, Decision Analysis, and Evidence for Neurologists and Clinician-Scientists"
 abstract: >-
   A book on Bayesian clinical reasoning for neurology and related specialties.
-  Twenty chapters move from probability language and Bayes' theorem through
-  hierarchical models in R (brms) to decision analysis, net benefit, and
-  shared decision-making.
+  Twenty-six chapters in six parts move from probability language and Bayes'
+  theorem through hierarchical models in R (brms) to decision analysis, net
+  benefit, shared decision-making, transport, target trials, prediction,
+  missing data, GRADE, and the ethics of adaptive research.
 type: software
 authors:
   - name: Bayesian Clinical Reasoning contributors

@@ -35,7 +35,7 @@ Prestroke mRS is 3. Functional independence as the trials defined it is not her 
 The object you computed — or borrowed from a model — is a distribution \(p(\text{mRS} \mid \text{data}, \text{treatment})\). Families do not need the distribution. They need a small number of *absolute* statements that preserve the shape of the distribution and the contrast between actions.
 
 Absolute risk: “Without the procedure, about 22 in 100 people like her get back to the cane-and-help life she already has. With it, about 35 in 100. Death is about 40 versus 33 per 100.”
-Absolute difference: “That is about 7 extra people in 100.”
+Absolute difference: “That is about 13 extra people in 100 back at the life she already has, and about 7 fewer deaths.”
 Harm in the same unit: “About 7 fewer deaths in 100, and a smaller shift out of bedbound states, with a risk of vessel injury and a risk that we do something painful for no gain.”
 Baseline: “She started at a 3. A 3 is a life she already knows. A 4 or a 5 is not.”
 
@@ -115,7 +115,7 @@ A usable script is short. It is not a disclosure dump.
 
 “She has a clot in a large artery on the left. That is why she cannot speak or move the right side. We can try to pull the clot out, or we can care for her without that procedure.”
 
-“I want to be honest about the numbers we have. They are not a promise about her. In people something like this, without the procedure, about 40 in 100 do not survive three months. With it, about 33 in 100. A few more, maybe 7 in 100, get back to walking as they did before. Some are left needing full care either way.”
+“I want to be honest about the numbers we have. They are not a promise about her. In people something like this, without the procedure, about 40 in 100 do not survive three months. With it, about 33 in 100. A few more, maybe 13 in 100, get back to the cane-and-help life she already has. Some are left needing full care either way.”
 
 “You said she did not want to be kept alive without knowing people, and she did not want to miss the wedding. Those point in different directions. The procedure raises the chance she is alive in October and raises the chance she is herself. It also means a late-night transfer, a puncture, and a chance we do all of that and she is no better.”
 
@@ -134,7 +134,7 @@ Notice what the script refused to do. It did not say “the prior was weakly inf
 
 The chart is a letter to the next clinician and to your future self at 90 days. It should contain four things.
 
-The posterior you used, in absolute frequencies, with the action contrast. “Teaching model: death 40% vs 33%; return to prestroke function 18% vs 24%” is enough. A full table is better.
+The posterior you used, in absolute frequencies, with the action contrast. “Teaching model: death 40% vs 33%; return to prestroke function (mRS ≤ 3) 22% vs 35%” is enough. A full table is better.
 
 The values the family named, in their words. “Did not want to be a vegetable. Wanted a chance to attend a grandson’s wedding.” Do not translate these into mRS until you have written the words.
 
@@ -145,7 +145,7 @@ The uncertainty you could not quantify. “Extrapolated from late-window mismatc
 | Note element | Weak version | Strong version |
 | --- | --- | --- |
 | Evidence | “EVT indicated by DAWN criteria” | “Mismatch present; prestroke mRS 3 outside the trial frame” |
-| Numbers | “May benefit” | “Teaching absolute risks: death 40% vs 33%; mRS 3 18% vs 24%” |
+| Numbers | “May benefit” | “Teaching absolute risks: death 40% vs 33%; mRS ≤ 3 22% vs 35%” |
 | Values | “Family understands risks” | “Priority: avoid unaware survival; secondary: alive in October” |
 | Uncertainty | “Prognosis guarded” | “Wide posterior; model not trained on prestroke mRS 3 at age 89” |
 | Decision | “Consent obtained” | “Daughter chose EVT after the contrast above; no written directive” |
@@ -206,7 +206,7 @@ summarise_state <- function(p, label) {
   data.frame(
     action            = label,
     death_per_100     = 100 * mean(p[, "mRS6"]),
-    back_to_3_per_100 = 100 * mean(p[, "mRS3"]),
+    back_to_3_per_100 = 100 * mean(p[, "mRS02"] + p[, "mRS3"]),
     unaware_5_per_100 = 100 * mean(p[, "mRS5"]),
     death_p10         = unname(q[1]),
     death_p90         = unname(q[2])
@@ -231,7 +231,7 @@ c(
 # Specification only: an ordinal model you might actually fit.
 # library(brms)
 # fit_mrs <- brm(
-#   mrs ~ evt + age + nihss + aspecs + prestroke,
+#   mrs ~ evt + age + nihss + aspects + prestroke,
 #   data = stroke_df,
 #   family = cumulative("logit"),
 #   prior = c(prior(normal(0, 1), class = "b"),

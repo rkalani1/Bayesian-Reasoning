@@ -137,7 +137,7 @@ p(y^\star = k \mid y) = \binom{n^\star}{k} \frac{B(a+s+k,\ b+n-s+n^\star-k)}{B(a
 
 where \(B\) is the beta function. Equivalently, \(\theta \sim \mathrm{Beta}(\tilde a, \tilde b)\) and \(y^\star \mid \theta \sim \mathrm{Binomial}(n^\star, \theta)\). The extra-binomial variance relative to a plug-in binomial at \(\hat\theta\) is the price of not pretending you know \(\theta\).
 
-On the teaching numbers, \(n^\star = 50\), \(\tilde a = 10\), \(\tilde b = 188\). The predictive probability of \(4\) or more events is obtained by summing or, more stably, by simulating \(\theta\) from the posterior and then \(y^\star\) from the binomial. Either way the probability is on the order of \(0.20\) — not rare, not inevitable. That is the number to take to the committee. A point prediction of “\(2.5\) hemorrhages” is a mean, not a plan.
+On the teaching numbers, \(n^\star = 50\), \(\tilde a = 10\), \(\tilde b = 188\). The predictive probability of \(4\) or more events is obtained by summing or, more stably, by simulating \(\theta\) from the posterior and then \(y^\star\) from the binomial. Either way the probability is about \(0.26\) (a plug-in binomial at \(0.0505\) gives about \(0.24\)) — not rare, not inevitable. That is the number to take to the committee. A point prediction of “\(2.5\) hemorrhages” is a mean, not a plan.
 
 ```mermaid
 flowchart TD

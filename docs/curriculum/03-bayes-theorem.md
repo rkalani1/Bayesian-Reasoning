@@ -93,17 +93,14 @@ Convert once, on paper.
 
 The sequential product in the next section (DWI then CTA) is a third calculation: it multiplies both LRs, and it answers a stacked question. The nomogram’s two rays do not stack. Each ray is “what if this were the only new datum.” That is what the card was for.
 
-```
-Prior p                 LR                 Posterior p
- 0.99 --------------- 1000 --------------- 0.99
- 0.90 ---------------  100 --------------- 0.90
- 0.70 ---------------   20 --------------- 0.78   <-- ray 2: CTA, LR 20
- 0.50 ---------------   10 --------------- 0.50
- 0.30 ---------------    3 --------------- 0.35   <-- ray 1: DWI, LR 3
- 0.15 *
- 0.10 ---------------    1 --------------- 0.15
- 0.05 ---------------  0.2 --------------- 0.05
- 0.01 --------------- 0.01 --------------- 0.01
+Do not read the next picture as a multiplication table. Both rays start at the same prior, 0.15. The numbers 0.35 and 0.78 are those two posteriors, not the posteriors of the 0.30 and 0.70 ticks.
+
+```mermaid
+flowchart LR
+  Prior["Prior 0.15<br/>odds 0.176"] --> R1["Ray 1: LR 3<br/>acute-ischemia question"]
+  Prior --> R2["Ray 2: LR 20<br/>proximal-target question"]
+  R1 --> P1["Posterior 0.35"]
+  R2 --> P2["Posterior 0.78"]
 ```
 
 The ticks are not to scale. The log-odds spine of a printed Fagan card is. What you need to carry is the *shape*: from 0.15, an LR of 3 is a move you can feel (0.15 → 0.35) and an LR of 20 is a move that crosses most diagnostic thresholds you would defend for “is there a target?” (0.15 → 0.78) and still may not cross a treatment threshold for “should we puncture *her*?” A third ray, not drawn, is the one the intern wants: an LR large enough to take 0.15 across 0.50 *and* across a high treatment threshold in one step. No CTA produces that ray by itself. The nomogram is how you notice before you order the test in order to feel busy.
@@ -123,7 +120,7 @@ First, a ray that starts at 0.15 and goes through LR = 1 lands at 0.15. That is 
 
 The card also shows, without arithmetic, why Ms. K’s clean-CTA branch and her M1-cutoff branch cannot be averaged into a single “CTA is informative” sentence. One ray goes up. The other, through the vignette’s LR = 0.15 *against* a target, goes down from the same 0.15 prior: odds \(0.176 \times 0.15 \approx 0.026\), probability about 0.026. Those are two posteriors. A nomogram with one ray labeled “the CTA” is a decoration.
 
-Carry the two rays into the sequential section that follows. If you later multiply LR 3 by LR 20 you are no longer reading a Fagan card. You are running the product of two conditionally independent data, which is legal only if the DWI and the CTA are not two looks at the same clot. Tonight they mostly are not: one image is parenchyma, the other is a vessel. That is why the stacked path (0.15 → 0.35 → about 0.91) is a different object from ray 2 alone (0.15 → 0.78). The card keeps the objects from collapsing into one adjective.
+Carry the two rays into the sequential section that follows. If you later multiply the *acute-ischemia* LR of 3 by the *vessel* LR of 20 onto the same LVO prior, you have changed the question mid-product. LR = 3 updates “is this a real acute stroke?”; LR = 20 updates “is there a proximal target?” Those are different states. The sequential vessel path in this chapter is prior 0.15, then a modest DWI LR for *target* (about 2), then CTA LR 20: 0.15 → 0.26 → 0.88. That is a different object from ray 2 alone (0.15 → 0.78). The card keeps the objects from collapsing into one adjective.
 
 !!! tip "Clinical Pearl"
     Draw the prior tick and the two LR ticks before the report arrives. If even the LR-20 ray cannot reach the threshold you have already named, the test is not a decision tool. It is a picture for someone else.

@@ -176,7 +176,10 @@ For graphics, `bayesplot` and `tidybayes` are the current literate stack in R. U
 #   successes | trials(n) ~ 1,
 #   data   = data.frame(successes = 31L, n = 62L),
 #   family = binomial(),
-#   prior  = prior(beta(8, 12), class = "Intercept", dpar = "mu"),
+#   # Beta(8, 12) lives on the probability scale. The binomial intercept is logit(θ).
+#   # A Beta prior on class = "Intercept" would be a prior on the logit, which is wrong.
+#   # Matching logit-normal: mean logit(0.40) ≈ -0.405, SD ≈ 0.45 (delta method).
+#   prior  = prior(normal(-0.405, 0.45), class = "Intercept"),
 #   seed   = 17, chains = 4, iter = 4000, refresh = 0
 # )
 #
@@ -215,7 +218,7 @@ ggplot(fan, aes(n, mid)) +
 ```
 
 !!! example "R Deep Dive"
-    Un-comment the `brms` block only after you have decided how a binomial intercept prior is parameterized in your version of `brms`. If the software applies the Beta on a transformed scale, the comment in the paper must say so. A figure that disagrees with the text about the prior is worse than no figure.
+    The live fan chart is the conjugate Beta(8, 12) update — no sampler required. The commented `brms` block is a matched logit-normal (`normal(-0.405, 0.45)` on the intercept), not a Beta prior on the logit. Do not put `prior(beta(8, 12), class = "Intercept")` on a binomial model.
 
 ## Worked solution to the opening vignette
 

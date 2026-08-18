@@ -10,7 +10,7 @@ Solutions to the first four exercises of each chapter. Teaching numbers are the 
 
 **C.1.2.** Audit 14/40. Prior Beta(1, 1) \(\to\) posterior Beta(15, 27), mean \(15/42 = 0.357\). Normal approximation SD \(\approx 0.073\), so \(P(\pi > 0.25 \mid y) \approx 0.93\). Prior Beta(60, 140) \(\to\) Beta(74, 166), mean \(74/240 = 0.308\), SD \(\approx 0.030\), \(P(\pi > 0.25 \mid y) \approx 0.97\). The flat prior is not “more objective”; it is a claim that 1% and 99% were equally plausible before the audit. Objectivity is whether the prior’s implied sample size is defensible, not whether the hyperparameters look empty.
 
-**C.1.3.** Frequentist: “If we repeated NINDS-like trials forever and the true risk difference were zero, 95% of such intervals would cover zero; this interval is one draw from that procedure.” Bayesian: “Given the prior we wrote and these data, 95% of the posterior mass on the risk difference sits between these two numbers.” Only the second sentence is about *this* woman’s probable benefit. That is the sentence you can say to a family, once you have translated it into frequencies.
+**C.1.3.** Frequentist: “This interval comes from a procedure that covers the true alteplase risk difference in 95% of repetitions; this interval is one draw from that procedure.” Bayesian: “Given the prior we wrote and these data, 95% of the posterior mass on the risk difference sits between these two numbers.” Only the second sentence is a probability statement about the **parameter after these data**. To say it to a family you still have to transport it to *her* and name a utility; the interval alone is not her probability of benefit.
 
 **C.1.4.** “We already have a prior: it is the pre-test we used when we decided she was a candidate. Leaving it implicit does not make it less real; it only makes it un-auditable. Writing it down is how a later paper, a later fellow, or a later lawyer can see what we thought before the next datum arrived. I am not offering legal advice; I am refusing to pretend that silence is neutrality.”
 
@@ -41,7 +41,7 @@ The 0.20 pre-test is moved *onto* a 0.50 threshold; it does not cross a strict \
 
 Rounds sentence for the 0.001 row: “In a one-in-a-thousand disease, a 95-percent-accurate positive test is still a 2-percent disease — about one true case in fifty positives.”
 
-**C.2.4.** Aleatory: whether *this* hematoma expands in the next six hours, given everything you already know; a second CT after expansion has happened does not un-expand it. Epistemic: the current volume and the spot-sign status, which a second look (or a better read) can change. The fellow who wants another CTA is trying to buy epistemic reduction. After a good first CTA, further scans mostly wait out aleatory noise.
+**C.2.4.** Aleatory: even with \(\pi\) known, *this* hematoma may or may not expand in the next six hours — a CT **now** does not change that coin. Epistemic: is the spot real, and what is the current volume — a better read (or a second reader) of the film you already have can change that. The fellow’s 2-hour repeat NCCT is waiting to **observe** the coin, not buying a sharper \(\pi\). The epistemic move is the attending read of the spot already on the scan.
 
 ---
 
@@ -65,13 +65,13 @@ Rounds sentence for the 0.001 row: “In a one-in-a-thousand disease, a 95-perce
 
 **C.4.3.** Six sentences. Anterior-circulation EVT is a different vessel, a different time-density of data, and a different untreated prognosis. Setting the power-prior weight \(a_0 = 1\) declares those trials fully transportable to BAO, which is a scientific claim, not a default. If you believe transport is partial, \(a_0\) is the parameter of that belief and must sit well below 1. A hierarchical \(\tau\) between circulations does the same job with a distribution instead of a scalar. Either is criticizable. \(a_0 = 1\) is not modest; it is maximal borrowing wearing a humble symbol. Write the implied prior interval on the BAO ARR and see whether the committee still wants \(a_0 = 1\).
 
-**C.4.4.** Untreated independence \(\approx 0.20\) with prior \(n = 50\) is Beta(10, 40) on the probability scale. On the `brms` intercept (logit) that is a Normal at \(\text{logit}(0.20) \approx -1.39\) with SD chosen so that the implied prior \(n\) is about 50, roughly `prior(normal(-1.39, 0.30), class = Intercept)`. Check with a prior-predictive draw on \(\pi\), not by staring at the logit SD.
+**C.4.4.** Untreated independence \(\approx 0.20\) with prior \(n = 50\) is Beta(10, 40) on the probability scale. On the `brms` intercept (logit) that is a Normal at \(\text{logit}(0.20) \approx -1.39\) with SD chosen so that the implied prior \(n\) is about 50, roughly `prior(normal(-1.39, 0.35), class = Intercept)` — the 0.35 is the delta-method logit SD of Beta(10, 40), not a round number pulled from the air. Check with a prior-predictive draw on \(\pi\), not by staring at the logit SD.
 
 ---
 
 ## Chapter 5 — Likelihoods and Conjugate Models
 
-**C.5.1.** Data: 2 sICH in 48. Skeptical Beta(2, 18) \(\to\) Beta(4, 64), mean 0.059. \(P(\theta > 0.06 \mid y) \approx 0.47\) (near a coin). Enthusiastic Beta(2, 98) \(\to\) Beta(4, 144), mean 0.027, \(P(\theta > 0.06 \mid y) \approx 0.01\). The probability moves by about 0.45. In front of a plaintiff expert you defend the prior whose implied sample size and location you can source — the chapter’s historical Beta(8, 142), or the skeptical Beta(2, 18) — not the enthusiastic Beta that buries 2/48 under 100 imaginary safe cases.
+**C.5.1.** Data: 2 sICH in 48. Skeptical Beta(2, 18) \(\to\) Beta(4, 64), mean 0.059. \(P(\theta > 0.06 \mid y) \approx 0.43\). Enthusiastic Beta(2, 98) \(\to\) Beta(4, 144), mean 0.027, \(P(\theta > 0.06 \mid y) \approx 0.02\). The probability moves by about 0.41. In front of a plaintiff expert you defend the prior whose implied sample size and location you can source — the chapter’s historical Beta(8, 142), or the skeptical Beta(2, 18) — not the enthusiastic Beta that buries 2/48 under 100 imaginary safe cases.
 
 **C.5.2.** Posterior Beta(10, 188). \(P(Y^{\star}=0 \mid n^{\star}) = B(10, 188+n^{\star})/B(10, 188) = \prod_{k=0}^{n^{\star}-1}(188+k)/(198+k)\). This product falls through 0.20 near \(n^{\star} = 34\) (teaching: 0.204 at 33, 0.195 at 34). That \(n^{\star}\) is the next-quarter volume at which “we had a clean quarter” stops being surprising under the current posterior. Below that volume, a zero-event quarter is still the mode.
 
@@ -121,7 +121,7 @@ Rounds sentence for the 0.001 row: “In a one-in-a-thousand disease, a 95-perce
 
 **C.9.1.** “We think it is quite likely the medicine helps a little. On a scale of 42, the average help looks closer to one point than to the two points we had said would matter. Some people will do better than that average, some worse. I would not promise you a recovery you can feel; I would not say it does nothing either.”
 
-**C.9.2.** Abstract the HDI on the OR if you are describing the most credible values; it is the shortest 95% set. The ETI goes further into the right tail and starts higher because of skew. On the log-odds scale the posterior is closer to symmetric, so HDI and ETI nearly agree — which is a reason to compute on log-odds and *report* OR endpoints of the HDI.
+**C.9.2.** Abstract the HDI on the OR if you are describing the most credible values; it is the shortest 95% set. The ETI goes further into the right tail and starts higher because of skew. On the log-odds scale the posterior is closer to symmetric, so HDI and ETI nearly agree. Exponentiating a log-OR HDI gives an **ETI on the OR scale**, not the OR HDI — HDI is not preserved by monotone transforms. Compute the HDI on the OR draws if you want an HDI of ORs; exponentiate an ETI if you want OR endpoints of an ETI.
 
 **C.9.3.** A ROPE of \((-0.02, 0.02)\) on a 90-day mRS 0–2 risk difference says a 2-point absolute swing is noise. In mild stroke that may be too tight if the outcome is already common and the harm (ICH) is 2–4 points; it may be too wide if you would treat for a 1-point gain in a low-harm drug. Widen the ROPE if ICH is cheap on your utility; narrow it if even a 1-point gain is worth a large \(N\).
 
@@ -135,7 +135,7 @@ Rounds sentence for the 0.001 row: “In a one-in-a-thousand disease, a 95-perce
 
 **C.10.2.** Beta(3, 3) is a wide design prior; assurance at a max of 80 falls because much of the prior mass sits near 0.5, where the rule rarely fires. Beta(20, 11) is a tight enthusiastic prior; assurance rises, sometimes a lot. For an encephalitis grant defend the wide one, or a mixture with a skeptical spike: you do not yet know this antibody. The tight Beta is a hope, not a design prior.
 
-**C.10.3.** True \(p = 0.45\) is on the boundary of the success event \(P(p>0.45 \mid y) > 0.90\). The stop-for-efficacy rate is then a type-I analogue and should be small (a few percent) if the rule is calibrated; simulate it, do not guess. Looking every 5 instead of every 10 spends more looks and inflates that rate unless you tighten the threshold. More looks, more false gos.
+**C.10.3.** True \(p = 0.45\) is on the boundary of the success event \(P(p>0.45 \mid y) > 0.90\). At one look this is a type-I analogue near **0.10**, not 0.05; more looks inflate it. Simulate the exact schedule; do not guess. Looking every 5 instead of every 10 spends more looks and inflates that rate unless you tighten the threshold.
 
 **C.10.4.** Expect an interaction if intensive BP and a particular reversal agent share a coagulopathy pathway (hematoma expansion). Randomize within cells of the other domain, or model the interaction and keep allocation factorial. Report each domain’s marginal posterior *and* the interaction; a pooled “BP works” headline that averages over reversal strategies is the wrong estimand if the interaction is the biology.
 
@@ -228,7 +228,7 @@ The interval vanishes when \(T_t \geq T_{tt}\), which solves to \(R \approx 0.08
 
 **C.17.3.** “Thank you — we agree the prior should be labeled precisely. Beta(8, 12) has mean 0.40 and prior sample size 20; it was chosen to encode a skeptical historical independence rate, not to stay out of the way. ‘Weakly informative’ would describe a prior that rules out cartoons while remaining dominated by 62 observations at any plausible mean. This prior can still move the success probability from 0.96 (flat) to 0.93 (ours) to 0.88 (more skeptical). We will call it skeptical and show the sensitivity, and we will not call it weakly informative.”
 
-**C.17.4.** Sequential Beta starting at (8, 12), adding one Bernoulli at a time toward 31/62. The mean walks from 0.40 toward 0.48; the 95% band narrows. A naive reader who ignores the pre-specified \(P(\theta>0.40)>0.95\) rule will declare victory the first time the *mean* crosses 0.45 or the first time the interval excludes 0.40 — on these teaching numbers, well before \(n=62\), and well before the actual functional hits 0.95 (it never does). Mark that \(n\) on the fan and write “not the rule.”
+**C.17.4.** Sequential Beta starting at (8, 12), adding one Bernoulli at a time toward 31/62. The mean walks from 0.40 toward 0.48; the 95% band narrows toward 0.37–0.58. A naive reader who ignores the pre-specified \(P(\theta>0.40)>0.95\) rule will declare victory when the posterior mean crosses 0.45 (near \(n = 20\) on this path). The 95% ET band never excludes 0.40 — it is still 0.37–0.58 at \(n = 62\) — and the pre-specified functional never reaches 0.95. Mark \(n \approx 20\) on the fan and write “mean rule, not the protocol rule.”
 
 **C.17.6.** Let \(\eta \sim \mathcal{N}(0, 10^2)\) and \(\pi = \operatorname{logit}^{-1}(\eta)\). Then \(\pi \notin (0.01, 0.99)\) iff \(|\eta| > \operatorname{logit}(0.99) = \log 99 \approx 4.595\). The two-tailed Normal probability is \(2\Phi(-4.595/10) = 2\Phi(-0.4595) \approx 0.646\), about two-thirds, not more than 80%. The prior is U-shaped on the probability scale. It is not a point mass at 0 and 1, and it is not “uninformative.”
 
@@ -269,7 +269,7 @@ The interval vanishes when \(T_t \geq T_{tt}\), which solves to \(R \approx 0.08
 **C.20.4.**
 
 ```r
-need <- c("y_ind", "nihss", "age_c", "aspecs", "hospital")
+need <- c("y_ind", "nihss", "age_c", "aspects", "hospital")
 stopifnot(all(need %in% names(d)))
 stopifnot(is.numeric(d$nihss), all(d$nihss >= 0, d$nihss <= 42, na.rm = TRUE))
 ```
@@ -293,7 +293,7 @@ A rename then dies before Stan compiles a model on the wrong columns.
 
 **C.22.1.** New arrows: treatment \(\to\) PH2 \(\to\) day-90 mRS, and treatment \(\to\) mRS directly. PH2 is a *mediator* of part of the effect, and a *collider* on any open back-door that also points at hemorrhage (severity, anticoagulation, procedure time). It is not a confounder of the ITT contrast: it sits after assignment. Conditioning on it estimates a direct-effect hybrid in the stratum that did not bleed — not the ITT functional the committee asked for. Report PH2 as a secondary harm, not as a covariate.
 
-**C.22.2.** Eligibility: imaging-confirmed LVO presenting to a spoke or mothership in the network, last-known-well within the pre-declared window, device choice still open. Strategies: “mothership EVT” versus “spoke thrombolysis then transfer for EVT,” assigned at first medical contact. Time zero: that contact, not hub-door and not puncture. Follow-up: 90-day mRS on everyone, including those who never reach the hub. Estimand: contrast in 90-day ordinal mRS under the two strategies. Immortal-time error: starting the clock at last-known-well and classifying exposure by whether the patient *arrived* at the hub credits survivors of the transfer to the mothership arm and deletes the dead-en-route from it.
+**C.22.2.** Eligibility: suspected or imaging-confirmed LVO at first medical contact in the network, last-known-well inside the pre-declared window, both routing strategies still available. Strategies: “mothership EVT” versus “spoke thrombolysis then transfer for EVT,” assigned at first medical contact. Time zero: that contact, not hub-door and not puncture. Follow-up: 90-day mRS on everyone, including those who never reach the hub. Estimand: contrast in 90-day ordinal mRS under the two strategies. Immortal-time error: starting the clock at last-known-well and classifying exposure by whether the patient *arrived* at the hub credits transfer survivors to the drip-and-ship arm (they did arrive) and deletes the dead-en-route from it, so the arrival-required strategy looks safer than it is.
 
 **C.22.3.** Crude RD mixes indication and center volume. The hierarchical intercept without severity partial-pools noisy centers; it removes center-level sampling noise, not confounding by indication. The standardized RD from the full outcome model is the one that adjusts the back-door set and then g-computes. Tell the committee: the middle number is a shrunken association, not a treatment effect; print the standardized contrast or do not print a contrast.
 
@@ -333,7 +333,7 @@ A rename then dies before Stan compiles a model on the wrong columns.
 
 **C.26.1.** Five contents, short: (1) this is research, not decided care; (2) both treatments are in use and the community of experts is not sure which is better *for people like you*; (3) a computer will tilt future assignments toward whichever arm is looking better, so later patients may not get a 50/50 draw; (4) you can decline and still receive ordinary care; (5) we will stop a bad-looking arm if a pre-set rule says so. Mark: a GCS-13 patient may still miss that “looking better” is a group pattern, not a promise about *their* outcome.
 
-**C.26.2.** The platform posterior moved (0.45 \(\to\) 0.84). The DSMB recomputes \(\pi_{\text{comm}}\) first: the overnight frequentist interval is a new likelihood about a slightly different population, and community equipoise is the consent object. If the platform continues, tomorrow’s consent says the community is less evenly split than at launch and names the current tilt; it does not say the other trial “proved” harm in *this* population.
+**C.26.2.** The overnight trial updates \(\pi_{\text{comm}}\), not the platform posterior (that already moved \(0.45 \to 0.84\) from the 86 patients). The DSMB recomputes \(\pi_{\text{comm}}\) first: the external interval is a new likelihood on a slightly different population, and community equipoise is the consent object. If the platform continues, tomorrow’s consent should say the community is now more skeptical of evacuation than at launch, name the current 70/30 tilt, and not say the other trial “proved” harm in *this* population.
 
 **C.26.3.** Efficacy \(T\): \(P(\delta > 0.03 \mid y) > 0.99\) and \(n \ge 80\) \(\to\) graduate evacuation. Harm \(T\): \(P(\delta_{\text{dead}} > 0.02 \mid y) > 0.90\) and \(n \ge 60\) \(\to\) drop evacuation. Equity \(T\): expected assignments to the currently inferior arm among age \(\ge 80\) exceed 1.3 times the marginal rate and \(n_{\ge 80} \ge 40\) \(\to\) pause adaptation in that slice and report. If you cannot name the action, you do not yet have a charter item.
 
@@ -344,4 +344,4 @@ A rename then dies before Stan compiles a model on the wrong columns.
 If your second decimal disagrees, check odds versus probabilities and whether an LR was treated as independent of a base rate that already contained the same sign. If your *action* disagrees, write the utility you used. These solutions are not institutional policy.
 
 !!! success "Key Takeaway"
-    Solutions for every numbered exercise, one standard: a number, a contrast, an action. Teaching numbers stay teaching numbers. Where the chapter asked for a sentence, the solution is a sentence. Where it asked for algebra, the algebra is here. Real Friday afternoons run the same loop with a messier \(u\).
+    Solutions for the first four exercises of each chapter, one standard: a number, a contrast, an action. Teaching numbers stay teaching numbers. Where the chapter asked for a sentence, the solution is a sentence. Where it asked for algebra, the algebra is here. Real Friday afternoons run the same loop with a messier \(u\).

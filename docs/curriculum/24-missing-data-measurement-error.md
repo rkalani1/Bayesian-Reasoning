@@ -258,21 +258,23 @@ A `mi()` specification becomes relevant when a *covariate* is missing — for ex
 # aspects | mi()  is the imputation submodel.
 # mi(aspects)     puts the imputed values on the right-hand side of Y.
 
-# reg$aspects[sample.int(n, 40)] <- NA_real_   # teaching holes
+# Specification only. Uncomment after you have built `reg` with an aspects column:
+# reg$aspects <- pmin(10, pmax(0, round(rnorm(n, 8 - 0.4 * window_late, 1.6))))
+# reg$aspects[sample.int(n, 40)] <- NA_real_
 
-fit_mi <- brm(
-  bf(y90 ~ dc_mrs + window_late + nihss + mi(aspects) + lang_ne + transfer) +
-    bf(aspects | mi() ~ nihss + window_late + age) +
-    set_rescor(FALSE),
-  data = reg,
-  family = list(cumulative("logit"), gaussian()),
-  prior = c(
-    prior(normal(0, 1), class = "b", resp = "y90"),
-    prior(normal(0, 1), class = "b", resp = "aspects"),
-    prior(normal(8, 2), class = "Intercept", resp = "aspects")
-  ),
-  chains = 4, iter = 2000, seed = 20260818, refresh = 0
-)
+# fit_mi <- brm(
+#   bf(y90 ~ dc_mrs + window_late + nihss + mi(aspects) + lang_ne + transfer) +
+#     bf(aspects | mi() ~ nihss + window_late + age) +
+#     set_rescor(FALSE),
+#   data = reg,
+#   family = list(cumulative("logit"), gaussian()),
+#   prior = c(
+#     prior(normal(0, 1), class = "b", resp = "y90"),
+#     prior(normal(0, 1), class = "b", resp = "aspects"),
+#     prior(normal(8, 2), class = "Intercept", resp = "aspects")
+#   ),
+#   chains = 4, iter = 2000, seed = 20260818, refresh = 0
+# )
 ```
 
 Measurement error on NIHSS, when a dual-scored subset exists, is a multilevel model for the readings rather than `me()` with a made-up SD:

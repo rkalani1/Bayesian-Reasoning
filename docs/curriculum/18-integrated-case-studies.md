@@ -2,13 +2,13 @@
 
 ## Opening
 
-Four rooms, one afternoon. A CTA that has not finished reconstructing. An ICH that may still be growing. A clinic visit six weeks after an embolic-appearing infarct with no source found. A steering-committee call about a rare myopathy trial that has enrolled fourteen people. The mathematics does not change when the door does. What changes is the loss function, the time available to update, and the sentence you owe the person in front of you.
+Five rooms, one afternoon. A CTA that has not finished reconstructing. An ICH that may still be growing. A clinic visit six weeks after an embolic-appearing infarct with no source found. A steering-committee call about a rare myopathy trial that has enrolled fourteen people. An epilepsy visit about stopping a drug after two quiet years. The mathematics does not change when the door does. What changes is the loss function, the time available to update, and the sentence you owe the person in front of you.
 
 **Learning objectives**
 
-- Carry a single prior–likelihood–posterior–utility–conversation loop through four neurologically different problems without changing the algebra.
+- Carry a single prior–likelihood–posterior–utility–conversation loop through five neurologically different problems without changing the algebra.
 - Separate diagnostic probability from treatment threshold, and treatment threshold from the words used at the bedside.
-- Compute and interpret teaching-number posteriors for large-vessel occlusion, hematoma expansion, ESUS secondary prevention, and a small-n neuromuscular go/no-go.
+- Compute and interpret teaching-number posteriors for large-vessel occlusion, hematoma expansion, ESUS secondary prevention, a small-n neuromuscular go/no-go, and antiseizure-medicine withdrawal.
 - Use a conjugate update or a `brms` posterior-predictive check as a decision instrument, not as decoration.
 - Recognize when the conversation is the intervention: calibration language, not reassurance theater.
 
@@ -23,6 +23,8 @@ It is 14:10. You are covering the comprehensive stroke center and a rare-disease
 **Clinic 4.** A 58-year-old woman six weeks after a left MCA-territory infarct, workup including 30-day monitor, TTE, TEE, and CTA of the neck all unrevealing. She has been labeled ESUS. She asks whether she should “just go on a blood thinner.”
 
 **Zoom, 16:30.** A Phase 2 trial of a complement inhibitor in a rare inflammatory myopathy has 14 of a planned 40 participants. The primary endpoint is a 6-minute walk change at week 12. The DSMB wants a go/no-go using the posterior predictive distribution of the remaining 26.
+
+**Clinic 7, 17:10.** A 32-year-old woman, one unprovoked GTCS two years ago, nonlesional MRI, now-normal EEG, seizure-free on levetiracetam. She wants to stop the drug before trying to conceive. Driving is how she keeps her job.
 
 Write, for each room, a prior, a likelihood, a posterior, a threshold, and one sentence you would actually say. Do not open a laptop yet.
 
@@ -125,7 +127,7 @@ For teaching, encode the *effect of targeting SBP \(< 140\) versus \(< 180\)* on
 \log \text{RR} \sim \mathcal{N}(\mu = -0.15,\; \sigma = 0.20).
 \]
 
-That prior says you expect about a 14% relative reduction, and you are unsure enough that a 20% relative *increase* remains inside a two-standard-deviation interval. The likelihood, when it arrives as a 24-hour scan, updates this. At the moment of the target decision you have no 24-hour scan. You have only this prior and the spot-sign-updated expansion risk.
+That prior says you expect about a 14% relative reduction, and you are unsure enough that a 28% relative *increase* (\(\exp(-0.15+0.40)\approx 1.28\)) remains inside a two-standard-deviation interval. The likelihood, when it arrives as a 24-hour scan, updates this. At the moment of the target decision you have no 24-hour scan. You have only this prior and the spot-sign-updated expansion risk. These Case 2 teaching rates (deep ICH, clock under 6 hours, expansion near 0.30) are a different table from Chapter 2’s early-moderate tree (expansion 0.20). Do not carry the Chapter 2 numbers into this room.
 
 ### Posterior (here: prior used as posterior)
 
@@ -244,7 +246,8 @@ set.seed(20260818)
 
 # Observed completers (teaching numbers)
 d_obs <- data.frame(
-  arm = factor(c(rep("active", 8), rep("placebo", 6))),
+  arm = factor(c(rep("active", 8), rep("placebo", 6)),
+               levels = c("placebo", "active")),
   y   = c(18, 41, -12, 35, 22, 9, 55, 8,    # active, mean ~22
           12, -15, 30, -8, 5, 0)            # placebo, mean ~4
 )
@@ -306,25 +309,66 @@ You should not invent the printed `rowMeans` until you run the block. The *struc
 
 ### Utility, threshold, conversation
 
-A failed Phase 3 in a rare disease consumes the last untreated cohort for five years. Walking away from a real 25 m effect does the same in the other direction. If the posterior predictive probability of a go is under 0.25, stopping is usually correct. If it is over 0.60, continuing is cheap relative to the option value. Between those, the honest action is to redesign: change the endpoint, enrich, or borrow from a hierarchical historical-control model (Chapter 16) rather than to “see how the next six look.”
+A failed Phase 3 in a rare disease consumes the last untreated cohort for five years. Walking away from a real 25 m effect does the same in the other direction. If the posterior predictive probability of a go is under 0.25, stopping is usually correct. If it is over 0.60, continuing is cheap relative to the option value. Between those, the honest action is to redesign: change the endpoint, enrich, or borrow from a hierarchical historical-control model (Chapters 6 and 13) rather than to “see how the next six look.”
 
-To the steering committee: “On a skeptical prior the mean benefit is about 14 meters, and there is only a one-in-ten chance it is as large as 40 meters. Whether we continue should be decided by the chance the *finished* trial will clear our own 80-percent-probability bar, not by whether the current interval excludes zero. I will not vote go on the current posterior mean.”
+To the steering committee: “On a skeptical prior the mean benefit is about 15 meters, and there is only about a one-in-twelve chance it is as large as 40 meters. Whether we continue should be decided by the chance the *finished* trial will clear our own 80-percent-probability bar, not by whether the current interval excludes zero. I will not vote go on the current posterior mean.”
+
+---
+
+## Case 5 — Antiseizure-medicine withdrawal after two quiet years
+
+The loop does not become a stroke loop just because four of the rooms were. Epilepsy is the other place neurologists already speak in thresholds and still hide the number.
+
+### Prior
+
+A **teaching** two-year recurrence risk after planned withdrawal, in adults seizure-free on monotherapy after a single unprovoked seizure, sits near 0.35. Write it as a Beta(7, 13) if you want a prior you can update, or as a point 0.35 if the next move is an LR. Continuing the drug is not zero risk: a **teaching** two-year recurrence on continued levetiracetam in the same person is about 0.12. The decision quantity is the *extra* two-year risk of stopping, about 0.23 before her modifiers.
+
+### Likelihood
+
+Her modifiers, against that already-selected “single unprovoked, two years quiet” prior: nonlesional MRI, now-normal EEG, no nocturnal preponderance, no epileptiform history. A **teaching** compound LR of about 0.6 against recurrence is defensible if you say it is a teaching compound and not a meta-analytic constant. Do not multiply an LR for “first seizure, normal EEG” from a different population onto this prior — she is already in the two-years-quiet slice.
+
+### Posterior
+
+Odds form. Prior 0.35 is odds \(0.35/0.65 \approx 0.538\). Times 0.6 is 0.323, which is a posterior recurrence of \(0.323 / 1.323 \approx 0.24\) if she stops. Extra risk versus continuing is \(0.24 - 0.12 = 0.12\).
+
+```r
+# Teaching ASM-withdrawal update. No sampler required.
+prior_p <- 0.35
+lr     <- 0.60
+post_odds <- (prior_p / (1 - prior_p)) * lr
+post_p    <- post_odds / (1 + post_odds)
+continue  <- 0.12
+extra     <- post_p - continue
+c(post_p = round(post_p, 3), extra = round(extra, 3))
+# 0.244 and 0.124
+```
+
+### Utility and threshold
+
+She named the threshold before the arithmetic: she will accept up to 15 extra seizures per 100 over two years to be off the drug for pregnancy. Extra 0.12 is under that bar. Driving is a separate loss. In many jurisdictions a withdrawal attempt costs a temporary driving ban whether or not a seizure occurs. That is a utility, not a likelihood. Put it on the table as months of income, not as a reason to fake the recurrence probability.
+
+### Conversation
+
+“If we stop, I think about 24 in 100 people like you have another seizure in the next two years, against about 12 in 100 if we continue. The extra 12 is under the 15 you said you could live with in order to try pregnancy off the drug. The driving rule is its own decision: some places will ground you for the taper even if nothing happens. I will not change the 24 to make the driving conversation easier.”
+
+!!! tip "Clinical Pearl"
+    ASM withdrawal is a Pauker–Kassirer problem whose “test” is already done (EEG, MRI, two quiet years). The remaining action is treat-with-drug versus treat-without. If her extra-risk threshold sits between 0.10 and 0.15, the teaching posterior is near the knife-edge and the honest sentence includes that.
 
 ---
 
 ### For the biostatistician / methodologist
 
-The four cases are one decision problem,
+The five cases are one decision problem,
 
 \[
 a^{*} = \arg\max_{a \in \mathcal{A}} \int u(a, \theta)\, p(\theta \mid y)\, d\theta,
 \]
 
-with different action sets \(\mathcal{A}\) and different sampling models. Case 1 is a binary \(\theta\) (LVO or not) and a three-action set (treat, test, wait). Case 2 is a pair \((\theta_{\text{expand}}, \delta_{\text{RR}})\). Case 3 is a mixture over latent mechanisms. Case 4 is a sequential design whose utility is evaluated under the posterior predictive \(p(y_{\text{future}} \mid y_{\text{obs}})\).
+with different action sets \(\mathcal{A}\) and different sampling models. Case 1 is a binary \(\theta\) (LVO or not) and a three-action set (treat, test, wait). Case 2 is a pair \((\theta_{\text{expand}}, \delta_{\text{RR}})\). Case 3 is a mixture over latent mechanisms. Case 4 is a sequential design whose utility is evaluated under the posterior predictive \(p(y_{\text{future}} \mid y_{\text{obs}})\). Case 5 is again a binary \(\theta\) (recurrence in two years) with a two-action set (stop the drug, continue) and a patient-named extra-risk threshold.
 
 Two technical points that are easy to get wrong when the cases are taught separately.
 
-First, **transport**. The 0.14 EVT benefit is a trial-population number. The woman in Bay 3 is 71, NIHSS 16, ASPECTS 9, 70 minutes out. That is closer to the trial population than a 90-year-old with ASPECTS 5, but it is not identical. A hierarchical partial-pooling model (Chapter 10) is how you move from trial \(\delta\) to patient \(\delta_{i}\) without pretending they are equal and without pretending the trial is irrelevant.
+First, **transport**. The 0.14 EVT benefit is a trial-population number. The woman in Bay 3 is 71, NIHSS 16, ASPECTS 9, 70 minutes out. That is closer to the trial population than a 90-year-old with ASPECTS 5, but it is not identical. A hierarchical partial-pooling model (Chapters 6 and 21) is how you move from trial \(\delta\) to patient \(\delta_{i}\) without pretending they are equal and without pretending the trial is irrelevant.
 
 Second, **the posterior predictive is the go/no-go object**, not the posterior of \(\delta\). \(P(\delta > 20 \mid y_{\text{obs}}) = 0.40\) can coexist with \(P(\text{final analysis goes} \mid y_{\text{obs}}) = 0.15\) if the remaining sample is small. DSMBs that stare at the current posterior mean are answering a different question from the one they were asked.
 
@@ -340,7 +384,9 @@ Second, **the posterior predictive is the go/no-go object**, not the posterior o
 
 **Zoom.** Skeptical posterior \(\delta \approx \mathcal{N}(15.3, 17.5^{2})\). \(P(\delta > 40) \approx 0.08\). Vote on the posterior predictive probability of eventually clearing the predeclared go rule, not on whether 14 meters “looks promising.”
 
-The four sentences share a grammar: a number, a contrast, an action, a stop-condition for the next update.
+**Clinic 7.** Withdrawal recurrence \(\approx 0.24\), extra risk \(\approx 0.12\), under her named 0.15 bar. Sentence: 24 versus 12 in 100; the driving rule is a separate utility, not a reason to change the 24.
+
+The five sentences share a grammar: a number, a contrast, an action, a stop-condition for the next update.
 
 ---
 
@@ -372,4 +418,4 @@ The four sentences share a grammar: a number, a contrast, an action, a stop-cond
 - U.S. Food and Drug Administration. Guidance for the Use of Bayesian Statistics in Medical Device Clinical Trials. 2010. Predictive probability of success as a stopping language.
 
 !!! success "Key Takeaway"
-    The loop is prior, likelihood, posterior, utility, conversation. Large-vessel occlusion, hematoma expansion, ESUS, and a fourteen-person myopathy trial do not get different mathematics; they get different loss functions and different sentences. Write the number before the scan, the scan, or the DSMB slide can write it for you. If you cannot say the sentence to the family or the committee, you do not yet have a decision — you have a posterior looking for a place to happen.
+    The loop is prior, likelihood, posterior, utility, conversation. Large-vessel occlusion, hematoma expansion, ESUS, a fourteen-person myopathy trial, and antiseizure-medicine withdrawal do not get different mathematics; they get different loss functions and different sentences. Write the number before the scan, the scan, or the DSMB slide can write it for you. If you cannot say the sentence to the family or the committee, you do not yet have a decision — you have a posterior looking for a place to happen.

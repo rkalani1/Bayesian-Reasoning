@@ -161,6 +161,16 @@ For ASPECTS specifically, treat the score as ordinal, not as a number with a lin
 
 The vignette’s reference standard is DSA, and only transferred patients get DSA. That is verification bias. It is also a missing-data problem. If you compute Se/Sp only in the DSA subset, you are conditioning on a collider: transfer. Spoke-positive, high-NIHSS patients are over-represented. Spoke-negative, low-NIHSS patients never appear. Sensitivity is flattered; specificity is untrustworthy.
 
+```mermaid
+flowchart TD
+  Spoke["Spoke CTA read"] --> Pos{"Spoke positive?"}
+  Pos -->|yes, high NIHSS| Xfer["Transfer"]
+  Pos -->|no, low NIHSS| Stay["Stay — never verified"]
+  Xfer --> DSA["DSA = reference standard"]
+  Stay --> Missing["Se/Sp computed only on DSA rows<br/>collider: transfer"]
+  DSA --> TwoByTwo["2 x 2 looks excellent<br/>because the hard negatives never arrived"]
+```
+
 Two honest responses:
 
 **Imperfect-but-observed reference.** Use a composite (DSA if done; otherwise expert consensus plus 24-hour clinical course plus follow-up imaging) and *model its error* rather than calling it truth. That is an errors-in-variables problem on the disease label.
@@ -211,7 +221,7 @@ Identification in latent-class models is fragile. Label switching (the “diseas
 
 ## R: posterior of sensitivity and specificity
 
-The block fits a joint binomial model for Se and Sp on the vignette’s spoke-read counts, using `brms`, and plots the posterior in the Se–Sp plane. It does not pretend the `brm()` call has been executed.
+The block fits a joint binomial model for Se and Sp on the vignette’s spoke-read counts, using `brms`, and plots the posterior in the Se–Sp plane. The two-row teaching table is in the chunk; the `brm()` call will sample if you run it.
 
 ```r
 # Posterior of spoke-CTA Se and Sp from the telestroke teaching table.
@@ -237,7 +247,7 @@ priors <- c(
   prior(normal(0, 0.5), class = "b")
 )
 
-# Specification only. Run locally to fill fit_dx.
+# Two-row teaching table. Run locally to fill fit_dx (seconds).
 fit_dx <- brm(
   k | trials(n) ~ stat,
   data = dx,

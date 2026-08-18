@@ -4,7 +4,7 @@
 
 This appendix is a laboratory manual, not a chapter. Its job is to get a working Bayesian stack onto a machine you control, and to give you a one-screen memory aid for the packages this book actually uses. It will not teach statistics. It will not choose a prior. If a command fails, skip to **Common install failures** before you reinstall the operating system.
 
-Educational use only. Package versions drift. Record what you actually installed in an `renv.lock` (Chapter 20).
+Package versions drift. Record what you actually installed in an `renv.lock` (Chapter 20).
 
 ---
 

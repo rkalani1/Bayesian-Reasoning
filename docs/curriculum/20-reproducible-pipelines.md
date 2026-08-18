@@ -167,7 +167,7 @@ library(dplyr)
 set.seed(20260818)
 
 d <- read_csv("data/derived/analysis.csv", show_col_types = FALSE)
-# expected columns: y_ind (0/1), nihss, age_c, aspecs, hospital (factor)
+# expected columns: y_ind (0/1), nihss, age_c, aspects, hospital (factor)
 
 priors <- c(
   prior(normal(0, 1.5), class = Intercept),
@@ -176,7 +176,7 @@ priors <- c(
 )
 
 fit <- brm(
-  y_ind ~ nihss + age_c + aspecs + (1 | hospital),
+  y_ind ~ nihss + age_c + aspects + (1 | hospital),
   data    = d,
   family  = bernoulli(link = "logit"),
   prior   = priors,
@@ -213,7 +213,7 @@ To reload:
 fit <- readRDS("fits/hierarchical_mrs.rds")
 # Confirm you did not load a different model by accident
 stopifnot(identical(deparse(fit$formula$formula),
-                    "y_ind ~ nihss + age_c + aspecs + (1 | hospital)"))
+                    "y_ind ~ nihss + age_c + aspects + (1 | hospital)"))
 ```
 
 Large fits (tens of thousands of draws, many parameters) belong in Git LFS or in an institutional archive, not in a raw `git add`. Record the SHA256 of the `.rds` in the sidecar if the binary lives elsewhere.

@@ -72,6 +72,15 @@ Fine and Gray’s subdistribution hazard is a third object: the hazard of the CI
 
 Teaching numbers, not a trial result. In a hypothetical 200-patient deep-ICH cohort, 30-day death is 0.28, day-90 mRS 0–2 among those still alive is 0.31, and the day-90 CIF of mRS 0–2 is therefore about \(0.31 \times (1-0.28) \approx 0.22\) if no further deaths occur between day 30 and 90 — plus a small correction for later deaths and later recoveries. Quoting “31% good outcome” without saying “among survivors” is how competing risks become a communication error rather than a modeling error.
 
+```mermaid
+flowchart TD
+  Start["Alive and disabled at t = 0"] --> Rec["Recovery hazard<br/>cause-specific"]
+  Start --> Death["Death hazard<br/>cause-specific"]
+  Rec --> CIF["CIF of walking ≈ 0.22<br/>the family number"]
+  Death --> CIFd["CIF of death ≈ 0.28"]
+  Rec --> KM["Death-censored 1 − KM ≈ 0.31<br/>not a probability in this world"]
+```
+
 Withdrawal of life-sustaining therapy sits inside the death CIF and is not a nuisance to be coded away. It is a decision that uses the same scans and the same predicted mRS that the trial is trying to change. A treatment that makes the 24-hour CT look better will, in some ICUs, reduce withdrawals and thereby change who remains at risk to recover. That path is neither purely a treatment effect on tissue nor purely confounding. Name it in the SAP. A cause-specific recovery hazard that ignores it will attribute extra walkers to biology when some of them are extra survivors of a changed goals-of-care conversation. The CIF of independent ambulation still answers the family. The decomposition into “fewer deaths” versus “faster recovery among survivors” is what the mechanism people need, and it is a pair of cause-specific hazards, not a single Cox model with death censored.
 
 !!! tip "Clinical Pearl"
@@ -153,14 +162,17 @@ priors_surv <- c(
   prior(exponential(1), class = "shape")
 )
 
-fit_death <- brm(
-  days | cens(1 - death) ~ treat + scale(volume) + scale(age),
-  data    = ich_teach,          # you supply the teaching frame
-  family  = weibull(),
-  prior   = priors_surv,
-  seed    = 20260818,
-  refresh = 0
-)
+# Specification only — ich_teach is a frame you supply (days, death, mrs90,
+# volume, age, treat). Uncomment the brm() calls after the columns exist.
+
+# fit_death <- brm(
+#   days | cens(1 - death) ~ treat + scale(volume) + scale(age),
+#   data    = ich_teach,
+#   family  = weibull(),
+#   prior   = priors_surv,
+#   seed    = 20260818,
+#   refresh = 0
+# )
 
 # RMST to day 90 from posterior predicted S(t), trapezoid on a grid.
 # After fit_death has been sampled:
@@ -177,14 +189,14 @@ priors_ord <- c(
   prior(normal(0, 1.5), class = "Intercept")
 )
 
-fit_mrs <- brm(
-  mrs90 ~ treat + scale(volume) + scale(age),
-  data    = ich_teach,
-  family  = cumulative(link = "logit"),
-  prior   = priors_ord,
-  seed    = 20260818,
-  refresh = 0
-)
+# fit_mrs <- brm(
+#   mrs90 ~ treat + scale(volume) + scale(age),
+#   data    = ich_teach,
+#   family  = cumulative(link = "logit"),
+#   prior   = priors_ord,
+#   seed    = 20260818,
+#   refresh = 0
+# )
 
 # Common-odds ratio for treat, and posterior state probabilities at means:
 # fit_mrs %>%

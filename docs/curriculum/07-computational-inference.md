@@ -100,6 +100,17 @@ Do not increase `adapt_delta` when:
 
 In the last case, switch to a non-centered parameterization. `brms` already writes varying effects in the non-centered form; there is no `noncentered` argument to `brm()`. If divergences persist, tighten the prior on \(\tau\) to something you actually believe, or simplify the grouping structure.
 
+The geometry you are fighting is Neal’s funnel. When \(\tau\) is near zero, the center intercepts \(\alpha_j\) are pinned near \(\mu\); the typical set is a narrow neck. When \(\tau\) is large, the \(\alpha_j\) fan out; the typical set is a wide mouth. A centered sampler that takes a step sized for the mouth will leap out of the neck, and those leaps are the divergences.
+
+```mermaid
+flowchart TD
+  Tau["tau near 0"] --> Neck["Neck: alpha_j pinned near mu<br/>tiny step size required"]
+  Tau2["tau large"] --> Mouth["Mouth: alpha_j fan out<br/>ordinary steps are fine"]
+  Neck --> Div["Centered sampler leaps out<br/>divergences"]
+  Div --> Fix["Non-center, or a tighter prior on tau<br/>not a prettier theme"]
+```
+
+
 ### Max treedepth
 
 A treedepth warning means NUTS hit its maximum tree size before a U-turn. The draws are not automatically invalid, but they are inefficient. Increasing `max_treedepth` from \(10\) to \(12\) is legitimate. It is also a hint that the posterior geometry is awkward and that a different parameterization may be cheaper than a deeper tree.

@@ -72,7 +72,7 @@ This volume sits between critical appraisal and machine-learning literacy:
 
 ## Software
 
-All computational examples use **R**. Primary packages: `brms`, `rstanarm`, `bayesplot`, `tidybayes`, `posterior`, `loo`, `ggplot2`, `dplyr` / `tidyr`. See [Appendix A](appendices/a-r-setup.md).
+All computational examples use **R**. Primary packages: `brms`, `cmdstanr`, `bayesplot`, `tidybayes`, `posterior`, `loo`, `ggplot2`, `dplyr` / `tidyr`. See [Appendix A](appendices/a-r-setup.md).
 
 ## Citation
 

@@ -2,11 +2,13 @@
 
 ## Opening
 
+The whiteboard number is an average treatment effect, or a close cousin of one, computed in a sampling frame that rejected prestroke disability and barely saw her age. The daughter is asking what will happen to *her* mother. Those are different functionals of different distributions. Pretending they are the same object is how “the trial was positive” becomes a transfer order.
+
+## Clinical vignette
+
 A teaching posterior for a DAWN-eligible patient sits on the workroom whiteboard: late window, clinical-core mismatch, prestroke modified Rankin score of 0 or 1, large-vessel occlusion, a large shift of the 90-day mRS toward better states with endovascular therapy. The fellow points at it, then at the bed. “She is DAWN-positive. We take her.”
 
 She is not. She is 89. Prestroke mRS is 3: cane, help to bathe, still recognizes faces and eats independently. ASPECTS is 7. NIHSS is 18. Last known well was at dinner; it is now 02:10. CTA shows a left M1 cutoff. CT perfusion, for teaching, shows a small estimated core and a large penumbra. The photograph that made the trial famous was not taken of a woman who already lived at 3.
-
-The whiteboard number is an average treatment effect, or a close cousin of one, computed in a sampling frame that rejected prestroke disability and barely saw her age. The daughter is asking what will happen to *her* mother. Those are different functionals of different distributions. Pretending they are the same object is how “the trial was positive” becomes a transfer order.
 
 Write, before any model: (1) what the whiteboard posterior is actually the posterior *of*; (2) which of her covariates are effect modifiers you believed yesterday, and which you are tempted to discover tonight; (3) whether anyone like her was randomized; (4) the sentence you will not say even if an interaction plot later looks dramatic.
 
@@ -45,6 +47,18 @@ under \(a =\) EVT and under \(a =\) medical care? This is the object Chapter 16 
 | 3. This patient | \(p(Y \mid X=x^\star, A=a, \text{data})\) | The woman in the bed | “She is DAWN-eligible.” |
 
 The fellow’s sentence answered Question 1, borrowed the eligibility language of Question 2, and offered the result to the family as if it were Question 3. The transport problem is the move from 1 (or 2) to 3 when \(x^\star\) is not a draw from the trial’s \(X\).
+
+```mermaid
+flowchart TD
+  Q1["Question 1 — ATE<br/>E[Y(1)-Y(0)] in the trial frame"]
+  Q2["Question 2 — CATE<br/>E[Y(1)-Y(0) | X in S]"]
+  Q3["Question 3 — this patient<br/>p(Y | X=x-star, A=a, data)"]
+  Q1 -->|"shrink a pre-specified slice"| Q2
+  Q1 -->|"x-star is a draw from trial X"| Q3
+  Q2 -->|"x-star sits in S and positivity holds"| Q3
+  Q1 -->|"prestroke 3 was excluded"| Fail["Stop: transport problem, not a forest-plot row"]
+  Fail --> Name["Name the missing overlap before naming a device"]
+```
 
 A **teaching** contrast, invented so the arithmetic can be seen and *not* copied from any late-window paper: in a DAWN-like teaching cohort the modeled probability of mRS 0–2 at 90 days is 0.44 with EVT and 0.18 without. That 26-point difference is a Question-1 number. It is already the wrong endpoint for a woman whose prestroke state is 3, because mRS 0–2 is a state she did not occupy last week. Even if you switch the endpoint to “return to prestroke 3 or better,” you still do not have *her* number. You have an average among people who were allowed into the cohort.
 
@@ -135,7 +149,7 @@ The hospital-standardized effect is
 0.15\times 0.28 + 0.25\times 0.20 + 0.35\times 0.12 + 0.25\times 0.04 = 0.144.
 \]
 
-This patient’s contrast is the last row: 0.04. All three numbers are **teaching** numbers. None is a DAWN cell count. The arithmetic is the lesson. The whiteboard 0.21 and her 0.04 can both be true of the same fitted surface. Quoting the 0.21 at 02:10 is a standardization to the wrong mix. Quoting the 0.14 is a standardization to the hospital, which is closer and still not her. Question 3 does not average.
+This patient’s contrast is the last row: 0.04. All three numbers are **teaching** numbers. None is a DAWN cell count. The arithmetic is the lesson. The 4-row trial-weighted ATE of 0.21 (return-to-prestroke) and her 0.04 can both be true of the same surface. The 26-point mRS 0–2 contrast is a different endpoint and is already the wrong one for prestroke 3. Quoting the 0.21 at 02:10 is a standardization to the wrong mix. Quoting the 0.14 is a standardization to the hospital, which is closer and still not her. Question 3 does not average.
 
 Do the average on the *probability* scale, from posterior draws, not by plugging posterior-mean coefficients into the inverse link. The nonlinear link makes those operations differ, and the second hides uncertainty. And name the mix. Standardizing to “all 89-year-olds with prestroke mRS 3 in the county” is a sentence about a population. Predicting for the woman in the bed is a sentence about a person. They license different words to a daughter.
 
@@ -289,19 +303,18 @@ priors <- c(
 # )
 
 # After fitting, three functionals from the same draws.
+# Use posterior_epred, not add_epred_draws + .category:
+# integer mrs 0:6 is coded internally as categories 1:7, so
+# as.integer(as.character(.category)) <= 3 would select mRS 0-2 —
+# the independence cut this chapter exists to refuse.
 #
 # 1) Trial-frame standardized P(mRS <= 3) contrast (Question 1, model-based).
 # trial_grid <- bind_rows(
 #   mutate(dat, evt = 0L),
 #   mutate(dat, evt = 1L)
 # )
-# trial_p <- add_epred_draws(fit, newdata = trial_grid) %>%
-#   mutate(good = .category <= 3) %>%
-#   group_by(.draw, evt) %>%
-#   summarise(p_good = mean(.epred * good) / mean(.epred), .groups = "drop")
-# # Simpler and safer for ordinal epred (one column per category):
 # trial_epred <- posterior_epred(fit, newdata = trial_grid)
-# # Array: draws x rows x categories. Average categories 1-4 (mRS 0-3)
+# # Array: draws x rows x categories (1:7 = mRS 0:6). Sum categories 1-4 (mRS 0-3)
 # # within action, then subtract.
 #
 # 2) Hospital-mix standardized contrast (transported ATE, if assumptions hold).

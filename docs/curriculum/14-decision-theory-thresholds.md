@@ -208,7 +208,13 @@ EU(\text{treat}) = 0.55\cdot 0.80 + 0.45\cdot 0.70 = 0.755, \qquad
 EU(\text{wait}) = 0.55\cdot 0.40 + 0.45\cdot 1.00 = 0.670.
 \]
 
-Treat beats wait by 0.085 utiles. The test, with \(Se = 0.80\), \(Sp = 0.70\), \(R = 0.02\), produces a positive result with probability \(p\cdot Se + (1-p)(1-Sp) = 0.575\). Conditional on a positive result the posterior is 0.77, which is above \(p_{Rx}^{\star}\); conditional on a negative result it is 0.26, which is below. The test-then-act utility is therefore the probability-weighted mix of treat-at-0.77 and wait-at-0.26, minus \(R\). That mix lands between 0.755 and 0.670 and, in this teaching arithmetic, slightly below treat-now once the delay is paid. The closed-form \(T_{tt} \approx 0.60\) had already said this: at \(p = 0.55\) you are still inside the testing interval on a zero-\(R\) calculation and just below it once \(R\) is real. Rollback and formula agree. When they do not, you have mis-wired a branch.
+Treat beats wait by 0.085 utiles. The test, with \(Se = 0.80\), \(Sp = 0.70\), \(R = 0.02\), produces a positive result with probability \(p\cdot Se + (1-p)(1-Sp) = 0.575\). Conditional on a positive result the posterior is 0.77, which is above \(p_{Rx}^{\star}\); conditional on a negative result it is 0.26, which is below. The test-then-act utility is the probability-weighted mix of treat-when-positive and wait-when-negative, minus \(R\):
+
+\[
+EU(\text{test}) = 0.55(0.80\cdot 0.80 + 0.20\cdot 0.40) + 0.45(0.30\cdot 0.70 + 0.70\cdot 1.00) - 0.02 = 0.786.
+\]
+
+That is above treat-now (0.755). The closed-form thresholds at \(R = 0.02\) are \(T_t \approx 0.268\) and \(T_{tt} \approx 0.655\). At \(p = 0.55\) you are inside the testing interval, so the action is **test**. Rollback and formula agree. When they do not, you have mis-wired a branch.
 
 ## Harm/benefit ratios are easier to elicit than utiles
 
@@ -343,7 +349,7 @@ If you later want a posterior for \(p\) itself, a Beta–Binomial or a `brms` Be
 
 The live distinction is not “stroke versus mimic.” CTA is already negative for a target of endovascular therapy, the clock is inside the window, and the CT has excluded blood. The live distinction is whether this aphasia is a disabling ischemic syndrome whose expected language benefit exceeds the expected harm of thrombolysis.
 
-Using the teaching utilities, \(p_{Rx}^{\star} \approx 0.43\). A reasonable pre-perfusion posterior that a 70-minute isolated aphasia of this density is disabling ischemia is well above that — call it 0.6 to 0.8 as a teaching range, not a claim about this patient. That range sits above \(T_{tt} \approx 0.60\) at the high end and inside the testing interval at the low end. The sister’s stated preference raises \(B/H\) and therefore lowers both \(T_{tt}\) and \(p_{Rx}^{\star}\). The delay \(R\) of a perfusion study is not zero: 25 minutes is a real fraction of the remaining window.
+Using the teaching utilities, \(p_{Rx}^{\star} \approx 0.43\). A reasonable pre-perfusion posterior that a 70-minute isolated aphasia of this density is disabling ischemia is well above that — call it 0.6 to 0.8 as a teaching range, not a claim about this patient. That range sits above \(T_{tt} \approx 0.655\) at the high end and inside the testing interval at the low end. The sister’s stated preference raises \(B/H\) and therefore lowers both \(T_{tt}\) and \(p_{Rx}^{\star}\). The delay \(R\) of a perfusion study is not zero: 25 minutes is a real fraction of the remaining window.
 
 The banner “mild stroke — consider not treating” is a threshold imported from a different utility, one that scores NIHSS 4 as near-harmless. It is the wrong utility for an editor whose deficit is language. The decision theory does not compel a single action in a textbook. It compels a clean argument: name \(B\), name \(H\), name \(p\), and notice that a preference-sensitive aphasia with a sister speaking for a high \(B/H\) does not belong under a “mild, do not treat” default.
 

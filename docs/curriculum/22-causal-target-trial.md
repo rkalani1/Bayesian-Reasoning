@@ -2,11 +2,13 @@
 
 ## Opening
 
-The same eight-center endovascular network from Chapter 6 now wants a causal sentence. Over twelve months the registry recorded \(1{,}240\) large-vessel occlusions treated with EVT. A new aspiration catheter was used in a minority of cases. Crude TICI 2b/3 was \(0.86\) where the new catheter was used and \(0.74\) where it was not. Center volumes are still \(410\), \(265\), \(180\), \(140\), \(95\), \(72\), \(48\), and \(30\). The four largest centers adopted first. They are also the good ones: on-site anesthesia, shorter CT-to-puncture, operators who already reperfused more often last year on the old device. The quality committee has a slide that says “OR \(2.1\), \(p < 0.001\)” and a purchase order. A junior analyst has added `(1 | center)` and the odds ratio fell to \(1.4\). The committee calls that “center-adjusted” and asks you to sign the memo.
-
 Partial pooling absorbed a time-invariant center baseline. It did not invent a trial. Operators still chose the new catheter for a reason. Drip-and-ship patients still had to survive the transfer before anyone could open the new device. Some families withdrew life-sustaining therapy after a failed recanalization, and some after a successful one that the evening scan made look futile. Those are different biases. A single coefficient cannot be all of them, and it is not an effect of the catheter until you can name the experiment you wish you had run.
 
 This chapter is the work Chapter 6 deferred. Write the DAG. Name the target trial. Say what the hierarchical model does not fix. Standardize when the trial can be named. Refuse the analysis when it cannot.
+
+## Clinical vignette
+
+The same eight-center endovascular network from Chapter 6 now wants a causal sentence. Over twelve months the registry recorded \(1{,}240\) large-vessel occlusions treated with EVT. A new aspiration catheter was used in a minority of cases. Crude TICI 2b/3 was \(0.86\) where the new catheter was used and \(0.74\) where it was not. Center volumes are still \(410\), \(265\), \(180\), \(140\), \(95\), \(72\), \(48\), and \(30\). The four largest centers adopted first. They are also the good ones: on-site anesthesia, shorter CT-to-puncture, operators who already reperfused more often last year on the old device. The quality committee has a slide that says “OR \(2.1\), \(p < 0.001\)” and a purchase order. A junior analyst has added `(1 | center)` and the odds ratio fell to \(1.4\). The committee calls that “center-adjusted” and asks you to sign the memo.
 
 ## Learning objectives
 
@@ -94,6 +96,15 @@ Three biases travel under one complaint — “the groups are different” — a
 **Confounding by center.** Early-adopter centers are the good ones. Adoption is a center-level treatment; baseline reperfusion is a center-level outcome. Any analysis that ignores center attributes the good centers’ baseline to the catheter. This is the bias Chapter 6’s hierarchical intercept is built to absorb, and only this one. When adoption is nearly all-or-none inside each center, center confounding and non-positivity are the same fact.
 
 **Immortal time, drip-and-ship version.** A patient who leaves a spoke at 19:00 and arrives at the hub at 21:10 cannot receive the new catheter until 21:10. If you start the clock at last-known-well or at spoke-door, and you classify exposure by whether the new catheter was eventually used, the exposed have two hours during which they cannot have failed in a way that would have kept them from the hub. The unexposed include people who died or were turned down in that window. That stretch of guaranteed survival is immortal time. It is a misalignment of time zero with the strategy, not confounding.
+
+```mermaid
+flowchart LR
+  LKW["19:00 LKW / spoke door"] --> Xfer["Transfer window<br/>cannot fail and still be exposed"]
+  Xfer --> Hub["21:10 hub door"]
+  Hub --> Puncture["Time zero of Trial 2:<br/>first-device choice"]
+  LKW -.->|"wrong clock"| Fake["Classify by 'eventually new catheter'<br/>immortal time baked in"]
+  Puncture --> Ok["Eligible patients all have a time zero<br/>including those who get the old device"]
+```
 
 The drip-and-ship problem is worse than the usual drug-exposure version because the transfer *is itself a strategy*. Two target trials are being glued together. Trial 1: at the spoke, transfer for EVT versus do not transfer; time zero is the transfer decision; the new catheter is not assignable there. Trial 2: at hub puncture, first-line new versus first-line standard; time zero is puncture. An analysis that codes “new catheter” on a cohort assembled at spoke-door is emulating a trial no ethics board would approve: randomization to a device that is two hours away, with the dead-on-arrival counted as control.
 

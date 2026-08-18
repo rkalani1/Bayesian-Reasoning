@@ -63,8 +63,9 @@ The model can beat the clinical score on AUC and lose on net benefit at the thre
 
 Imagine a cohort of 1,000 thrombolysis-eligible patients. Teaching prevalence of later parenchymal hematoma is 6% (60 events). Three strategies are compared for the decision “withhold alteplase if predicted hemorrhage risk exceeds \(p_t\).”
 
-- Treat none: withhold from everyone. Net benefit of *withholding* is not the usual NB of *treating*; keep the action clear. In the standard DCA orientation we evaluate the model as a detector of the event that would change the default. Here the default in an eligible patient is to treat, and the model is being asked to find the people in whom treating is the mistake. That orientation must be stated or the axes lie.
-- Treat all (give alteplase to everyone eligible).
+- Treat-all on this curve means *withhold from everyone* (detect-and-act on hemorrhage): every hematoma is a true positive for withholding, and every person who would have done well on alteplase is a false positive for withholding. That is the standard treat-all formula, \(NB = \pi - (1-\pi)p_t/(1-p_t)\), applied to the *exception* event.
+- Treat-none on this curve means *withhold from no one* — give alteplase to everyone eligible. \(NB = 0\) because you take no withhold-action. The default clinical action is this strategy, not treat-all-withhold.
+
 - Withhold according to a clinical score.
 - Withhold according to \(\kappa\).
 
@@ -84,12 +85,20 @@ flowchart TD
   band --> interval[Report the pt interval where the model wins]
 ```
 
-| Strategy at a given \(p_t\) | Net benefit | Wins when |
-| --- | --- | --- |
-| Treat none | 0 | Harm dominates at this ratio |
-| Treat all | \(\pi - (1-\pi)p_t/(1-p_t)\) | Benefit dominates; model adds nothing |
-| Model | \(TP/n - (FP/n)\, p_t/(1-p_t)\) | Ranking plus calibration beat both defaults |
-| Unusable model | below both defaults | You have an ROC without a decision |
+On the \(p_t\) axis the three regions are adjacent, not competing slogans:
+
+```mermaid
+flowchart LR
+  Low["Low pt<br/>treat-all wins<br/>harm is cheap to avoid"] --> Mid["Middle band<br/>model can win<br/>this is the only interval that matters"]
+  Mid --> High["High pt<br/>treat-none / give-all wins<br/>you will tolerate many hemorrhages"]
+```
+
+| Strategy at a given \(p_t\) | Clinical action on this curve | Net benefit | Wins when |
+| --- | --- | --- | --- |
+| Treat-all | Withhold alteplase from everyone | \(\pi - (1-\pi)p_t/(1-p_t)\) | Low \(p_t\): hemorrhage harm is treated as cheap to avoid |
+| Treat-none | Give alteplase to everyone | 0 | High \(p_t\): you will tolerate many hemorrhages; the default is to lyse |
+| Model | Withhold according to the prediction | \(TP/n - (FP/n)\, p_t/(1-p_t)\) | Ranking plus calibration beat both defaults |
+| Unusable model | — | below both defaults | You have an ROC without a decision |
 
 A second table, with **teaching counts** at \(p_t = 0.15\) in the 1,000-person cohort, shows the arithmetic without pretending these are trial results.
 
@@ -244,16 +253,16 @@ print(p)
 # )
 ```
 
-The commented `ggplot` is the figure. The commented `brms` block is the inferential engine you would use if the predicted risks themselves needed a posterior. Neither is a claim about permeability imaging.
+The `ggplot` is the figure. The commented `brms` block is the inferential engine you would use if the predicted risks themselves needed a posterior. Neither is a claim about permeability imaging.
 
 !!! example "R Deep Dive"
-    If you un-comment the plot, read it left to right. Where treat-all (or treat-none) is the top line, a grant to refine \(\kappa\) has to justify itself with EVSI, not with a slightly higher AUC. Where \(\kappa\) is the top line, report the width of that interval in \(p_t\) and in the implied \(B/H\).
+    Read the plot left to right. Where treat-all (or treat-none) is the top line, a grant to refine \(\kappa\) has to justify itself with EVSI, not with a slightly higher AUC. Where \(\kappa\) is the top line, report the width of that interval in \(p_t\) and in the implied \(B/H\).
 
 ## Worked solution to the opening vignette
 
 The fellow asked whether to acquire \(\kappa\) before alteplase. That is a Pauker–Kassirer question dressed as an imaging question.
 
-First, name \(p_t\). For an otherwise eligible NIHSS 7 at 110 minutes, most services still treat at hemorrhage probabilities well above the 6% teaching base rate. A clinician who would withhold only above 15–20% has announced that treat-all (give the drug) is the default. In the teaching table, treat-all at \(p_t = 0.15\) has *negative* net benefit as a hemorrhage-detection strategy — which is expected, because we have oriented the curve around finding hemorrhages, while the clinical default is to accept the base-rate hemorrhage in exchange for the ischemic benefit. The relevant comparison is therefore not “does \(\kappa\) beat treat-none at detecting blood” but “does a positive \(\kappa\) move this man across the withhold threshold, after a 12-minute delay.”
+First, name \(p_t\). For an otherwise eligible NIHSS 7 at 110 minutes, most services still treat at hemorrhage probabilities well above the 6% teaching base rate. A clinician who would withhold only above 15–20% has announced that **treat-none on this curve** (give the drug) is the default. Table treat-all is the opposite action — withhold from everyone — and its net benefit of about \(-0.106\) at \(p_t = 0.15\) is expected, because we have oriented the curve around finding hemorrhages while the clinical default is to accept the base-rate hemorrhage in exchange for the ischemic benefit. The relevant comparison is therefore not “does \(\kappa\) beat treat-none at detecting blood” but “does a positive \(\kappa\) move this man across the withhold threshold, after a 12-minute delay.”
 
 Second, look at the increment. Teaching counts gave \(\kappa\) a net-benefit edge of about 0.001 over a clinical score at \(p_t = 0.15\): one extra net true positive per 1,000 people. Even if those counts were real, they do not pay for a delay that consumes a sliver of alteplase’s time-dependent benefit in a man who is already a treatment candidate.
 

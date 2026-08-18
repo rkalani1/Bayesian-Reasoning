@@ -158,7 +158,7 @@ library(ggplot2)
 set.seed(19)
 
 # d has columns: lvo (0/1), nihss (prehospital), age, transfer (0/1)
-# Do not invent a fitted table here; this is the specification.
+# Specification only — comment the sampler until d exists.
 
 priors <- c(
   prior(normal(-1.7, 0.8), class = Intercept),  # ~0.15 at NIHSS 0, loose
@@ -166,28 +166,26 @@ priors <- c(
   prior(normal(0, 0.5), class = b)              # other coefficients
 )
 
-fit_lvo <- brm(
-  lvo ~ nihss + age + transfer,
-  data    = d,
-  family  = bernoulli(link = "logit"),
-  prior   = priors,
-  chains  = 4, iter = 3000, warmup = 1000,
-  seed    = 19,
-  control = list(adapt_delta = 0.95),
-  refresh = 0
-)
-
-# Decision-scale predictions at the cutoffs under consideration
-new <- data.frame(
-  nihss    = c(8, 10, 12, 14),
-  age      = median(d$age),
-  transfer = 0
-)
-
-new %>%
-  add_epred_draws(fit_lvo) %>%
-  group_by(nihss) %>%
-  median_qi(.epred, .width = 0.90)
+# fit_lvo <- brm(
+#   lvo ~ nihss + age + transfer,
+#   data    = d,
+#   family  = bernoulli(link = "logit"),
+#   prior   = priors,
+#   chains  = 4, iter = 3000, warmup = 1000,
+#   seed    = 19,
+#   control = list(adapt_delta = 0.95),
+#   refresh = 0
+# )
+#
+# new <- data.frame(
+#   nihss    = c(8, 10, 12, 14),
+#   age      = median(d$age),
+#   transfer = 0
+# )
+# new %>%
+#   add_epred_draws(fit_lvo) %>%
+#   group_by(nihss) %>%
+#   median_qi(.epred, .width = 0.90)
 # Report the 90% intervals to operations, not the log-odds slope.
 ```
 
@@ -247,7 +245,7 @@ A paper can pass CRIT-APP and still be the wrong likelihood for your network (di
 The visiting booster is not the enemy. It is a likelihood with more parameters and a worse prior story. Treat it as a candidate for steps 4–6 under the same rules.
 
 - **Calibration over discrimination.** At the cutoff, Brier score and a reliability diagram beat AUROC.
-- **Transport.** Train-on-mothership, deploy-on-spoke is a hierarchical problem (Chapter 10), not a “we have a test set” problem.
+- **Transport.** Train-on-mothership, deploy-on-spoke is a hierarchical transport problem (Chapters 6 and 21), not a “we have a test set” problem.
 - **Actionability.** If the booster uses variables that EMS does not have (CTA collateral score, last laboratory creatinine), it is not a pre-alert model. It is a different question pretending to answer this one.
 - **Update.** A locked booster that cannot become tomorrow’s prior is a one-way artifact. Prefer models whose posterior can be the next prior, or at least whose predictions are monitored against a predeclared discrepancy.
 

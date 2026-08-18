@@ -27,12 +27,16 @@ This book uses **teaching numbers** unless a fact is public scientific knowledge
 | Adaptive / platform | FDA. Guidance for the Use of Bayesian Statistics in Medical Device Clinical Trials. 2010. Adaptive designs guidance, 2019. |
 | brms / Stan | Bürkner P-C. brms: An R package for Bayesian multilevel models using Stan. *J Stat Softw*. 2017. |
 | LOO | Vehtari A, Gelman A, Gabry J. Practical Bayesian model evaluation using leave-one-out cross-validation and WAIC. *Stat Comput*. 2017. |
+| Target trial | Hernán MA, Robins JM. Using big data to emulate a target trial when a randomized trial is not available. *Am J Epidemiol*. 2016. |
+| Transport / selection | Pearl J, Bareinboim E. External validity: from do-calculus to transportability across populations. *Stat Sci*. 2014. Dahabreh IJ, et al. Extending inferences from a randomized trial to a target population. *Eur J Epidemiol*. 2020. |
+| Missing data | Rubin DB. Inference and missing data. *Biometrika*. 1976. Little RJA, Rubin DB. *Statistical Analysis with Missing Data*. 3rd ed. Wiley. |
+| GRADE / EtD | Schünemann H, et al., eds. *GRADE Handbook*. GRADE Working Group. |
 
 ## Reporting and appraisal
 
 | Instrument | Use |
 | --- | --- |
-| CONSORT 2010 and Bayesian extensions | Randomized trials |
+| CONSORT 2025, ACE, and Bayesian reporting (BARG / Sung) | Randomized trials |
 | STROBE | Observational studies |
 | STARD | Diagnostic accuracy |
 | TRIPOD / TRIPOD-AI | Prediction models |
@@ -49,7 +53,12 @@ These are named so a reader can look up the primary paper. Numerical worked exam
 | NINDS tPA, ECASS, IST-3 | Acute reperfusion; harm/benefit language |
 | DAWN, DEFUSE-3, late-window EVT | Imaging selection as a likelihood |
 | HERMES collaboration | Meta-analysis and borrowing |
-| INTERACT2 / ATACH-2 | ICH blood-pressure targets; competing risks |
+| INTERACT2 / ATACH-2, STICH | ICH blood-pressure and evacuation; competing risks |
+| BEST, BASICS | BAO EVT as a different parameter from anterior circulation |
+| PRISMS | Mild-stroke thrombolysis as a threshold problem |
+| NAVIGATE ESUS, RE-SPECT ESUS | Anticoagulation after ESUS; mixture priors, not AF priors |
+| Perry et al. 2011 (SAH CT < 6 h) | Sequential LR after a negative noncontrast CT |
+| I-SPY 2 | Platform / response-adaptive ancestor (oncology design, not a stroke result) |
 | ISAT / BRAT | Aneurysm treatment uncertainty |
 | REMAP-CAP (design, not results tables) | Platform / response-adaptive randomization |
 

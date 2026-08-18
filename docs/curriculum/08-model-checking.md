@@ -149,7 +149,7 @@ Widely applicable information criteria (WAIC) and leave-one-out cross-validation
 
 Use them to compare a small set of pre-specified models: main effects versus one planned interaction; linear NIHSS versus a spline; with versus without center intercepts. Do not use them to tour every subset of predictors. A LOO bake-off over \(20\) specifications is stepwise regression with a holier name.
 
-Pareto \(k\) diagnostics are not optional. A point with \(k > 0.7\) is a patient whose omission changes the posterior enough that the importance-sampling estimate is unstable. In a stroke file that patient is often the rare disaster — the fatal PH2, the 28-year-old with a dissection. Those are exactly the patients a predictive model must not quietly drop. If several \(k\) exceed \(0.7\), refit with exact LOO for those points (`loo` can do this by calling the model again) or simplify the model until the approximation holds.
+Pareto \(k\) diagnostics are not optional. Vehtari’s current thresholds: \(k < 0.5\) is comfortable; \(0.5 \le k \le 0.7\) is a watch list (the PSIS estimate is still used, but that point is influential); \(k > 0.7\) is a patient whose omission changes the posterior enough that the importance-sampling estimate is unstable. In a stroke file that patient is often the rare disaster — the fatal PH2, the 28-year-old with a dissection. Those are exactly the patients a predictive model must not quietly drop. If several \(k\) exceed \(0.7\), refit with exact LOO for those points (`loo` can do this by calling the model again) or simplify the model until the approximation holds. Do not treat \(0.5\) as a hard fail; do not treat \(0.7\) as a suggestion.
 
 | Tool | Estimates | Trust when | Do not use to |
 | --- | --- | --- | --- |
@@ -211,7 +211,7 @@ flowchart LR
 
 ### For the biostatistician / methodologist
 
-PSIS-LOO estimates \(\sum_i \log p(y_i \mid y_{-i})\) by smoothing the raw importance ratios \(r_i^{(s)} \propto 1/p(y_i \mid \theta^{(s)})\) with a generalized Pareto tail. The shape \(k_i\) is a diagnostic of the tail of those ratios. Moment conditions fail as \(k\) approaches \(0.7\); the estimate is unreliable beyond that. Exact leave-one-out for the offending \(i\), or \(K\)-fold with a structure that respects clustering, is the repair. For hierarchical models, *leave-one-patient-out* and *leave-one-center-out* answer different questions. A dashboard for the next patient at an *existing* center wants the former (or a pointwise LOO that conditions on the already-estimated \(\alpha_j\)). A claim about a new hospital wants the latter, and ordinary `loo(fit)` will be too optimistic.
+Raw importance weights lose a finite variance as \(k\) approaches \(0.5\). PSIS smoothing keeps the estimate usable up to about \(0.7\); beyond that, refit those points exactly. Exact leave-one-out for the offending \(i\), or \(K\)-fold with a structure that respects clustering, is the repair. For hierarchical models, *leave-one-patient-out* and *leave-one-center-out* answer different questions. A dashboard for the next patient at an *existing* center wants the former (or a pointwise LOO that conditions on the already-estimated \(\alpha_j\)). A claim about a new hospital wants the latter, and ordinary `loo(fit)` will be too optimistic.
 
 Prior-posterior overlap plots are useful and insufficient. Complete overlap means the likelihood was silent; that is a finding about identifiability, not a finding about robustness. Complete separation means the prior was left behind; that is acceptable if the prior was weakly informative and the sample is large, and unacceptable if the prior encoded a safety constraint you still believe. The sensitivity experiment above is about a functional, not about a pretty overlay.
 
@@ -263,6 +263,11 @@ priors_skep <- c(
   prior(normal(-2.5, 0.8), class = Intercept),
   prior(normal(0, 0.5), class = b),
   prior(normal(0, 0.3), class = b, coef = ac)
+)
+priors_enth <- c(
+  prior(normal(-2.5, 0.8), class = Intercept),
+  prior(normal(0, 0.5), class = b),
+  prior(normal(0.8, 0.3), class = b, coef = ac)
 )
 
 # fit_ref <- brm(

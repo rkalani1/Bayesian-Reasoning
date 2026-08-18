@@ -6,7 +6,7 @@ Live site: [https://rkalani1.github.io/Bayesian-Reasoning/](https://rkalani1.git
 
 A book that treats clinical reasoning as Bayesian updating — from pre-test probability and priors through hierarchical models in R (`brms`) to decision thresholds, net benefit, and how to talk about uncertainty at the bedside and in a paper.
 
-Twenty chapters and four appendices. Interactive reader and calculators (Bayes updater, treatment threshold, decision curve) ship with this workspace; the static book is the GitHub Pages site above.
+Twenty-six chapters in six parts, plus four appendices. Interactive reader and calculators (Bayes updater, treatment threshold, decision curve) ship with this workspace; the static book is the GitHub Pages site above.
 
 Part of a companion series:
 
@@ -30,9 +30,7 @@ mkdocs build --strict
 
 ## GitHub Pages
 
-Every push to `main` runs `.github/workflows/pages.yml` (MkDocs `--strict`, then `actions/deploy-pages`).
-
-The first time, GitHub requires the repository owner to set **Settings → Pages → Build and deployment → Source: GitHub Actions**. The Actions token cannot flip that switch. After that one click, later pushes publish automatically to the live URL above.
+The live book is published at [https://rkalani1.github.io/Bayesian-Reasoning/](https://rkalani1.github.io/Bayesian-Reasoning/).
 
 ## Citation
 

@@ -2,18 +2,7 @@
 
 ## Opening
 
-This is not a cookbook of `brms` recipes and not a philosophy of science seminar. It is a single argument, told at three depths, about how a neurologist should change her mind and then act.
-
-## Three audiences, one spine
-
-Every chapter is written so that a resident can finish the opening vignette and the first two sections, a practicing neurologist can use the tables and decision diagrams the same afternoon, and a methodologist can drop into the **For the biostatistician / methodologist** subsection without wading through bedside language they already know.
-
-| You are… | Read first | Then |
-| --- | --- | --- |
-| Student or resident | Chapters 1–3, 14, 16 | Appendix D glossary; one case in Chapter 18 |
-| Practicing clinician | Chapters 3, 11, 14–17 | Chapter 9 (how to read a posterior); Chapter 18 |
-| Clinical researcher | Chapters 4–10, 13, 20 | Appendix B priors; Chapter 17 reporting |
-| Biostatistician | Chapters 5–9, 12–15 | Hierarchical and adaptive chapters; Appendix C |
+This is not a cookbook of `brms` recipes and not a philosophy of science seminar. It is a single argument about how a neurologist should change her mind and then act.
 
 ## The pedagogical loop
 
@@ -38,13 +27,12 @@ You will be asked to write down a number *before* the formal solution. That is n
 | Mathematical Detail | Optional formality; skip on first read if you wish |
 | R Deep Dive | Copy-paste R, usually `brms` |
 | Key Takeaway | The chapter in one breath |
-| For the biostatistician | Technical asides that clinicians may skim |
 
 ## Software
 
 Install the stack in [Appendix A](appendices/a-r-setup.md). Examples are self-contained. They use **teaching numbers** — invented counts that illustrate a calculation, not extracted cells from a copyrighted table.
 
-You do not need to run any R to benefit from Parts I, IV, and V. Parts II and III are richer if you do.
+You do not need to run any R to benefit from Parts I, IV, V, and the vignettes in Part VI. Parts II and III, and the models in Chapters 21–24, are richer if you do.
 
 ## What this book is not
 
@@ -54,11 +42,11 @@ You do not need to run any R to benefit from Parts I, IV, and V. Parts II and II
 
 ## Suggested paths
 
-**Weekend clinician path (8–10 hours):** Chapters 1–3, 9 (estimation section only), 14–16, one case in 18.
+**Weekend path (8–10 hours):** Chapters 1–3, 9 (estimation section only), 14–16, one case in 18.
 
-**Course path (a quarter):** Parts I–II, then 11, 14–17, 19. Assign exercises; solutions live in [Appendix C](appendices/c-solutions.md).
+**Course path (a quarter):** Parts I–II, then 11, 14–17, 19, 21, 25. Assign exercises; solutions live in [Appendix C](appendices/c-solutions.md).
 
-**Research path:** 4–10, 13, 17, 20, Appendix B.
+**Research path:** 4–10, 13, 17, 20–26, Appendix B. Pair Chapter 16 with 21 when the question is “this patient, not that trial.”
 
 !!! success "Key Takeaway"
     Read for the update, not for the software. Software is how we make the update inspectable. The clinical act is still: start with a prior, listen to the likelihood, walk the posterior to a threshold, and say the uncertainty out loud.

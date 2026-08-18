@@ -108,7 +108,7 @@ A center intercept is a log-odds adjustment after the treatment term. It is not 
 
 The dishonest use is a ranked forest plot sent to a newspaper.
 
-If the committee insists on identifying outliers, pre-specify a rule that uses the posterior, not the point estimate. Example: flag a center if \(P(\alpha_j < \mu_\alpha - 0.4 \mid y) > 0.9\), where \(0.4\) on the logit scale is a pre-committed minimum important difference (about \(8\)–\(10\) percentage points near an \(80\%\) baseline). Most centers will not flag. That is a successful analysis.
+If the committee insists on identifying outliers, pre-specify a rule that uses the posterior, not the point estimate. Example: flag a center if \(P(\alpha_j < \mu_\alpha - 0.4 \mid y) > 0.9\), where \(0.4\) on the logit scale is a pre-committed minimum important difference (about \(7\) percentage points below an \(80\%\) baseline: \(\operatorname{logit}^{-1}(\operatorname{logit}(0.80)-0.4)\approx 0.73\)). Most centers will not flag. That is a successful analysis.
 
 | Strategy | Formula sketch | Small-center intercept | New center | Treatment effect |
 | --- | --- | --- | --- | --- |

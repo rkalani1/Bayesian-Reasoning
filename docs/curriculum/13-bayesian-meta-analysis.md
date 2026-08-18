@@ -150,7 +150,7 @@ Do not run an NMA because a software tutorial exists. Run one when the decision 
 
 ### For the biostatistician / methodologist
 
-The `brms` formula `yi | se(sei) ~ 1 + (1 | study)` is the normal-normal model with a varying intercept whose SD is \(\tau\). The `| se(sei)` term is a known measurement error, not a residual to be estimated; do not also estimate `sigma` unless you intend a different model. Prior choice is `prior(normal(0, 1), class = "Intercept")` for \(\mu\) and `prior(normal(0, 0.5), class = "sd")` (or a half-Cauchy) for \(\tau\).
+The `brms` formula `yi | se(sei, sigma = FALSE) ~ 1 + (1 | study)` is the normal-normal model with a varying intercept whose SD is \(\tau\). The `| se(sei)` term is a known measurement error, not a residual to be estimated; do not also estimate `sigma` unless you intend a different model. Prior choice is `prior(normal(0, 1), class = "Intercept")` for \(\mu\) and `prior(normal(0, 0.5), class = "sd")` (or a half-Cauchy) for \(\tau\).
 
 A binomial meta-analysis is cleaner when you have the tables: `s | trials(n) ~ treat + (treat | study)` with a binomial family, which is the exact likelihood version of a random-effects log-OR model (and estimates control-arm variation as well). Rare events belong here.
 
@@ -204,13 +204,13 @@ Do not lift HERMES counts, odds ratios, or figures into this chapter. Extract \(
 
 ## R: a `brms` meta-analysis and a forest-style plot
 
-Teaching log-ORs from the vignette. Specification plus a `tidybayes` forest. The `brm()` call is not assumed to have been run.
+Teaching log-ORs from the vignette. Three rows; the `brm()` call is a complete teaching script (seconds on a laptop). The forest grammar is the point.
 
 ```r
 # Bayesian random-effects meta-analysis of teaching late-window EVT log-ORs.
-# Model: yi | se(sei) ~ 1 + (1 | study)
+# Model: yi | se(sei, sigma = FALSE) ~ 1 + (1 | study)
 # Priors: mu ~ Normal(0, 1); tau ~ HalfNormal(0, 0.5).
-# Seed fixed. Specification only until you sample.
+# Seed fixed. Three teaching studies; samples quickly if brms is installed.
 
 set.seed(20260818)
 
@@ -231,7 +231,7 @@ priors_ma <- c(
 )
 
 fit_ma <- brm(
-  yi | se(sei) ~ 1 + (1 | study),
+  yi | se(sei, sigma = FALSE) ~ 1 + (1 | study),
   data    = evt_teach,
   family  = gaussian(),
   prior   = priors_ma,
@@ -253,9 +253,11 @@ study_draws <- fit_ma %>%
 forest_df <- bind_rows(
   study_draws %>% median_qi(or_i, .width = 0.95) %>%
     transmute(label = study, or = or_i, .lower, .upper, kind = "study"),
-  study_draws %>% median_qi(or_mu, .width = 0.95) %>%
+  # or_mu and or_new do not vary by study — drop the grouping first
+  # or median_qi will emit one identical "pooled mu" row per study.
+  study_draws %>% ungroup() %>% median_qi(or_mu, .width = 0.95) %>%
     transmute(label = "pooled mu", or = or_mu, .lower, .upper, kind = "mean"),
-  study_draws %>% median_qi(or_new, .width = 0.95) %>%
+  study_draws %>% ungroup() %>% median_qi(or_new, .width = 0.95) %>%
     transmute(label = "new study", or = or_new, .lower, .upper, kind = "pred")
 )
 

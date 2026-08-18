@@ -18,7 +18,7 @@ After working this chapter you should be able to:
 
 A teaching randomized trial compares standard medical care to a new neuroprotective adjunct given before EVT. The primary estimand is the difference in mean 24-hour NIHSS change (adjunct minus control). Negative numbers favor the adjunct. The protocol’s minimum clinically important difference (MCID), written down before the first enrollment, is \(2\) points on the NIHSS: effects smaller than \(2\) points in absolute value will not change practice at this network, because the drug has cost, infusion time, and a known hypotensive signal.
 
-You have a posterior for the mean difference \(\delta\), obtained from a `brms` Gaussian model with baseline NIHSS as a covariate and a weakly informative prior on \(\delta\). Teaching summaries: posterior median \(\delta = -1.4\), \(95\%\) equal-tailed credible interval \((-2.8, -0.1)\), \(95\%\) highest-density interval \((-2.7, 0.0)\) to the reported rounding. The frequentist analysis that a colleague ran in parallel produces \(p = 0.041\) for a test of \(\delta = 0\).
+You have a posterior for the mean difference \(\delta\), obtained from a `brms` Gaussian model with baseline NIHSS as a covariate and a weakly informative prior on \(\delta\). Teaching summaries: posterior median \(\delta = -1.4\), \(95\%\) equal-tailed credible interval \((-2.8, -0.03)\). Under the Normal stand-in used later in the chapter the HDI coincides with the ETI; they are not two different intervals. The frequentist analysis that a colleague ran in parallel produces \(p \approx 0.046\) for a test of \(\delta = 0\).
 
 The sponsor wants to write “statistically significant benefit.” The network wants to know whether to add the drug to the EVT bundle. Those are different sentences. Produce the interval, the posterior probability of benefit, the ROPE masses, and a Bayes factor against a point null — then say which of those objects, if any, answers the network.
 
@@ -34,7 +34,7 @@ P\bigl(\theta \in C(y) \mid y\bigr) = 0.95.
 
 The probability is in the parameter, given the observed sample and the prior. A \(95\%\) frequentist confidence interval \(C_{\mathrm{freq}}(Y)\) is a random set, before the data, with the property that \(P\bigl(\theta \in C_{\mathrm{freq}}(Y) \mid \theta\bigr) = 0.95\) under repeated sampling (and under the coverage derivation you actually used). After the data, the frequentist interval either contains \(\theta\) or it does not. The number \(95\%\) does not migrate onto the realized interval without extra argument.
 
-In large samples with weak priors the two numerical intervals often agree. Agreement of numbers is not agreement of meaning. When you tell a family or a DSMB that “there is a \(95\%\) probability the mean NIHSS difference lies between \(-2.8\) and \(-0.1\),” you are speaking Bayesian. Say so. When you tell them the interval was constructed by a procedure that covers \(95\%\) of the time, you are speaking frequentist. Also say so. Do not swap the scripts.
+In large samples with weak priors the two numerical intervals often agree. Agreement of numbers is not agreement of meaning. When you tell a family or a DSMB that “there is a \(95\%\) probability the mean NIHSS difference lies between \(-2.8\) and \(-0.03\),” you are speaking Bayesian. Say so. When you tell them the interval was constructed by a procedure that covers \(95\%\) of the time, you are speaking frequentist. Also say so. Do not swap the scripts.
 
 ### HDI versus ETI
 
@@ -57,7 +57,7 @@ P(\text{benefit} \mid y) = P(\delta < 0 \mid y)
 
 is the posterior mass to the left of zero. On the teaching numbers this will be large — \(0.97\) or so — because the interval barely excluded zero and the posterior is roughly symmetric.
 
-A two-sided frequentist \(p\)-value is \(P\bigl(\text{data as or more extreme than observed} \mid \delta = 0\bigr)\). It is not \(1 - P(\text{benefit} \mid y)\). It is not \(P(\delta = 0 \mid y)\). The teaching pair \(p = 0.041\) and \(P(\delta < 0 \mid y) \approx 0.97\) will be misquoted as “the Bayesian analysis agrees.” It does not agree. It answers a different question, and it answers it only after a prior has been paid.
+A two-sided frequentist \(p\)-value is \(P\bigl(\text{data as or more extreme than observed} \mid \delta = 0\bigr)\). It is not \(1 - P(\text{benefit} \mid y)\). It is not \(P(\delta = 0 \mid y)\). The teaching pair \(p \approx 0.046\) and \(P(\delta < 0 \mid y) \approx 0.98\) will be misquoted as “the Bayesian analysis agrees.” It does not agree. It answers a different question, and it answers it only after a prior has been paid.
 
 \(P(\text{benefit} \mid y)\) is the right object when the decision is asymmetric and zero is genuinely the boundary of interest: a cheap, non-toxic intervention where any benefit on the signed scale is welcome. It is the wrong object when effects smaller than an MCID are not worth the harm. Then the right probability is \(P(\delta < -2 \mid y)\), or the three ROPE masses below.
 
@@ -80,7 +80,7 @@ The posterior is then partitioned into three masses:
 - \(P(\delta \in (-2, 2) \mid y)\): practically equivalent to no important effect;
 - \(P(\delta > 2 \mid y)\): practice-changing harm.
 
-Kruschke’s decision rule — accept practical equivalence if the entire \(95\%\) HDI sits inside the ROPE; reject it if the entire HDI sits outside — is one possible rule. It is not mandatory. Reporting the three masses is mandatory. A teaching posterior centered at \(-1.4\) with a \(95\%\) ETI of \((-2.8, -0.1)\) will typically put a large mass inside the ROPE and a smaller mass in the benefit tail. That is the scientific result: probable directionally negative, not yet a practice-changing mean.
+Kruschke’s decision rule — accept practical equivalence if the entire \(95\%\) HDI sits inside the ROPE; reject it if the entire HDI sits outside — is one possible rule. It is not mandatory. Reporting the three masses is mandatory. A teaching posterior centered at \(-1.4\) with a \(95\%\) ETI of \((-2.8, -0.03)\) will typically put a large mass inside the ROPE and a smaller mass in the benefit tail. That is the scientific result: probable directionally negative, not yet a practice-changing mean.
 
 For ordinal mRS the ROPE belongs on a pre-specified estimand: a difference in the probability of mRS \(0\)–\(2\), or a common odds ratio in a proportional-odds model, or a utility-weighted mRS. A ROPE of \((-0.03,\ 0.03)\) on the risk difference for independence is a different claim from a ROPE of \((0.9,\ 1.1)\) on an odds ratio. Do not import an NIHSS ROPE onto an odds ratio and hope the units forgive you.
 
@@ -170,9 +170,9 @@ Bedside communication follows the same fork. A family asking “will this help h
 
 ## Worked solution to the vignette
 
-Quote the estimate first. On the teaching posterior, the mean NIHSS difference is about \(-1.4\) points, \(95\%\) ETI \((-2.8, -0.1)\). The adjunct is probably better than control on this scale. The magnitude sits below the network’s MCID of \(2\) points.
+Quote the estimate first. On the teaching posterior, the mean NIHSS difference is about \(-1.4\) points, \(95\%\) ETI \((-2.8, -0.03)\). The adjunct is probably better than control on this scale. The magnitude sits below the network’s MCID of \(2\) points.
 
-Quote \(P(\delta < 0 \mid y)\) second, as a directional probability, not as a discovery. Teaching value: approximately \(0.97\). This is compatible with a frequentist \(p = 0.041\) in direction and incompatible with it in meaning. Write both sentences.
+Quote \(P(\delta < 0 \mid y)\) second, as a directional probability, not as a discovery. Teaching value: approximately \(0.98\). This is compatible with a frequentist \(p \approx 0.046\) in direction and incompatible with it in meaning. Write both sentences.
 
 Quote the ROPE masses third. With \(\mathrm{ROPE} = (-2, 2)\) and a posterior centered at \(-1.4\) with the stated width, most of the mass will lie inside the ROPE, a minority in \((-\infty, -2)\), and almost none above \(+2\). (Compute them from draws; do not eyeball.) The honest summary: directional benefit is probable; practice-changing benefit, as this network defined it, is not established.
 
@@ -208,7 +208,7 @@ summ <- tibble(delta = delta) %>%
     median = median(delta),
     eti_lo = quantile(delta, 0.025),
     eti_hi = quantile(delta, 0.975),
-    hdi = list(ggdist::hdi(delta, .width = 0.95)),
+    hdi = list(tidybayes::hdi(delta, .width = 0.95)),
     p_benefit = mean(delta < 0),
     p_mcid = mean(delta < rope_lo),
     p_rope = mean(delta > rope_lo & delta < rope_hi),
@@ -252,11 +252,11 @@ tibble(delta = delta) %>%
   theme_minimal(base_size = 12)
 ```
 
-The dashed lines are the decision. The dotted line is the ritual. Report the masses between the dashed lines before anyone mentions \(p = 0.041\).
+The dashed lines are the decision. The dotted line is the ritual. Report the masses between the dashed lines before anyone mentions \(p \approx 0.046\).
 
 ### For the biostatistician / methodologist
 
-HDI computation on discrete or multimodal posteriors is not unique; `ggdist::hdi` returns the shortest covering interval and will silently pick one mode if you do not look. For a mixture (a spike-and-slab, or a hierarchical prediction that has not concentrated), plot the density before quoting a single HDI.
+HDI computation on discrete or multimodal posteriors is not unique; `tidybayes::hdi` returns the shortest covering interval and will silently pick one mode if you do not look. For a mixture (a spike-and-slab, or a hierarchical prediction that has not concentrated), plot the density before quoting a single HDI.
 
 ROPE decision rules have frequentist operating characteristics that depend on the prior, the sample size, and the width of the ROPE. They are not TOST. If a regulator asks for Type I error, you must simulate the whole decision rule, including the prior, under a point null or under the ROPE boundary. FDA Bayesian device guidance is explicit that operating characteristics are part of the design, not an insult to the posterior.
 
