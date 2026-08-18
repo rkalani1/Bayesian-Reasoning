@@ -208,7 +208,7 @@ summ <- tibble(delta = delta) %>%
     median = median(delta),
     eti_lo = quantile(delta, 0.025),
     eti_hi = quantile(delta, 0.975),
-    hdi = list(posterior::hdi(delta, .width = 0.95)),
+    hdi = list(ggdist::hdi(delta, .width = 0.95)),
     p_benefit = mean(delta < 0),
     p_mcid = mean(delta < rope_lo),
     p_rope = mean(delta > rope_lo & delta < rope_hi),
@@ -256,7 +256,7 @@ The dashed lines are the decision. The dotted line is the ritual. Report the mas
 
 ### For the biostatistician / methodologist
 
-HDI computation on discrete or multimodal posteriors is not unique; `posterior::hdi` returns the shortest covering interval and will silently pick one mode if you do not look. For a mixture (a spike-and-slab, or a hierarchical prediction that has not concentrated), plot the density before quoting a single HDI.
+HDI computation on discrete or multimodal posteriors is not unique; `ggdist::hdi` returns the shortest covering interval and will silently pick one mode if you do not look. For a mixture (a spike-and-slab, or a hierarchical prediction that has not concentrated), plot the density before quoting a single HDI.
 
 ROPE decision rules have frequentist operating characteristics that depend on the prior, the sample size, and the width of the ROPE. They are not TOST. If a regulator asks for Type I error, you must simulate the whole decision rule, including the prior, under a point null or under the ROPE boundary. FDA Bayesian device guidance is explicit that operating characteristics are part of the design, not an insult to the posterior.
 

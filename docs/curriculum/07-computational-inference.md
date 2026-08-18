@@ -98,7 +98,7 @@ Do not increase `adapt_delta` when:
 - \(\widehat{R}\) is already bad;
 - the model is a hierarchical variance near zero with many group levels.
 
-In the last case, switch to a non-centered parameterization. In `brms`, `noncentered = TRUE` is already the default for varying effects in recent versions; if you overrode it, stop overriding it. If divergences persist, tighten the prior on \(\tau\) to something you actually believe, or simplify the grouping structure.
+In the last case, switch to a non-centered parameterization. `brms` already writes varying effects in the non-centered form; there is no `noncentered` argument to `brm()`. If divergences persist, tighten the prior on \(\tau\) to something you actually believe, or simplify the grouping structure.
 
 ### Max treedepth
 

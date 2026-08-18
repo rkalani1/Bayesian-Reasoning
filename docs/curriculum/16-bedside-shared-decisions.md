@@ -34,7 +34,7 @@ Prestroke mRS is 3. Functional independence as the trials defined it is not her 
 
 The object you computed — or borrowed from a model — is a distribution \(p(\text{mRS} \mid \text{data}, \text{treatment})\). Families do not need the distribution. They need a small number of *absolute* statements that preserve the shape of the distribution and the contrast between actions.
 
-Absolute risk: “Without the procedure, about 4 in 100 people like the one in this teaching model are walking independently at three months. With it, about 11 in 100.”
+Absolute risk: “Without the procedure, about 22 in 100 people like her get back to the cane-and-help life she already has. With it, about 35 in 100. Death is about 40 versus 33 per 100.”
 Absolute difference: “That is about 7 extra people in 100.”
 Harm in the same unit: “About 7 fewer deaths in 100, and a smaller shift out of bedbound states, with a risk of vessel injury and a risk that we do something painful for no gain.”
 Baseline: “She started at a 3. A 3 is a life she already knows. A 4 or a 5 is not.”

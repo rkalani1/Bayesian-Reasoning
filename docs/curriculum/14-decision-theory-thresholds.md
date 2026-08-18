@@ -83,6 +83,51 @@ This is the same threshold that appears, in other clothes, as a likelihood-ratio
 !!! note "Mathematical Detail"
     The threshold depends only on the *difference* in utility between treating and not treating, in each truth state. Adding 10 utiles to every cell leaves \(p_{Rx}^{\star}\) unchanged. You can therefore set \(U_{TN} = 1\) and \(U_{FN} = 0\) without loss of generality and spend your elicitation effort on \(B\) and \(H\). Absolute utilities matter for QALYs and for comparing programs across diseases. Ratios suffice for a single treat-or-not decision.
 
+## Expected-utility lines
+
+The two expected-utility equations in the previous section are straight lines in \(p\). Drawing them is not a flourish. It is how you see that a threshold is a crossing, not a personality trait of alteplase, and how you see which side of the crossing the editor is on before you touch a perfusion scanner.
+
+Using the chapter’s **teaching** utilities — \(U_{TP} = 0.80\), \(U_{FN} = 0.40\), \(U_{TN} = 1.00\), \(U_{FP} = 0.70\), so \(B = 0.40\) and \(H = 0.30\) —
+
+\[
+\begin{aligned}
+EU(\text{treat}) &= p\cdot 0.80 + (1-p)\cdot 0.70 = 0.70 + 0.10\, p, \\
+EU(\text{wait})  &= p\cdot 0.40 + (1-p)\cdot 1.00 = 1.00 - 0.60\, p.
+\end{aligned}
+\]
+
+\(EU(\text{treat})\) rises slowly in \(p\): treating the well is already worth 0.70, and each increment of disease probability buys a little more. \(EU(\text{wait})\) falls faster: waiting is worth 1.00 when there is no disease and collapses toward 0.40 as disease becomes certain. They meet where \(0.70 + 0.10p = 1.00 - 0.60p\), which is \(p = 0.30/0.70 \approx 0.43 = H/(H+B)\). Left of the crossing, wait. Right of it, treat. The geometry *is* the threshold.
+
+Three values of \(p\) are enough to carry the figure in your head.
+
+| \(p = P(D+\mid\text{data})\) | \(EU(\text{treat})\) | \(EU(\text{wait})\) | Action |
+|---|---:|---:|---|
+| 0.15 (below \(p^\star\)) | 0.715 | 0.910 | Wait |
+| 0.43 (at \(p^\star\)) | 0.743 | 0.742 | Indifferent |
+| 0.75 (above \(p^\star\)) | 0.775 | 0.550 | Treat |
+
+At \(p = 0.15\) you leave 0.195 utiles on the table by treating. At \(p = 0.75\) you leave 0.225 utiles on the table by waiting. At the crossing the two actions are the same number, and the decision is settled by something the 2-by-2 does not contain: a lexicographic preference, a sister on the phone, a clock.
+
+```mermaid
+flowchart LR
+  p0[p = 0] --> p15[p = 0.15]
+  p15 --> pstar[p = 0.43 = H / H+B]
+  pstar --> p75[p = 0.75]
+  p75 --> p1[p = 1]
+  p15 -.->|EU wait 0.91 above EU treat 0.72| W[Wait]
+  pstar -.->|lines meet| I[Indifferent]
+  p75 -.->|EU treat 0.78 above EU wait 0.55| T[Treat]
+```
+
+The treat line starts at \(U_{FP} = 0.70\) when \(p = 0\) and rises to \(U_{TP} = 0.80\) when \(p = 1\). The wait line starts at \(U_{TN} = 1.00\) and falls to \(U_{FN} = 0.40\). If the sister’s preference raises \(B\) (say \(U_{TP}\) moves from 0.80 to 0.90, so \(B = 0.50\)), the treat line steepens and the crossing slides left, toward \(0.30/0.80 = 0.375\). If the banner’s utility flattens \(B\) (aphasia scored as nearly harmless, \(U_{FN}\) up to 0.65, so \(B = 0.15\)), the wait line flattens and the crossing slides right, toward \(0.30/0.45 \approx 0.67\). Same CT. Same posterior. Two different lines, two different actions. That is the entire mild-stroke argument in one picture.
+
+A third line, drawn later, is \(EU(\text{test})\). It is not straight in \(p\): the test is most valuable near the treatment threshold, where the result can flip the action, and worthless far away, where you already know what you will do. Pauker–Kassirer is the geometry of that third line crossing the other two. You do not need the third line to decide treat-versus-wait. You need it to decide whether 25 minutes of perfusion is worth buying. Sketch treat and wait first. If the posterior is nowhere near 0.43 under any utility you would defend, stop. The test cannot earn its keep if the two straight lines do not care about the next increment of \(p\).
+
+Read the table against the vignette before you go on. A teaching posterior of 0.15 for *disabling* ischemia — not “any stroke,” disabling ischemia — sits in the wait row, and a perfusion study is a purchase you should price, not a reflex. A teaching posterior of 0.75 sits in the treat row; waiting for perfusion spends \(R\) to buy a result that cannot change the action. A posterior of 0.55, which is where the worked solution will land for some readers, sits just above the crossing and just inside the testing interval once a real \(R\) is attached. The lines told you that before the closed forms did.
+
+!!! note "Mathematical Detail"
+    Because both EU lines are linear in \(p\), a single crossing is guaranteed. Replace the binary state with three states — mimic, nondisabling ischemia, disabling ischemia — and the “line” becomes a plane. There is then no single \(p^\star\). There is a region of the simplex on which treat wins. That is the exercise later in the chapter, not a reason to refuse the two-line picture when the live distinction really is binary.
+
 ## Pauker–Kassirer: when a test sits between waiting and treating
 
 Pauker and Kassirer (1980) added a third action: obtain a dichotomous test with sensitivity \(Se\) and specificity \(Sp\), then treat if the test is positive. The test itself may carry a disutility \(R\) (time, contrast, radiation, or the simple fact that minutes of penumbra are not free). Two new thresholds appear.
@@ -235,7 +280,7 @@ p_{Rx}^{\star} = \frac{0.30}{0.70} \approx 0.43.
 A perfusion study, for teaching, has \(Se = 0.80\), \(Sp = 0.70\), and a delay-and-contrast disutility \(R = 0.02\). Then
 
 \[
-T_t \approx 0.22, \qquad T_{tt} \approx 0.60.
+T_t \approx 0.268, \qquad T_{tt} \approx 0.655 at R = 0.02 (or 0.220 and 0.724 if R = 0).
 \]
 
 If your posterior that this is *disabling* ischemia — not “any stroke,” disabling ischemia — is 0.55, you are inside the testing interval. If it is 0.75, you treat without waiting for perfusion. If it is 0.15, you wait. The sister’s stronger \(B/H\) lowers every threshold. The banner’s milder view of aphasia raises them.

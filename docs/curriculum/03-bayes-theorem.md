@@ -70,7 +70,7 @@ Carry three anchors in your head, all **teaching** anchors:
 
 - LR = 2, 5, 10 raise probability in a rough, memorable way from a pre-test of 0.20 to about 0.33, 0.56, 0.71.
 - LR = 0.5, 0.2, 0.1 drop that same 0.20 to about 0.11, 0.05, 0.02.
-- No LR, however large, will take a 0.01 prior to a treatment threshold of 0.50. You need either a better prior or a better test.
+- An everyday imaging LR of 2–20 will not take a 0.01 prior to a treatment threshold of 0.50 (that move needs an LR near 100). You need either a better prior or a near-pathognomonic test.
 
 That last bullet is why a beautiful CTA does not rescue a silly indication, and why a negative d-dimer does not empty a high-prevalence ward. The nomogram is a picture of base rates with a multiplier. It is not a picture of hope.
 
@@ -78,6 +78,55 @@ A working memory version of the nomogram uses a single anchor you can do without
 
 !!! tip "Clinical Pearl"
     If you cannot guess the posterior to one significant figure before you touch a calculator, you do not yet know whether the test was capable of changing the plan. Do the nomogram in your head first. Then compute.
+
+## A Fagan nomogram you can actually read
+
+The plastic card is a pair of vertical axes with a log-odds spine. Left axis: prior probability. Middle: likelihood ratio. Right: posterior probability. A straight edge from a prior through an LR is the odds form of Bayes drawn as a ray. Nothing on the card is more sophisticated than \(o' = o \times \operatorname{LR}\). The reason to draw it, rather than only multiply, is to *see* that the same LR is a long trip in the middle of the probability scale and a shrug at the ends.
+
+Ms. K’s **teaching** numbers make two rays, not a family of them. Prior probability of a proximal target: 0.15. One ray through LR = 3 (the vignette’s multiplier for “this is a real acute stroke” — cortical DWI with a quiet FLAIR). One ray through LR = 20 (the vignette’s multiplier for a proximal LVO on CTA). They are two different questions. They are drawn from the same prior so that the nomogram’s geometry is visible before the reconstruction finishes.
+
+Convert once, on paper.
+
+- Prior 0.15 is prior odds \(0.15/0.85 \approx 0.176\).
+- Ray 1, LR 3: posterior odds \(0.529\), posterior probability \(0.529/1.529 \approx 0.35\).
+- Ray 2, LR 20: posterior odds \(3.53\), posterior probability \(3.53/4.53 \approx 0.78\).
+
+The sequential product in the next section (DWI then CTA) is a third calculation: it multiplies both LRs, and it answers a stacked question. The nomogram’s two rays do not stack. Each ray is “what if this were the only new datum.” That is what the card was for.
+
+```
+Prior p                 LR                 Posterior p
+ 0.99 --------------- 1000 --------------- 0.99
+ 0.90 ---------------  100 --------------- 0.90
+ 0.70 ---------------   20 --------------- 0.78   <-- ray 2: CTA, LR 20
+ 0.50 ---------------   10 --------------- 0.50
+ 0.30 ---------------    3 --------------- 0.35   <-- ray 1: DWI, LR 3
+ 0.15 *
+ 0.10 ---------------    1 --------------- 0.15
+ 0.05 ---------------  0.2 --------------- 0.05
+ 0.01 --------------- 0.01 --------------- 0.01
+```
+
+The ticks are not to scale. The log-odds spine of a printed Fagan card is. What you need to carry is the *shape*: from 0.15, an LR of 3 is a move you can feel (0.15 → 0.35) and an LR of 20 is a move that crosses most diagnostic thresholds you would defend for “is there a target?” (0.15 → 0.78) and still may not cross a treatment threshold for “should we puncture *her*?” A third ray, not drawn, is the one the intern wants: an LR large enough to take 0.15 across 0.50 *and* across a high treatment threshold in one step. No CTA produces that ray by itself. The nomogram is how you notice before you order the test in order to feel busy.
+
+```mermaid
+flowchart LR
+  Prior[Prior 0.15] -->|ray 1: LR 3| R1[Posterior about 0.35]
+  Prior -->|ray 2: LR 20| R2[Posterior about 0.78]
+  R1 --> Q1[Acute ischemia: modest move]
+  R2 --> Q2[Proximal target: crosses diagnosis]
+  Q2 --> Q3[May still miss the treatment threshold]
+```
+
+Two reading rules, both visible on the sketch.
+
+First, a ray that starts at 0.15 and goes through LR = 1 lands at 0.15. That is not a joke. It is the definition of a useless test, and it is the right picture for a “possible M3” called by a reader you do not trust. Second, the left axis is a *probability*, not a count of symptoms. “NIHSS 8, found down, cortical DWI” is already inside the 0.15. Adding those facts again as if they were a second LR is a second ray you have already spent.
+
+The card also shows, without arithmetic, why Ms. K’s clean-CTA branch and her M1-cutoff branch cannot be averaged into a single “CTA is informative” sentence. One ray goes up. The other, through the vignette’s LR = 0.15 *against* a target, goes down from the same 0.15 prior: odds \(0.176 \times 0.15 \approx 0.026\), probability about 0.026. Those are two posteriors. A nomogram with one ray labeled “the CTA” is a decoration.
+
+Carry the two rays into the sequential section that follows. If you later multiply LR 3 by LR 20 you are no longer reading a Fagan card. You are running the product of two conditionally independent data, which is legal only if the DWI and the CTA are not two looks at the same clot. Tonight they mostly are not: one image is parenchyma, the other is a vessel. That is why the stacked path (0.15 → 0.35 → about 0.91) is a different object from ray 2 alone (0.15 → 0.78). The card keeps the objects from collapsing into one adjective.
+
+!!! tip "Clinical Pearl"
+    Draw the prior tick and the two LR ticks before the report arrives. If even the LR-20 ray cannot reach the threshold you have already named, the test is not a decision tool. It is a picture for someone else.
 
 ## Sequential updating: DWI, then CTA, then the exam
 

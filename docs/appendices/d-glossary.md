@@ -2,7 +2,7 @@
 
 ## Purpose
 
-A field guide to the words, the three pieces of mathematics the rest of the book leans on, a reading list that is not a cargo cult, and four mini-checklists you can put next to a manuscript. Definitions are operational. If a term here disagrees with a chapter, the chapter’s worked example wins.
+A field guide to the words, the three pieces of mathematics the rest of the book leans on, a reading list that is not a cargo cult, and five mini-checklists you can put next to a manuscript. Definitions are operational. If a term here disagrees with a chapter, the chapter’s worked example wins.
 
 Educational only. Checklists are memory aids, not official society policy and not a license to submit.
 
@@ -92,7 +92,7 @@ Educational only. Checklists are memory aids, not official society policy and no
 
 **MCID.** Minimal clinically important difference. A utility in disguise. Should appear in go/no-go priors (Appendix B).
 
-**Measurement error.** The covariate you typed is not the covariate you meant (Chapter 17). Attenuates slopes.
+**Measurement error.** The covariate you typed is not the covariate you meant (Chapter 24). Attenuates slopes.
 
 **Mixture prior / mixture posterior.** A discrete weighted combination, used when experts disagree or when a latent mechanism (AF vs not) is unobserved.
 
@@ -271,7 +271,7 @@ Grouped so a resident can pick one shelf.
 
 ## Mini-checklists
 
-These are *memory* checklists. Official STARD, CONSORT, and TRIPOD items are longer and win when you submit. The Bayesian block is this book’s own, aligned with the FDA device guidance’s spirit and with Chapter 19.
+These are *memory* checklists. Official STARD, CONSORT, TRIPOD, and GRADE/EtD items are longer and win when you submit. The Bayesian block is this book’s own, aligned with the FDA device guidance’s spirit and with Chapter 19.
 
 ### STARD (diagnostic accuracy, condensed)
 
@@ -332,6 +332,36 @@ These are *memory* checklists. Official STARD, CONSORT, and TRIPOD items are lon
 !!! tip "Clinical Pearl"
     A paper can pass CONSORT and still be the wrong likelihood for your hospital. A paper can pass this Bayesian block and still be a bad decision if the utility is yours rather than the patient’s. Checklists catch omissions. They do not catch the wrong loss function.
 
+### GRADE / Evidence-to-Decision (recommendations, condensed)
+
+GRADE is a certainty-of-evidence system. Evidence-to-Decision (EtD) is the table that turns that certainty into a recommendation. Neither is a Bayesian method. Both are where a posterior, a prediction interval, and a utility are supposed to land, and both are where they usually do not. This mini-checklist is a memory aid for reading or writing a stroke recommendation so that the objects from Chapters 13 and 14 are not laundered into a verb (“we suggest”) with no numbers attached.
+
+| # | EtD domain | The Bayesian question hiding inside |
+|---|---|---|
+| 1 | Priority of the problem | Is the decision frequent or costly enough to deserve a threshold, or is this a rare corner you should not protocolize? |
+| 2 | Desirable effects | What is \(B\), on an outcome the patient would recognize (mRS 0–2, language, independence), with a posterior not a point OR? |
+| 3 | Undesirable effects | What is \(H\) (sICH, futile transfer, delayed door), scored with the same seriousness as \(B\)? |
+| 4 | Certainty of evidence | Is the interval you are quoting \(\operatorname{CrI}(\mu)\) or a 95% prediction interval? Downgrade for \(\tau\), for spectrum, for a missing small study. |
+| 5 | Values | Is \(B/H\) stable across the people who will live with the outcome, or is the editor’s aphasia a different ratio from the banner’s “mild stroke”? |
+| 6 | Balance of effects | At the posterior you actually have, which expected-utility line is on top? “Favors intervention” is a crossing, not a vibe. |
+| 7 | Resources | Helicopter hours, suite time, lytic cost — enter as a disutility or as a constraint, not as a footnote. |
+| 8 | Certainty of resources | Same rule as (4): a point cost with no interval is a guess wearing a spreadsheet. |
+| 9 | Cost-effectiveness | A QALY ICER is a policy instrument (Chapter 14). It does not settle the next alteplase. |
+| 10 | Equity | Who is systematically below the testing threshold because the likelihood was estimated in someone else’s spectrum? |
+| 11 | Acceptability | Will the service act on a posterior of 0.40, or will it wait for a sentence that says “significant”? |
+| 12 | Feasibility | Can this hub produce the likelihood the recommendation assumes (perfusion software, DSA, overnight CTA readers)? If not, you are applying \(\mu\) where \(\theta_{\text{new}}\) belongs. |
+
+Certainty ratings — high, moderate, low, very low — are not posterior probabilities. A “moderate” GRADE rating on late-window EVT is a narrative about risk of bias, inconsistency, indirectness, imprecision, and publication bias. You can translate several of those into this book’s objects: inconsistency is \(\tau\) and the prediction interval; imprecision is the width of \(\operatorname{CrI}(\mu)\); publication bias is the selection model in Chapter 13; indirectness is the exchangeability claim (mismatch-selected trials, unselected hub). Risk of bias is not a prior on \(\mu\). It is a reason to distrust the likelihood. Putting a skeptical prior on a biased \(y_i\) and calling the result “GRADE, but Bayesian” is how a committee double-counts the same anxiety.
+
+A recommendation (“we recommend,” “we suggest,” “we suggest against”) is an action. It requires a threshold. EtD often hides the threshold in the balance-of-effects row and then votes. The book’s request is smaller: write \(p^\star = H/(H+B)\), write the posterior or the predictive the recommendation is using, and say whether the recommendation is for the mean of the trial universe or for the next system. A strong recommendation when the prediction interval for \(\theta_{\text{new}}\) still includes a harm-side effect is a recommendation that the next hub will not be able to cash.
+
+Teaching use. If you are appraising a guideline on late-window EVT or on thrombolysis in mild aphasia, score the twelve rows with one sentence each, and mark which rows were answered with a point estimate, which with an interval for \(\mu\), which with a utility, and which with a committee adjective. The empty rows are the ones Chapter 14 told you to refuse to fill with a QALY pulled from a different disease. A panel that completes every GRADE cell and never names \(B\), \(H\), or the prediction interval has produced a recommendation that this book cannot implement at a bedside.
+
+The twelve rows also diagnose a common stroke-guideline failure mode. Rows 2–4 get a pooled odds ratio and a certainty adjective. Rows 5–6 get a vote. Rows 7–12 get a paragraph about cost and training that is not allowed to change the verb. That is how a late-window EVT recommendation written for mismatch-selected trial sites is pasted onto a hub that cannot run the imaging pipeline, and then defended with “the meta-analysis was significant.” Row 4 wanted \(\operatorname{CrI}(\mu)\) *and* the prediction interval. Row 12 wanted \(\theta_{\text{new}}\). Row 6 wanted the expected-utility crossing from Chapter 14. Fill those three and the verb often changes by itself.
+
+!!! tip "Clinical Pearl"
+    “We suggest” without a named \(B\), a named \(H\), and a named interval is not a weak recommendation. It is an undeclared threshold. Ask which interval — \(\operatorname{CrI}(\mu)\) or the prediction interval — the panel would allow to flip the verb.
+
 ---
 
 ## How the four appendices fit
@@ -346,4 +376,4 @@ These are *memory* checklists. Official STARD, CONSORT, and TRIPOD items are lon
 Chapters 18–20 are the practice of the same objects: a loop, a sentence, and a file someone else can rebuild.
 
 !!! success "Key Takeaway"
-    Fifty-odd words, three formulas, one reading list, four checklists. The Beta update, the logit translation, and the \(H/(B+H)\) threshold are the only mathematics most bedside decisions need; `brms` is how you extend them when the likelihood is no longer conjugate. Report the prior, the slice-wise check, the utility, and the bundle. If a term in the glossary does not change an action or a sentence, you did not need it this week.
+    Fifty-odd words, three formulas, one reading list, five checklists. The Beta update, the logit translation, and the \(H/(B+H)\) threshold are the only mathematics most bedside decisions need; `brms` is how you extend them when the likelihood is no longer conjugate. Report the prior, the slice-wise check, the utility, and the bundle. If a term in the glossary does not change an action or a sentence, you did not need it this week.

@@ -56,6 +56,39 @@ The vignette’s spoke-read table, under uniform priors, gives \(\operatorname{S
 
 The last row is the reminder. Two reads of one CTA are repeated measurements, not two assays. If you need a single likelihood ratio for the pair, model the agreement, or pick the read that will actually drive the transfer and put a reader random effect on it.
 
+## Spectrum bias: Se/Sp are not portable constants
+
+Ransohoff and Feinstein named the error; telestroke lives it. Sensitivity and specificity are not properties of a scanner. They are properties of a scanner *in a spectrum of disease and non-disease*. Change who is enrolled and you change both numbers, and you change the likelihood ratio you are about to multiply by the wrong prior.
+
+The **teaching** pathway in the vignette is already a selected spectrum: 80 patients who were transferred and then catheterized. NIHSS 12 with gaze and aphasia is inside that spectrum. NIHSS 5 with a drifting arm and a questionable M2 is not. A CTA series built on NIHSS \(\ge 10\) is enriched for long-segment M1 and ICA occlusions — lesions a night reader can see — and depleted of short M2 cutoffs, reconstituted distal clots, and the mimic-heavy left tail of the NIHSS. Sensitivity estimated in that series is the sensitivity for the lesions that series admitted. It is not the sensitivity for the lesion you are afraid of missing in an NIHSS-5 patient who may never have been sent.
+
+Specificity moves too, and not always in the same direction. A high-NIHSS cohort has few hemiplegic mimics and many true occlusions; false positives are expensive in the denominator of specificity. A low-NIHSS spoke cohort is full of seizures, migraines, and small-vessel syndromes that a liberal overnight reader will call “possible M2.” Specificity falls. A conservative reader who almost never calls an M2 will raise specificity and drop sensitivity. The LR+ that leaves that shop is not the LR+ on the vendor slide, and it is not the LR+ from the NIHSS \(\ge 10\) hub series.
+
+So the CTA likelihood ratio estimated among NIHSS \(\ge 10\) transfers is the wrong multiplier for an NIHSS-5 activation. It is the wrong multiplier twice: the test is a different test (different lesion mix, different reader behavior), and the prior it will be asked to update is a different prior (Chapter 2’s last two rows). Using one published LR for both patients is how a service launches helicopters it cannot justify and withholds launches it should not.
+
+Teaching arithmetic, labeled as such. Suppose the NIHSS \(\ge 10\) DSA series gives Se \(0.92\), Sp \(0.80\), so \(\operatorname{LR}^+ = 4.6\) and \(\operatorname{LR}^- = 0.10\). In a milder spectrum the same overnight call is Se \(0.68\), Sp \(0.86\), so \(\operatorname{LR}^+ = 4.9\) — almost the same multiplier, which is a coincidence you must not rely on — while \(\operatorname{LR}^- = 0.37\). The negative CTA, not the positive one, is where spectrum bias usually bites in mild stroke: a “clean” read that was excellent at clearing large M1s is mediocre at clearing a possible M3, and an LR− of 0.37 applied to a pre-test of 0.12 leaves a posterior near 0.048, whereas the borrowed LR− of 0.10 would have talked you down to 0.013. Those two posteriors sit on opposite sides of some hubs’ stay-and-repeat threshold.
+
+A second **teaching** pair, so the coincidence does not comfort you. Same high-severity Se/Sp, but now a liberal spoke reader in the mild spectrum: Se \(0.78\), Sp \(0.62\), \(\operatorname{LR}^+ = 2.1\). Applied to a pre-test of 0.12 the posterior is 0.22, not the 0.39 you would have quoted from the NIHSS \(\ge 10\) LR+ of 4.6. The helicopter decision at 0.22 and at 0.39 is not the same sentence to the family.
+
+```mermaid
+flowchart TD
+  Pop[Who entered the 2 by 2] --> Sev[NIHSS 10 or more: large M1 ICA]
+  Pop --> Mild[NIHSS 5: distal M2 and mimics]
+  Sev -->|Se 0.92 Sp 0.80| LR1[LR-plus 4.6 / LR-minus 0.10]
+  Mild -->|Se 0.68 Sp 0.86| LR2[LR-plus 4.9 / LR-minus 0.37]
+  Mild -->|liberal reader Se 0.78 Sp 0.62| LR3[LR-plus 2.1 / LR-minus 0.35]
+  LR1 --> Wrong[Wrong multiplier for the NIHSS-5 patient]
+  LR2 --> Right[Use with a 0.12 prior not a 0.55 prior]
+  LR3 --> Right
+```
+
+Two practical moves follow, and neither is “find a better point estimate.” First, stratify the 2 × 2 by the same cuts you use to build the prior — NIHSS band, last-known-well, atrial fibrillation — and put a Beta on each slice, or a hierarchical model that lets Se/Sp vary with severity (the next section). Second, when you have only the severe-spectrum paper, shrink the borrowed LR toward 1 for the mild patient and say so. That is not theatrical humility. It is refusing to treat a selected M1 series as a constant of nature.
+
+The vignette’s family question is an NIHSS-12 question. Do not answer it with an NIHSS-5 disclaimer, and do not answer the next, milder activation with this vignette’s 0.55 prior and this vignette’s spoke LR. Spectrum bias is the habit of recycling both. STARD already asked who was enrolled. Spectrum bias is what happens when you ignore the answer and still multiply.
+
+!!! warning "Common Pitfall"
+    Importing an LR from an NIHSS \(\ge 10\) CTA-for-LVO paper and applying it to a telestroke NIHSS 5 is not conservative. It is a change of both the prior and the test, hidden inside one familiar number.
+
 ## Hierarchical models for multi-center diagnostic studies
 
 A single 2 × 2 table is a start. A telestroke network is not a single table. Each spoke has a different scanner, a different overnight reader, a different habit of calling “possible M2,” and a different threshold for launching transfer. Sensitivity and specificity vary. Ignoring that variation and pooling the raw counts produces intervals that are too narrow and a point estimate that describes no actual hospital.
@@ -113,7 +146,7 @@ Uncertainty on AUC is the point. An AUC of 0.78 with a 95% credible interval of 
 | Marker (teaching frame) | Natural scale | Typical clinical cut | What the ROC is being asked to do |
 | --- | --- | --- | --- |
 | Spoke CTA read | Binary / three-level | Positive vs not | Rule *in* LVO for transfer |
-| ASPECTS | Ordinal 0–10 | ≤ 5 or ≤ 6 | Rule *out* futile EVT |
+| ASPECTS | Ordinal 0–10 | historically ≥ 6 for EVT eligibility; ≤ 5 marks large core | Quantify completed infarct, not a standalone futility veto |
 | Serum NfL | Continuous, ng/L, right-skewed | Lab 95th percentile or a modeled threshold | Separate recent axonal injury from mimics |
 | D-dimer analogue | Continuous | Rule-out cut at high sensitivity | Send home vs image (PE logic; same math) |
 

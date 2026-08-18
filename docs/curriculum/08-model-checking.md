@@ -24,6 +24,68 @@ You will refuse that declaration. You will specify the checks that a binary stro
 
 Before any plot, write the checks in words: the strata you will slice on, the discrepancy each slice is meant to catch, the functional of the anticoagulant coefficient you will test for prior sensitivity, and the sentence you will put on the dashboard if the top calibration bin fails. A check invented after seeing `pp_check` is not a check. It is a revision in costume.
 
+## Prior predictive checks
+
+A posterior predictive check asks whether the fitted model can reproduce the data it has already seen. A prior predictive check asks a more embarrassing question, and it asks it *before* the sampler is allowed to claim anything: can the model, using only the prior and the likelihood, produce data sets that a stroke meeting would recognize as possible? If it cannot, you are about to spend four chains fitting a story that was already impossible.
+
+Gelman’s workflow is not “fit, then decorate with `pp_check`.” It is: write the prior, simulate from it, look at the simulations, revise the prior or the likelihood, *then* sample, *then* do the posterior checks this chapter spends most of its pages on. The prior predictive distribution is
+
+\[
+p(y^{\mathrm{sim}}) = \int p(y^{\mathrm{sim}} \mid \theta)\, p(\theta)\, d\theta,
+\]
+
+which is the posterior predictive with the prior in place of the posterior. The discrepancy functions can be the same ones you will use later — overall ICH rate, rate in the anticoagulant slice, rate in the top NIHSS band — and they should be. A check you invent only after seeing the posterior is not a check of the prior.
+
+For the vignette’s Bernoulli ICH model the cheapest prior predictive is a Beta-binomial on the intercept alone. A **teaching** prior \(\pi \sim \operatorname{Beta}(4, 60)\) says the ICH rate is near 6 percent and that you have seen the equivalent of 64 imaginary patients. Draw \(\pi\), then draw 400 Bernoulli trials, 4,000 times. If those 400-patient data sets routinely produce 80 hemorrhages, or routinely produce one, the intercept prior is a cartoon. If they routinely produce something like 15 to 40, the prior is in the world the fellow thinks she works in.
+
+```r
+# Prior predictive ICH counts in 400 tPA patients, before any MCMC.
+# Teaching prior: Beta(4, 60), mean 0.0625. Not a protocol prior.
+
+set.seed(20260818)
+pi_prior <- rbeta(4000, 4, 60)
+y_prior  <- rbinom(4000, size = 400, prob = pi_prior)
+quantile(y_prior, c(0.05, 0.50, 0.95))
+mean(y_prior / 400)
+
+# brms analogue, once the formula exists:
+# fit_prior <- brm(
+#   ich ~ ac + age + nihss + sbp + glucose,
+#   data = tpa_ich,
+#   family = bernoulli(),
+#   prior = priors_ref,
+#   sample_prior = "only",
+#   seed = 20260818,
+#   refresh = 0
+# )
+# pp_check(fit_prior, type = "bars")
+```
+
+The `sample_prior = "only"` path is the one to keep when the linear predictor is no longer an intercept. It pushes the whole prior — intercept, slopes, any random effects — through the same design matrix the posterior will later see. That is the point. A \(\operatorname{Normal}(0, 0.8)\) on the anticoagulant coefficient looks modest on paper and can still, combined with a sloppy intercept, produce prior-predictive ICH rates of 40 percent in the anticoagulated slice. You want to see that *before* the dashboard meeting, not after a colleague asks why the prior-predictive mean in that slice is four times any trial you have read.
+
+```mermaid
+flowchart TD
+  Prior[Prior p of theta] --> Sim[Simulate y-sim from prior]
+  Sim --> Look{y-sim look like stroke data?}
+  Look -->|no| Rev[Revise prior or likelihood]
+  Rev --> Prior
+  Look -->|yes| MCMC[Fit: draw posterior]
+  MCMC --> Rep[Simulate y-rep from posterior]
+  Rep --> PPC{y ordinary among y-rep?}
+  PPC -->|no| Rev2[Revise likelihood]
+  Rev2 --> MCMC
+  PPC -->|yes| Use[Use for a question it survived]
+```
+
+The two diamonds are not the same test. The left diamond can fail while the right one passes: a wild prior that the likelihood then overwhelms will look fine after MCMC and still be a model you should not have signed. The right diamond can fail while the left one passes: a reasonable prior and a likelihood that cannot make NIHSS do any work. Running only `pp_check(fit)` after a passing \(\widehat{R}\) is how the second failure is caught late and the first failure is never caught at all.
+
+A prior predictive check is also the right place to discover that the *event definition* is the problem. If your prior on any-radiographic-ICH is a 6 percent Beta and the file you are about to fit used PH2-only, the simulations will look too bloody and the repair is not a tighter prior. It is a sentence in the data dictionary. That is a cheaper discovery at the prior-predictive step than at the dashboard launch.
+
+Write the prior-predictive strata down with the leftover strata, before either plot exists. Overall rate, anticoagulant slice, top NIHSS band: three numbers, three implied ranges under the prior. If you cannot say what range would make you revise, you are not checking. You are browsing. The fellow who declared the model calibrated from a default density overlay skipped this step and the next one. The rest of the chapter is the next one. Do not skip this one to get there faster.
+
+!!! warning "Common Pitfall"
+    `pp_check` on a model fitted with `sample_prior = "yes"` still plots the *posterior* predictive unless you ask for the prior. The argument you want is `sample_prior = "only"` on the fit. Plotting the posterior and calling it a prior check is how a silent likelihood gets a character reference.
+
 ## Posterior predictive checks are the first honesty test
 
 The posterior predictive distribution of a replicated data set is
@@ -132,7 +194,7 @@ A sensitivity analysis that deserves the name is specified before the first fit:
 3. an enthusiastic prior that encodes the literature’s more alarmed reading;
 4. a pre-declared rule: if \(P(\beta_{\mathrm{ac}} > 0 \mid y)\) stays above \(0.90\) under all three, report robustness; if it crosses a decision threshold, report the dependence and do not hide it in a supplement.
 
-What is not a sensitivity analysis: refitting with `prior = NULL` (the `brms` default is not “no prior”), or widening every Normal to \(\sigma = 10\) and calling the result “objective.”
+What is not a sensitivity analysis: refitting with `prior = NULL` (factory defaults: weakly informative intercept and SDs, flat coefficients — name it the flat-coefficient fit, not neutrality), or widening every Normal to \(\sigma = 10\) and calling the result “objective.”
 
 ```mermaid
 flowchart LR

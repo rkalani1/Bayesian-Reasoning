@@ -50,7 +50,7 @@ The cure is not a personality transplant. It is a habit of keeping score. If you
 
 Keeping score can be as small as a notebook. Date, event you named, number you said, what happened. After fifty such lines you have the beginning of a calibration plot. After two hundred you have something you could show a fellow. Brier’s score — the mean squared difference between the number you said and the 0/1 outcome — is the formal version of that notebook. You do not need the formal version to start. You need the notebook. Services that refuse the notebook are not being humble about uncertainty. They are refusing to find out whether their adjectives work.
 
-A second, quieter calibration failure is *resolution*: saying 0.30 for everyone in a band that actually runs from 0.10 to 0.55. You can have a perfect Brier score at the mean and still be useless for the patient whose risk is 0.10, because you never looked at the spot sign, the time, or the volume. Calibration without resolution is a weather service that says “30 percent chance of rain” every day in a climate where it rains 30 percent of days. Bayes updates are how resolution improves. The notebook is how you notice you needed them.
+A second, quieter calibration failure is *resolution*: saying 0.30 for everyone in a band that actually runs from 0.10 to 0.55. You can be calibrated at the mean — events you call 0.30 happen 30 percent of the time — and still be useless for the patient whose risk is 0.10, because you never looked at the spot sign, the time, or the volume. Calibration without resolution is a weather service that says “30 percent chance of rain” every day in a climate where it rains 30 percent of days. Bayes updates are how resolution improves. The notebook is how you notice you needed them.
 
 | Phrase said at the bedside | Range a careful listener should hear | Range many patients actually hear | Safer numeric substitute |
 |---|---|---|---|
@@ -121,6 +121,39 @@ Natural frequencies rebuild the same arithmetic for anyone who does not want the
 | Positive, but pre-test 0.50 | 0.50 | 3 | 3.0 | 0.75 |
 
 The last two rows are the chapter’s argument in one glance. The same “positive spot sign” is a 0.14 and a 0.75 depending on who walked into the scanner. Sensitivity never told you that.
+
+## The natural-frequency tree
+
+The 100-patient table is already the right arithmetic. A tree with a count on every edge is the same arithmetic drawn so that a family, a charge nurse, and a tired fellow can walk the path with a finger. Gigerenzer’s point was never that the formula is false. It was that a mind which will not multiply a prior by an LR will still count 120 expanding hematomas among 280 spot-positive people, and will refuse to call 120/280 “likely” in the same breath it calls 80/720 “unlikely,” as if those were neighboring adjectives.
+
+Start with 1,000 patients like Mr. R, not 100. The extra zero does not add information. It makes the misses visible as people rather than as a decimal. **Teaching numbers**, scaled from the 20-in-100 expansion rate and the spot-sign pair already used: 200 will expand, 800 will not. Of the 200 expanders the spot sign finds 120 and misses 80. Of the 800 non-expanders it falsely flags 160 and correctly clears 640. Every edge below is a count. There is no leftover probability hiding in a complement.
+
+```mermaid
+flowchart TD
+  Root[1000 patients like Mr R] -->|200 expand| Exp[200 true expanders]
+  Root -->|800 do not| NoExp[800 true non-expanders]
+  Exp -->|120 found| TP[120 spot-positive expanders]
+  Exp -->|80 missed| FN[80 spot-negative expanders]
+  NoExp -->|160 false flags| FP[160 spot-positive non-expanders]
+  NoExp -->|640 cleared| TN[640 spot-negative non-expanders]
+  TP -->|280 called positive| Pos[120 of 280 expand: 0.43]
+  FP -->|280 called positive| Pos
+  FN -->|720 called negative| Neg[80 of 720 expand: 0.11]
+  TN -->|720 called negative| Neg
+```
+
+Read the tree from the top down once, then from the leaves up. Top down is how the biology happens: first the hematoma either expands or it does not, then the scan is called. Bottom up is how the night actually feels: you are handed a positive spot and you want \(P(\text{expand} \mid +)\). The 280 people with a positive call are \(120 + 160\). The 720 with a negative call are \(80 + 640\). Those two denominators are the only ones that may appear in a counseling sentence after the scan has been read. Sensitivity’s denominator — the 200 expanders — is no longer available to you. That is why quoting 0.60 as if it were a posterior is not a rounding error. It is a walk up the wrong branch.
+
+The same tree is also a calibration instrument. If your service calls the spot “positive” in something like 280 of the next 1,000 similar patients and then sees expansion in something other than about 120 of those 280, one of three things is true: the 0.20 pre-test is wrong for your shop, the **teaching** LR+ of 3 is wrong for your readers, or the event you are scoring is not the event the tree was built on. Reliability is the same claim stated as a frequency: among patients you parked in the “about four in ten” bin, about four in ten expand. A tree that is never compared with an audit is decoration. A tree that is compared with an audit — even a notebook audit of the kind this chapter already demanded — is how a **teaching** LR becomes a local LR.
+
+A short reliability failure is worth naming because it is the one the tree will not save you from. Suppose the night resident’s “probable spot” is a different test from the attending’s “definite spot.” You have drawn one tree and spoken two. The 120/280 leaf belongs to a single, named call. If you mix probable and definite into one positive branch, the 280 is a mixture and the 0.43 is a smear. Draw a second tree, or refuse the adjective, but do not average two tests and call the average a likelihood ratio.
+
+The 1,000-patient frame also blocks a habit that the 100-patient table still permits: rounding 12/28 to “about half” and then counseling as if the posterior were 0.50. One hundred and twenty in 280 is still 0.43. Forty-three in a hundred is the sentence. “About half” is how 0.43 and 0.11 get talked about as if they lived in the same bin.
+
+Keep the tree next to the odds form in the next section. The tree is how you see the 28 percent (now 280 people) that a positive call actually refers to. The odds form is how you compute the same number when the pre-test is 0.05 or 0.50 and you do not want to redraw 1,000 stick figures. They are one engine. If the tree and the multiplication disagree, you have mis-wired an edge, not discovered a deeper theory of probability.
+
+!!! tip "Clinical Pearl"
+    Put the tree on the whiteboard before you say a word to the family. Point at the 280 and the 120, or at the 720 and the 80. If you cannot point at a count, you are back to an adjective.
 
 ## The odds form of Bayes
 

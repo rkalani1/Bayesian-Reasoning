@@ -59,7 +59,7 @@ Chapters generate synthetic patient-level data in R (`set.seed` stated). Do not 
 
 ## Updates
 
-If a citation is wrong or a teaching number is easy to confuse with a real trial cell, open an issue on [the repository](https://github.com/rkalani1/bayesian-clinical-reasoning).
+If a citation is wrong or a teaching number is easy to confuse with a real trial cell, open an issue on [the repository](https://github.com/rkalani1/Bayesian-Reasoning).
 
 !!! success "Key Takeaway"
     Trust the *method* in this book. Do not paste a teaching posterior into a note as if it were a trial result. When you need a number for a patient, go to the primary paper, a living systematic review, or your local data.

@@ -130,7 +130,7 @@ Three responses, in order of honesty:
 
 ## Default priors in brms, and why they are not a cop-out
 
-`brms` will not let you pretend you have no prior. If you stay silent it will still regularize intercepts and coefficients with weakly informative defaults that depend on the family and the link. That is a feature. The defaults are there to keep a logistic coefficient from wandering to 40 when a cell is empty.
+`brms` will not let you pretend you have no prior. If you stay silent it still regularizes intercepts and group-level SDs with weakly informative half-t defaults. The factory default for class = "b" (population coefficients) is an improper flat prior. That is not hygiene for a treatment effect, and it fails under separation. Specify scientific coefficients yourself. `prior = NULL` is the flat-coefficient analysis; name it that way.
 
 Defaults are not scientific claims about BAO. They are numerical hygiene. The moment the coefficient *is* the scientific claim — the EVT effect — you specify the prior yourself, in writing, with the implied odds-ratio interval attached.
 

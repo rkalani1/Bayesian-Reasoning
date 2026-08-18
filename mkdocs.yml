@@ -1,11 +1,9 @@
 site_name: Bayesian Clinical Reasoning
-site_description: Open-source ebook on Bayesian statistics, decision analysis, and evidence for neurologists and clinician-scientists.
-site_url: https://rkalani1.github.io/bayesian-clinical-reasoning/
-site_author: Rizwan Kalani
-repo_url: https://github.com/rkalani1/bayesian-clinical-reasoning
-repo_name: rkalani1/bayesian-clinical-reasoning
-copyright: >
-  Open-source ebook · CC BY 4.0 content · ISC site code · Educational only — not medical advice.
+site_description: Bayesian statistics, decision analysis, and evidence for neurologists and clinician-scientists.
+site_url: https://rkalani1.github.io/Bayesian-Reasoning/
+repo_url: https://github.com/rkalani1/Bayesian-Reasoning
+repo_name: rkalani1/Bayesian-Reasoning
+copyright: Bayesian Clinical Reasoning
 
 theme:
   name: material
@@ -82,7 +80,7 @@ extra_css:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/rkalani1/bayesian-clinical-reasoning
+      link: https://github.com/rkalani1/Bayesian-Reasoning
 
 use_directory_urls: false
 
@@ -116,6 +114,13 @@ nav:
       - "18. Integrated Case Studies": curriculum/18-integrated-case-studies.md
       - "19. A Complete Workflow": curriculum/19-complete-workflow.md
       - "20. Reproducible Pipelines": curriculum/20-reproducible-pipelines.md
+    - Part VI — Identification and institutions:
+      - "21. Transporting Evidence": curriculum/21-transporting-evidence-hte.md
+      - "22. Causal Models and the Target Trial": curriculum/22-causal-target-trial.md
+      - "23. Clinical Prediction Models": curriculum/23-clinical-prediction-models.md
+      - "24. Missing Data and Measurement Error": curriculum/24-missing-data-measurement-error.md
+      - "25. GRADE and Evidence-to-Decision": curriculum/25-grade-evidence-to-decision.md
+      - "26. Ethics and Adaptive Governance": curriculum/26-ethics-governance-adaptive.md
   - Appendices:
     - "A. R Setup and Cheatsheet": appendices/a-r-setup.md
     - "B. Prior Elicitation Worksheets": appendices/b-prior-elicitation.md

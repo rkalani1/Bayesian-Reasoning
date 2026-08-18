@@ -4,13 +4,11 @@
 
 <div class="hero-copy" markdown>
 
-<p class="eyebrow">Open teaching ebook · Neurology and clinician-scientists</p>
+<p class="eyebrow">Statistics · Decision analysis · Evidence</p>
 
 # Statistics, Decision Analysis, and Evidence
 
 A continuous argument: clinical reasoning is Bayesian updating. Priors are not a confession of bias. They are the pre-test probability you already use — made explicit, checked, and carried through to a threshold and a conversation.
-
-<p class="meta">Rizwan Kalani · CC BY 4.0 · <a href="https://github.com/rkalani1/bayesian-clinical-reasoning">Source</a></p>
 
 </div>
 
@@ -21,34 +19,6 @@ A continuous argument: clinical reasoning is Bayesian updating. Priors are not a
 <a class="secondary" href="curriculum/01-why-bayesian-thinking-matters.html">Start Chapter 1</a>
 <a class="secondary" href="evidence-register.html">Evidence register</a>
 </p>
-
-!!! warning "Educational only — not medical advice"
-    This book is for teaching and professional self-study. It is **not medical advice**, **not institutional policy**, and **not a substitute** for primary literature, guidelines, or local standards of care. Vignettes use invented patients and labeled **teaching numbers**. Verify every method and every clinical decision against current sources.
-
-## Who this is for
-
-<div class="route-grid">
-<a href="curriculum/01-why-bayesian-thinking-matters.html">
-<span class="route-kicker">Beginner</span>
-<strong>Students and residents</strong>
-<span>Probability language, odds, likelihood ratios, and why the base rate is not optional.</span>
-</a>
-<a href="curriculum/03-bayes-theorem.html">
-<span class="route-kicker">Clinician</span>
-<strong>Practicing neurologists</strong>
-<span>Diagnostic and treatment thresholds, sequential tests, and how to talk about a posterior.</span>
-</a>
-<a href="curriculum/06-hierarchical-models.html">
-<span class="route-kicker">Researcher</span>
-<strong>Trialists and epidemiologists</strong>
-<span>Hierarchical models, adaptive designs, meta-analysis, and reporting.</span>
-</a>
-<a href="curriculum/14-decision-theory-thresholds.html">
-<span class="route-kicker">Decision</span>
-<strong>Anyone who has to act</strong>
-<span>Utilities, net benefit, value of information, and shared decisions under uncertainty.</span>
-</a>
-</div>
 
 ## Companion books
 
@@ -86,6 +56,13 @@ This volume sits between critical appraisal and machine-learning literacy:
 <li><a href="curriculum/18-integrated-case-studies.html"><span class="num">18</span><span>Integrated case studies in neurology and beyond</span></a></li>
 <li><a href="curriculum/19-complete-workflow.html"><span class="num">19</span><span>A complete Bayesian clinical reasoning workflow</span></a></li>
 <li><a href="curriculum/20-reproducible-pipelines.html"><span class="num">20</span><span>Reproducible Bayesian research pipelines</span></a></li>
+<li class="part">Part VI — Identification, prediction, and institutions</li>
+<li><a href="curriculum/21-transporting-evidence-hte.html"><span class="num">21</span><span>Transporting trial evidence to this patient</span></a></li>
+<li><a href="curriculum/22-causal-target-trial.html"><span class="num">22</span><span>Causal models, DAGs, and the target trial</span></a></li>
+<li><a href="curriculum/23-clinical-prediction-models.html"><span class="num">23</span><span>Bayesian clinical prediction models</span></a></li>
+<li><a href="curriculum/24-missing-data-measurement-error.html"><span class="num">24</span><span>Missing data and measurement error</span></a></li>
+<li><a href="curriculum/25-grade-evidence-to-decision.html"><span class="num">25</span><span>GRADE and evidence-to-decision</span></a></li>
+<li><a href="curriculum/26-ethics-governance-adaptive.html"><span class="num">26</span><span>Ethics and governance of adaptive research</span></a></li>
 <li class="part">Appendices</li>
 <li><a href="appendices/a-r-setup.html"><span class="num">A</span><span>Complete R setup and package cheatsheet</span></a></li>
 <li><a href="appendices/b-prior-elicitation.html"><span class="num">B</span><span>Prior elicitation worksheets and default priors</span></a></li>
@@ -97,6 +74,6 @@ This volume sits between critical appraisal and machine-learning literacy:
 
 All computational examples use **R**. Primary packages: `brms`, `rstanarm`, `bayesplot`, `tidybayes`, `posterior`, `loo`, `ggplot2`, `dplyr` / `tidyr`. See [Appendix A](appendices/a-r-setup.md).
 
-## License and citation
+## Citation
 
-Prose and figures are [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Site code is ISC. Cite using [`CITATION.cff`](https://github.com/rkalani1/bayesian-clinical-reasoning/blob/main/CITATION.cff).
+Cite using [`CITATION.cff`](https://github.com/rkalani1/Bayesian-Reasoning/blob/main/CITATION.cff).

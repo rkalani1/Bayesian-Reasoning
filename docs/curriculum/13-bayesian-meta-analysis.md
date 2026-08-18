@@ -99,6 +99,38 @@ The Bayesian repair is to keep the binomial likelihood and put a prior on the lo
 
 If events are rare *and* studies are few *and* \(\tau\) is unknown, no method will give you a precise answer. The honest posterior will be wide. That is the result.
 
+## Publication bias and small-study selection
+
+The three teaching trials on the table were published. That is already a selection model, and it is not the hierarchical model you just wrote. Small studies with noisy log-odds ratios near zero are less likely to be written up, less likely to clear a stroke journal, and less likely to be in the folder a guideline committee opens. Large, early, vividly positive trials are more likely to be in that folder twice. The random-effects likelihood \(y_i \mid \theta_i \sim \mathcal{N}(\theta_i, s_i^2)\) conditions on the studies you see. It does not model the studies you do not.
+
+Small-study selection is the usual mechanism. A 40-patient late-window series with an estimated log-OR of 1.4 and an SE of 0.7 is a better career move than the same series with a log-OR of 0.1. The selection is on the *estimate*, not on the true \(\theta_i\). That induces a relationship between \(s_i\) and \(y_i\) that the exchangeable normal-normal model reads as heterogeneity or as a larger \(\mu\). A funnel plot is the picture: SE (or \(1/\mathrm{SE}\)) on one axis, effect on the other. Asymmetry is a clue, not a diagnosis. True heterogeneity that happens to track study size — later, broader, smaller studies of a more mixed population, which is exactly study C — looks like publication bias. Publication bias looks like heterogeneity. A committee that “corrects” one with a trim-and-fill algorithm has edited the data and renamed the edit a sensitivity analysis.
+
+Bayesian selection models (Copas-style, or a weight that is a function of the \(p\)-value or of \(y_i/s_i\)) put the missingness on the page. They need a prior on how savage the selection was. That prior is not identified from three published trials. With three late-window studies you can say: “if a small negative study is missing, \(\mu\) moves by about this much,” and you can show the move. You cannot retrieve the missing study from the posterior of \(\tau\).
+
+Teaching sketch, not a retrieval. Add an imagined unpublished study D: log-OR \(0.05\), SE \(0.55\), \(n \approx 80\), broader imaging, never submitted because the interval crossed 1. Under the half-normal \(\tau\) prior already on the table, including D as if it had been found drops the posterior median of \(\mu\) and widens the prediction interval for \(\theta_{\text{new}}\) enough that a hub without trial-grade imaging should notice. That is the direction of the bias you are trying to bound. It is not a number to put in a forest plot labeled “adjusted.”
+
+What you owe the committee is narrower and more honest.
+
+- Search, and say what you searched. PRISMA is the reporting skeleton; it does not fill empty cells.
+- Pre-declare whether small single-center series are eligible. If they are, they need a design-type increment or their own \(\tau\), not a seat next to A and B.
+- Show a funnel, even with three points, as a *warning label*, not as a test. Three points will not reject Egger. They will show you that C is the small, low one.
+- Report the posterior of \(\mu\) and of \(\theta_{\text{new}}\) with C in and with C out. If a hypothetical missing D of the size above would flip a recommendation, write that sentence. Do not wait for a software package to “adjust” D into existence.
+
+```mermaid
+flowchart TD
+  True[All late-window EVT studies] -->|published if large or vividly positive| Seen[A B C on the table]
+  True -->|small and quiet| Miss[Study D never submitted]
+  Seen --> Model[Normal-normal model]
+  Miss -.->|selection on y_i| Model
+  Model --> Mu[CrI of mu too high and too tight]
+  Model --> Pred[Prediction interval still wider if D is exchangeable]
+```
+
+The prediction interval is not a cure for publication bias. It is the interval that at least admits the next study may look like C, or like D. The credible interval for \(\mu\) is the interval that pretends the published mean is the mean of the universe you care about. When selection has eaten the left tail, both intervals are centered too high; the prediction interval is at least wide enough to be embarrassed.
+
+!!! warning "Common Pitfall"
+    Trim-and-fill, fail-safe \(N\), and a significant Egger test are not a prior on missing studies. They are recipes that can manufacture a fifth point and then treat it as data. If you cannot write the selection mechanism, do not “correct” the forest. Bound it.
+
 ## Network meta-analysis, sketched
 
 Pairwise meta-analysis compares A versus B where A-versus-B trials exist. Network meta-analysis (NMA) uses the whole graph: A versus B, B versus C, A versus C, and every multi-arm trial, to estimate every contrast. The identifying assumption is *consistency*: the direct A-versus-C contrast equals the indirect contrast constructed from A-versus-B and B-versus-C. In notation, \(\theta_{AC} = \theta_{AB} + \theta_{BC}\).
@@ -118,7 +150,7 @@ Do not run an NMA because a software tutorial exists. Run one when the decision 
 
 ### For the biostatistician / methodologist
 
-The `brms` formula `yi | se(sei) ~ 1 + (1 | study)` is the normal-normal model with a varying intercept whose SD is \(\tau\). The `| se(sei)` term is a known measurement error, not a residual to be estimated; do not also estimate `sigma` unless you intend a different model. Prior choice is `prior(normal(0, 1), class = "Intercept")` for \(\mu\) and `prior(half_normal(0.5), class = "sd")` (or a half-Cauchy) for \(\tau\).
+The `brms` formula `yi | se(sei) ~ 1 + (1 | study)` is the normal-normal model with a varying intercept whose SD is \(\tau\). The `| se(sei)` term is a known measurement error, not a residual to be estimated; do not also estimate `sigma` unless you intend a different model. Prior choice is `prior(normal(0, 1), class = "Intercept")` for \(\mu\) and `prior(normal(0, 0.5), class = "sd")` (or a half-Cauchy) for \(\tau\).
 
 A binomial meta-analysis is cleaner when you have the tables: `s | trials(n) ~ treat + (treat | study)` with a binomial family, which is the exact likelihood version of a random-effects log-OR model (and estimates control-arm variation as well). Rare events belong here.
 
@@ -132,6 +164,43 @@ The general principle is the same as in the platform-trial chapter: borrowing is
 
 !!! note "Mathematical Detail"
     A MAP prior from \(K\) historical controls is \(p(\theta^\star \mid y_{\text{hist}}) = \int \mathcal{N}(\theta^\star \mid \mu, \tau^2)\, p(\mu, \tau \mid y_{\text{hist}})\, d\mu\, d\tau\). It is usually multimodal after robustification, \(0.8\,\widehat{\mathrm{MAP}} + 0.2\,\operatorname{Normal}(0, 2^2)\) or similar on the logit. The current trial’s control likelihood multiplies this prior. If the current control rate sits in the vague component, the historical data are automatically down-weighted. That automatic behavior is the point of the mixture.
+
+## IPD versus aggregate: the HERMES problem
+
+HERMES — the Highly Effective Reperfusion evaluated in Multiple Endovascular Stroke Trials collaboration — is the public design fact this section needs, not a table of numbers. Five early EVT trials shared a contrast (endovascular therapy versus medical care), a horizon (90-day function), and enough common covariates that an individual-patient-data (IPD) synthesis was thinkable. The published IPD paper is a landmark. It is also a standing rebuke to anyone who thinks a three-row aggregate forest of log-ORs answers the same questions.
+
+Aggregate meta-analysis, which is what the `yi | se(sei)` model in this chapter is, sees one number per study. It can estimate \(\mu\) and \(\tau\). It can, if you are reckless and have more studies than we do, put a study-level covariate — mean NIHSS, mean time to puncture, percent mismatch-selected — on \(\mu_i\). That last move is ecological. The slope of *study-mean* NIHSS on *study-level* log-OR is not the within-patient treatment-by-NIHSS interaction. Study C can have a lower mean NIHSS *and* a broader imaging gate *and* a slower door-to-puncture; the aggregate regression will not tell you which modifier moved \(\theta_C\). HERMES-style IPD can. That is the HERMES problem, stated as a method: the questions a guideline actually asks — does the benefit persist in the elderly, in mild NIHSS, in large cores, at hour seven — are interaction questions. Interactions live in patients. They do not live in study means.
+
+IPD is not magic. It is a hierarchical model with a likelihood at the person level,
+
+\[
+y_{ij} \mid \theta_{ij} \sim f(\theta_{ij}), \qquad
+g(\theta_{ij}) = \alpha_j + x_{ij}\beta + z_{ij}\gamma_j,
+\]
+
+with study intercepts \(\alpha_j\) and, if you believe them, study-specific slopes \(\gamma_j\) around a mean interaction. Exchangeability claims move from “studies A, B, C are draws from one \(\mu\)” to “patients are draws from study-specific risks that share slopes.” You still have to defend the second sentence. A trial that enrolled only mismatch-selected patients cannot, by IPD alchemy, tell you the effect in unselected ones. What IPD *can* do is stop you from reading C’s smaller log-OR as “EVT fails when NIHSS is lower” when C’s patients are also later and less selected.
+
+Two syntheses, one **teaching** contrast. Aggregate: studies A, B, C as in the vignette table, posterior of \(\mu\) on the log-OR scale, and a 95% prediction interval for a new study. IPD (imagined, not extracted): the same three trials with patient-level mRS, treatment, NIHSS, time, and age. The IPD model can report a treatment effect at NIHSS 8 and at NIHSS 18, with a posterior on the interaction. The aggregate model can report only that the study with the broader mix looked smaller. If those two sentences would license different offers of late-window EVT at a hub that sees NIHSS 8, you do not have an aggregate question. You have an IPD question, and the published summary statistics will not grow the missing rows.
+
+The forest you owe a committee, even when you have only aggregate data, already distinguishes the two intervals this chapter has been insisting on. The diamond for \(\mu\) is the mean of the study-effect distribution. The bar for \(\theta_{\text{new}}\) is a draw from \(\mathcal{N}(\mu, \tau^2)\) after \(\mu\) and \(\tau\) have been integrated.
+
+```mermaid
+flowchart TD
+  A[Study A yi 1.35] --> F[Teaching forest]
+  B[Study B yi 1.10] --> F
+  C[Study C yi 0.25] --> F
+  F --> Mu[CrI of mu: where is the mean?]
+  F --> Pred[95 percent prediction interval: new theta]
+  Mu -->|narrower| G[Guideline statement about this universe]
+  Pred -->|wider always| H[What the next hub should expect]
+```
+
+HERMES, as a design, could shrink that prediction bar by explaining \(\tau\) with patient-level covariates. An aggregate forest cannot. Printing only the diamond is how a guideline tells a new hub to expect \(\mu\) and then acts surprised when the hub, which is a new study, lands nearer C.
+
+Do not lift HERMES counts, odds ratios, or figures into this chapter. Extract \(y_i, s_i\) from the primary papers if a real committee is waiting. Use the IPD if you have it and you can name the interactions in advance. Use the aggregate model if you do not, and then do not answer interaction questions with study-level slopes. The R forest in the next section draws both the `pooled mu` row and the `new study` row on purpose. Look at both. The first is \(\operatorname{CrI}(\mu)\). The second is the prediction interval.
+
+!!! tip "Clinical Pearl"
+    When a colleague says “HERMES showed the benefit is consistent across subgroups,” ask whether they mean the IPD interaction posteriors or a row of aggregate boxes that all sit on the same side of 1. Consistency of sign is not a flat interaction. The next patient is not a study mean.
 
 ## R: a `brms` meta-analysis and a forest-style plot
 

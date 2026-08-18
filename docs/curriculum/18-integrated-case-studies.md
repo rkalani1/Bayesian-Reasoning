@@ -214,17 +214,17 @@ Fourteen of forty participants have completed week 12: 8 active, 6 placebo. **Te
 
 ### Likelihood, posterior, and posterior predictive
 
-A conjugate normal analysis with known \(\sigma = 40\) and the skeptical prior already answers the go/no-go. The likelihood for the contrast \(\delta\) is approximately normal with mean \(22-4 = 18\) and variance \(40^{2}(1/8 + 1/6) = 533.3\), so \(\text{SE} \approx 23.1\). The posterior is
+A conjugate normal analysis with known \(\sigma = 40\) and the skeptical prior already answers the go/no-go. The likelihood for the contrast \(\delta\) is approximately normal with mean \(22-4 = 18\) and variance \(40^{2}(1/8 + 1/6) = 466.7\), so \(\text{SE} \approx 21.6\). The posterior is
 
 \[
 \delta \mid y \;\sim\; \mathcal{N}\!\left(
-\frac{10/30^{2} + 18/533.3}{1/30^{2} + 1/533.3},\;
-\frac{1}{1/30^{2} + 1/533.3}
+\frac{10/30^{2} + 18/466.7}{1/30^{2} + 1/466.7},\;
+\frac{1}{1/30^{2} + 1/466.7}
 \right)
-\approx \mathcal{N}(14.3,\; 19.6^{2}).
+\approx \mathcal{N}(15.3,\; 17.5^{2}).
 \]
 
-\(P(\delta > 0 \mid y) \approx 0.77\). \(P(\delta > 40 \mid y) \approx 0.10\). The trial is more probably slightly helpful than not, and is unlikely to be *importantly* helpful on the data so far.
+\(P(\delta > 0 \mid y) \approx 0.81\). \(P(\delta > 40 \mid y) \approx 0.08\). The trial is more probably slightly helpful than not, and is unlikely to be *importantly* helpful on the data so far.
 
 The go/no-go, however, is about the *remaining* 26 participants (assume 13:13). The posterior predictive distribution of the final frequentist point estimate, or better, of the final posterior probability \(P(\delta > 20 \mid y_{\text{all}})\), is the right object. The block below specifies a `brms` model you can actually run, then draws the unfinished outcomes from the posterior predictive and reapplies the decision rule.
 
@@ -338,7 +338,7 @@ Second, **the posterior predictive is the go/no-go object**, not the posterior o
 
 **Clinic 4.** Class-level RR posterior centered at 1.0. Mixture RR given negative 30-day monitor \(\approx 0.975\). Net expected utility of anticoagulation is negative unless you believe in at least a 14% relative ischemic benefit. Sentence: stay on antiplatelet; longer monitor is optional information, not a moral duty.
 
-**Zoom.** Skeptical posterior \(\delta \approx \mathcal{N}(14.3, 19.6^{2})\). \(P(\delta > 40) \approx 0.10\). Vote on the posterior predictive probability of eventually clearing the predeclared go rule, not on whether 14 meters “looks promising.”
+**Zoom.** Skeptical posterior \(\delta \approx \mathcal{N}(15.3, 17.5^{2})\). \(P(\delta > 40) \approx 0.08\). Vote on the posterior predictive probability of eventually clearing the predeclared go rule, not on whether 14 meters “looks promising.”
 
 The four sentences share a grammar: a number, a contrast, an action, a stop-condition for the next update.
 
