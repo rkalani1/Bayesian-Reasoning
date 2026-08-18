@@ -46,7 +46,7 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **CRIT-APP.** The curriculum’s structured critical-appraisal companion: design, selection, intervention, outcome, follow-up, analysis, applicability, abstract honesty. It moves priors. It does not pick Friday’s cutoff.
 
-**Decision threshold.** The posterior probability (or expected utility) at which the action flips. Diagnostic and treatment thresholds are different objects (Chapters 5–6).
+**Decision threshold.** The posterior probability (or expected utility) at which the action flips. Diagnostic and treatment thresholds are different objects (Chapter 14).
 
 **De-identification.** Removing or coarsening identifiers so a derived table can be shared. “We took the names off” is not it (Chapter 20).
 
@@ -76,7 +76,7 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **HTE.** Heterogeneity of treatment effect. A posterior on a modifier, or a risk-based contrast, not a forest-plot row of unshrunk slices (Chapter 21).
 
-**Hierarchical model.** Parameters that are themselves drawn from a shared distribution. Shrinkage lives here (Chapter 10).
+**Hierarchical model.** Parameters that are themselves drawn from a shared distribution. Shrinkage lives here (Chapter 6).
 
 **Highest posterior density.** Synonym of HDI in this book.
 
@@ -112,7 +112,7 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **Pattern-mixture model.** \(p(Y \mid R, X)\, p(R \mid X)\). Needs a named restriction (a shift \(\delta\)) to identify the missing pattern (Chapter 24).
 
-**Pauker–Kassirer threshold.** Treat when \(p > H/(B+H)\). The skeleton of Chapters 5–6.
+**Pauker–Kassirer threshold.** Treat when \(p > H/(B+H)\). The skeleton of Chapter 14.
 
 **Posterior.** \(p(\theta \mid y)\). The prior reweighted by the likelihood.
 
@@ -185,7 +185,7 @@ P(\tilde{y} = k \mid y) = \binom{m}{k}
 \frac{B(\alpha+y+k,\; \beta+n-y+m-k)}{B(\alpha+y,\; \beta+n-y)}.
 \]
 
-Use this for prevalence, response rates, and the next-three-patients conversation (C.16.4).
+Use this for prevalence, response rates, and the next-three-patients conversation (Chapter 5).
 
 ### Logit and log odds ratios
 
