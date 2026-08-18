@@ -251,6 +251,25 @@ tau  <- post$sd_hospital__Intercept
 
 `_quarto.yml` can render both the manuscript and a supplement that *does* show the code, the priors, and the `pp_check` figures. The clinical paper hides the scaffolding. The supplement is the scaffolding. Both are generated from the same fit.
 
+!!! example "R Deep Dive"
+    A `run-all.R` that a stranger can execute after `renv::restore()` is the whole pipeline in one file. Fit only if the archive is missing; always re-run checks.
+
+```r
+# run-all.R — teaching orchestrator. Seed lives in 02-fit-model.R.
+# After renv::restore(), this should rebuild the HTML from derived data.
+
+source("R/00-renv-restore.R")
+if (!file.exists("data/derived/analysis.csv")) {
+  stop("No derived table. Run R/01-deidentify.R on local raw data.")
+}
+source("R/02-fit-model.R")   # no-ops if fits/hierarchical_mrs.rds is current
+source("R/03-checks.R")
+if (requireNamespace("quarto", quietly = TRUE)) {
+  quarto::quarto_render("reports/manuscript.qmd")
+}
+```
+
+
 !!! note "Mathematical Detail"
     Inline numeric interpolation is a reproducibility feature, not a typesetting trick. The claim \(\widehat{\tau} = 0.41\) in the text is a function of the draws. If the draws change, the text must change. Quarto enforces that. A camera-ready Word file does not.
 
