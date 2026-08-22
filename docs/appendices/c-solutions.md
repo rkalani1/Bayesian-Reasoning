@@ -1,6 +1,6 @@
 # Appendix C — Solutions to Exercises
 
-Solutions to the first four exercises of each chapter. Teaching numbers are the curriculum’s invented values, not estimates from named trials. Algebra is shown; where a `brms` fit was specified but not run, the solution is the number you can obtain by conjugate arithmetic or by the identity the chapter asked for.
+Solutions to the first four exercises of each chapter, plus each chapter’s “hint for the appendix” exercise where one is flagged (Chapters 14–17). Teaching numbers are the curriculum’s invented values, not estimates from named trials. Algebra is shown; where a `brms` fit was specified but not run, the solution is the number you can obtain by conjugate arithmetic or by the identity the chapter asked for.
 
 ---
 
@@ -51,9 +51,9 @@ Rounds sentence for the 0.001 row: “In a one-in-a-thousand disease, a 95-perce
 
 **C.3.2.** The exam, the DWI, and the story are not conditionally independent given stroke-versus-mimic. They are three views of one cortical pattern. Multiplying LR \(= 3\) three times pretends you saw three independent assays and produces LR \(= 27\), a fiction. Use the single best LR, or a model that includes their covariance. Agreement is comforting; it is not a factor of 27.
 
-**C.3.3.** Mild stroke, NIHSS 3. Benefit of treating true disabling ischemia is smaller than in NIHSS 14; harm of ICH is not. \(p^{*}\) therefore sits higher — teaching range 0.35–0.50 rather than 0.15. Testing threshold (perfusion) sits below that. Apixaban three hours ago raises \(H\) sharply (ICH risk), which raises both marks and can erase the testing interval: you may wait without perfusion because the treat threshold has climbed above any posterior a perfusion scan can deliver.
+**C.3.3.** Mild stroke, NIHSS 3. Benefit of treating true disabling ischemia is smaller than in NIHSS 14; harm of ICH is not. \(p^{*}\) therefore sits higher — teaching range 0.35–0.50 rather than 0.15. Testing threshold (perfusion) sits below that. Apixaban three hours ago raises \(C\) sharply (the harm term: the cost of treating a patient who would not benefit), which raises both marks and can erase the testing interval: you may wait without perfusion because the treat threshold has climbed above any posterior a perfusion scan can deliver.
 
-**C.3.4.** Hour 18, Sn 0.85, Sp 0.99, prior 0.10. LR\(^{-}\) \(= 0.15/0.99 = 0.152\). Odds \(= 0.111 \times 0.152 = 0.0168\), posterior \(\approx 0.017\). Hour-three teaching LR\(^{-}\) is much smaller (CT is more sensitive early), posterior often \(< 0.005\). Sentence: “A normal scan at three hours would have left the chance of a bleed well under one in a hundred. At eighteen hours the same pictures leave it closer to two in a hundred, which is why a lumbar puncture still earns its keep.”
+**C.3.4.** Hour 18, Sn 0.85, Sp 0.99, prior 0.10. LR\(^{-}\) \(= 0.15/0.99 = 0.152\). Odds \(= 0.111 \times 0.152 = 0.0168\), posterior \(\approx 0.017\). Hour-three teaching LR\(^{-}\) is much smaller (CT is more sensitive early), posterior about 0.005–0.006. Sentence: “A normal scan at three hours would have left the chance of a bleed well under one in a hundred. At eighteen hours the same pictures leave it closer to two in a hundred, which is why a lumbar puncture still earns its keep.”
 
 ---
 
@@ -73,7 +73,7 @@ Rounds sentence for the 0.001 row: “In a one-in-a-thousand disease, a 95-perce
 
 **C.5.1.** Data: 2 sICH in 48. Skeptical Beta(2, 18) \(\to\) Beta(4, 64), mean 0.059. \(P(\theta > 0.06 \mid y) \approx 0.43\). Enthusiastic Beta(2, 98) \(\to\) Beta(4, 144), mean 0.027, \(P(\theta > 0.06 \mid y) \approx 0.02\). The probability moves by about 0.41. In front of a plaintiff expert you defend the prior whose implied sample size and location you can source — the chapter’s historical Beta(8, 142), or the skeptical Beta(2, 18) — not the enthusiastic Beta that buries 2/48 under 100 imaginary safe cases.
 
-**C.5.2.** Posterior Beta(10, 188). \(P(Y^{\star}=0 \mid n^{\star}) = B(10, 188+n^{\star})/B(10, 188) = \prod_{k=0}^{n^{\star}-1}(188+k)/(198+k)\). This product falls through 0.20 near \(n^{\star} = 34\) (teaching: 0.204 at 33, 0.195 at 34). That \(n^{\star}\) is the next-quarter volume at which “we had a clean quarter” stops being surprising under the current posterior. Below that volume, a zero-event quarter is still the mode.
+**C.5.2.** Posterior Beta(10, 188). \(P(Y^{\star}=0 \mid n^{\star}) = B(10, 188+n^{\star})/B(10, 188) = \prod_{k=0}^{n^{\star}-1}(188+k)/(198+k)\). This product falls through 0.20 near \(n^{\star} = 34\) (teaching: 0.206 at 33, 0.197 at 34). That \(n^{\star}\) is the next-quarter volume at which “we had a clean quarter” stops being surprising under the current posterior. Below that volume, a zero-event quarter is still the mode.
 
 **C.5.3.** Gamma shape-rate. Prior Gamma(4, 2), exposure \(t=2\), \(y=7\). Posterior Gamma(\(4+7\), \(2+2\)) \(=\) Gamma(11, 4), mean \(11/4 = 2.75\) per month. Next month \(t=1\), predictive is Negative-Binomial: \(P(Y=k) = \binom{k+10}{k}(4/5)^{11}(1/5)^{k}\). Summing \(k=0\) to \(5\) gives \(\approx 0.92\), so \(P(Y \geq 6) \approx 0.08\).
 
@@ -97,7 +97,7 @@ Rounds sentence for the 0.001 row: “In a one-in-a-thousand disease, a 95-perce
 
 **C.7.1.** Six questions. (1) How many *post-warmup* draws, not “iterations”? (2) \(\widehat{R}\) on every parameter you will quote? (3) Bulk and tail ESS? (4) Divergences, and if any, where? (5) Seed, backend, `adapt_delta`? (6) Is this the marginal posterior of the *decision* quantity, or a transformed leftover? No density enters a slide until (1)–(5) are boring.
 
-**C.7.2.** A wide kernel averages two well-separated lumps into a camel that looks like a hill. \(\widehat{R}\) compares between-chain to within-chain variance; here between-chain variance is \((1.0)^{2}/4\) of the gap and within-chain variance is tiny, so \(\widehat{R}\) is large. Unimodality of a smeared plot is not mixing.
+**C.7.2.** A wide kernel averages two well-separated lumps into a camel that looks like a hill. \(\widehat{R}\) compares between-chain to within-chain variance; here the chain means sit \(\pm 0.5\) from the pooled center, so the between-chain variance is on the order of \(\mathrm{gap}^2/4 = 0.25\) while the within-chain variance is tiny, so \(\widehat{R}\) is large. Unimodality of a smeared plot is not mixing.
 
 **C.7.3.** Three divergences in an intercept-only logistic: rerun with a longer warmup or `adapt_delta = 0.95`; if they vanish, you are done. Two hundred forty divergences with \(\tau\) piled at zero: the geometry is a funnel. Reparameterize (non-centered), put a tighter prior on \(\tau\), or both. Raising `adapt_delta` alone is a delay, not a repair.
 
@@ -121,11 +121,11 @@ Rounds sentence for the 0.001 row: “In a one-in-a-thousand disease, a 95-perce
 
 **C.9.1.** “We think it is quite likely the medicine helps a little. On a scale of 42, the average help looks closer to one point than to the two points we had said would matter. Some people will do better than that average, some worse. I would not promise you a recovery you can feel; I would not say it does nothing either.”
 
-**C.9.2.** Abstract the HDI on the OR if you are describing the most credible values; it is the shortest 95% set. The ETI goes further into the right tail and starts higher because of skew. On the log-odds scale the posterior is closer to symmetric, so HDI and ETI nearly agree. Exponentiating a log-OR HDI gives an **ETI on the OR scale**, not the OR HDI — HDI is not preserved by monotone transforms. Compute the HDI on the OR draws if you want an HDI of ORs; exponentiate an ETI if you want OR endpoints of an ETI.
+**C.9.2.** Abstract the HDI on the OR if you are describing the most credible values; it is the shortest 95% set. The ETI goes further into the right tail and starts higher because of skew. On the log-odds scale the posterior is closer to symmetric, so HDI and ETI nearly agree. Quantile-based intervals survive monotone transforms: exponentiating the log-OR **ETI** gives the ETI on the OR scale. The HDI does not: exponentiating a log-OR HDI gives a 95% interval that is in general neither the OR HDI nor the OR ETI (here it approximates the OR ETI only because the log-scale posterior is nearly symmetric). Compute the HDI on the OR draws if you want an HDI of ORs; exponentiate an ETI if you want OR endpoints of an ETI.
 
 **C.9.3.** A ROPE of \((-0.02, 0.02)\) on a 90-day mRS 0–2 risk difference says a 2-point absolute swing is noise. In mild stroke that may be too tight if the outcome is already common and the harm (ICH) is 2–4 points; it may be too wide if you would treat for a 1-point gain in a low-harm drug. Widen the ROPE if ICH is cheap on your utility; narrow it if even a 1-point gain is worth a large \(N\).
 
-**C.9.4.** A Normal(\(0, 20^{2}\)) prior under \(M_1\) puts almost all mass on cartoon odds ratios. The Bayes factor then “supports \(M_1\)” mostly because \(M_1\) is a huge, silly alternative that the data have nowhere else to go. Demand a prior whose 95% interval lives on clinically possible log-ORs — teaching, \(\mathcal{N}(0, 0.5^{2})\) — and pre-specify it.
+**C.9.4.** A Normal(\(0, 20^{2}\)) prior under \(M_1\) puts nearly all its mass on impossible NIHSS differences (tens of points). That does not help \(M_1\); it dilutes it. The marginal likelihood of \(M_1\) is spread over values the data refute, so the Bayes factor is dragged toward the null: for the vignette (\(\hat\delta = -1.4\), SE \(0.7\)), \(\mathrm{BF}_{01} \approx 4\) — apparent “evidence for no effect” manufactured by a silly alternative (the Jeffreys–Lindley effect from the chapter). The number is mostly a statement about the prior, not the drug. Demand a pre-specified alternative on the scale of the estimand with clinically possible mass — teaching, \(\mathcal{N}(0, 3^{2})\) NIHSS points — under which \(\mathrm{BF}_{10} \approx 1.5\): weak evidence either way, in agreement with the estimation summary.
 
 ---
 
@@ -155,7 +155,7 @@ Rounds sentence for the 0.001 row: “In a one-in-a-thousand disease, a 95-perce
 
 ## Chapter 12 — Survival and Competing Risks
 
-**C.12.1.** Time to the composite “dead or mRS \(\geq 4\),” or a Fine–Gray model for the subdistribution of “mRS \(\leq 2\)” with death as competing. Estimand: cumulative incidence of good function at day 90, with death occupying its own incidence. Death is an event in the first version and a competitor in the second; it is not a censor.
+**C.12.1.** Not a composite of “dead or mRS \(\geq 4\)” — nearly everyone in this cohort occupies mRS \(\geq 4\) in the first days, so that “event” fires at time zero and carries no information. Use a Fine–Gray model for the subdistribution of “mRS \(\leq 2\)” (or time to *sustained* mRS \(\leq 3\)) with death as the competing event. Estimand: cumulative incidence of good function at day 90, with death occupying its own incidence. Death is a competitor, not a censor.
 
 **C.12.2.** (a) Cox for death: D is last seen alive at day 40, so the contribution is a survival term \(S_{\text{death}}(40 \mid x_D)\). (b) Cause-specific Cox for time to mRS \(\leq 2\): D has neither the good event nor death by day 40. Administrative censoring at last contact *is* the correct CS contribution, \(S_{\text{cs, good}}(40 \mid x_D)\). Death, had it occurred, would also be a CS-censor for this hazard; it is not a “failure.” A Fine–Gray / CIF likelihood is a different object and would use the subdistribution risk set, not this survival term. (c) Ordinal day-90 mRS with D missing: D contributes the marginal likelihood of the missing ordinal under a named MAR/MNAR model (Chapter 24), or is dropped — which is a different, worse estimand.
 
@@ -188,11 +188,25 @@ Rounds sentence for the 0.001 row: “In a one-in-a-thousand disease, a 95-perce
 | 0 | \(0.09/0.41 = 0.220\) | \(0.21/0.29 = 0.724\) |
 | 0.08 | \(0.17/0.41 = 0.415\) | \(0.13/0.29 = 0.448\) |
 
-The interval vanishes when \(T_t \geq T_{tt}\), which solves to \(R \approx 0.086\) (set the two closed forms equal; see C.14’s hint exercise). A test whose disutility is a quarter of \(B\) is not worth buying.
+The interval vanishes when \(T_t \geq T_{tt}\), which solves to \(R \approx 0.086\) (set the two closed forms equal; C.14.6 shows the algebra). A test whose disutility is about a fifth of \(B\) is not worth buying.
 
 **C.14.3.** Three states, three actions (treat, test, wait) produce a tree with six terminal utilities, not two. Thresholds become *surfaces* in the two-simplex of state probabilities. A single \(p^{*}\) exists only when the state is binary. Mild aphasia is exactly this: mimic versus nondisabling ischemia versus disabling ischemia.
 
 **C.14.4.** They will not match. “Hemorrhages per language life saved” elicits \(H/B\) in count units; “chance of recovery you would forgo to avoid a bleed” elicits a probability trade that maps to the same ratio only if the respondent is an expected-utility agent who heard both frames as the same gamble. Framing, numeracy, and the word *hemorrhage* move the number. Record both and notice the preference is unstable — Chapter 14’s cue to stop over-quantifying.
+
+**C.14.6.** Set \(T_t \geq T_{tt}\) and cross-multiply (both denominators are positive):
+
+\[
+\bigl[(1-Sp)H + R\bigr]\bigl[Sp\,H + (1-Se)B\bigr] \;\geq\; \bigl[Sp\,H - R\bigr]\bigl[(1-Sp)H + Se\,B\bigr].
+\]
+
+The \(Sp(1-Sp)H^2\) terms cancel; collecting the rest gives \(R\,(B+H) \geq B\,H\,(Se+Sp-1)\), so the testing interval vanishes exactly when
+
+\[
+R \;\geq\; \frac{B\,H\,(Se+Sp-1)}{B+H}.
+\]
+
+The right side is the test’s information value: it scales with the Youden index \(Se+Sp-1\) (zero for a useless test, so *any* risk kills it) and with the stakes \(BH/(B+H)\). Teaching numbers \(B=0.40\), \(H=0.30\), \(Se=0.80\), \(Sp=0.70\): \(R^{*} = 0.12 \times 0.5 / 0.7 \approx 0.086\), matching C.14.2.
 
 ---
 
@@ -206,11 +220,13 @@ The interval vanishes when \(T_t \geq T_{tt}\), which solves to \(R \approx 0.08
 
 **C.15.4.** Treat-all NB \(= \pi - (1-\pi)\,p_t/(1-p_t)\). Zero when \(\pi(1-p_t) = (1-\pi)p_t\), i.e. \(p_t = \pi\). In harm/benefit language: treat-all is worthwhile only when prevalence exceeds the treat threshold. If disease is rarer than the harm/benefit bar, treating everyone loses.
 
+**C.15.6.** For a binary action, regret in state \(\theta\) is \(\rho(\theta) = \max_a U(a, \theta) - U(a^{\star}, \theta) \geq 0\), the utility you gave up by not knowing \(\theta\). Then \(EVPI = \mathbb{E}\bigl[\max_a U(a,\theta)\bigr] - \mathbb{E}\bigl[U(a^{\star},\theta)\bigr] = \mathbb{E}[\rho(\theta)]\): EVPI *is* expected regret. It is identically zero exactly when \(a^{\star}\) is optimal in every state with positive posterior probability — no revelation of \(\theta\) could change the action. That is the formal version of “the decision is not on a knife edge, so do not buy information.”
+
 ---
 
 ## Chapter 16 — Bedside Shared Decisions
 
-**C.16.1.** Two spoken arrays of 100. Without EVT: “40 do not survive; 16 need full care; 22 are bedbound but aware; 18 are back to a cane-and-help life; 4 walk independently.” With EVT: “33, 12, 20, 24, 11.” Collapse 0–2 with 3 if the daughter is defending “a life she would recognize” (prestroke 3), and collapse 5 with 6 if “vegetable or dead” is her named harm. Keep 4 visible; it is the state people regret by surprise.
+**C.16.1.** Two spoken arrays of 100. Without EVT: “40 do not survive; 16 are bedridden and need constant care; 22 cannot walk or manage their bodily needs without help; 18 are back to a cane-and-help life; 4 walk independently.” With EVT: “33, 12, 20, 24, 11.” Collapse 0–2 with 3 if the daughter is defending “a life she would recognize” (prestroke 3), and collapse 5 with 6 if “vegetable or dead” is her named harm. Keep 4 visible; it is the state people regret by surprise.
 
 **C.16.2.** “DAWN-positive, we take her” treats a trial-eligibility flag as a command. That is the effective-care error: strong evidence of *average* benefit in a selected population is being used as if the threshold cannot move with prestroke mRS 3, age 89, and the daughter’s utilities. Late-window EVT here is preference-sensitive care. The scan is beautiful. The decision is still hers.
 
@@ -218,17 +234,19 @@ The interval vanishes when \(T_t \geq T_{tt}\), which solves to \(R \approx 0.08
 
 **C.16.4.** Best-case: the 90th percentile of the *with-EVT* predictive distribution, states 0–3 heavier. Worst-case: the 10th percentile, states 5–6 heavier. Do not quote the best with-EVT against the worst without-EVT; that is two different worlds. Pair quantiles *within* an action, then show the contrast of medians.
 
+**C.16.6.** “Relative risk of mRS 0–2” compares \(P(\text{mRS 0–2} \mid \text{EVT})\) with \(P(\text{mRS 0–2} \mid \text{no EVT})\) and nothing else. Any summary that depends only on those two numbers corresponds to a utility of the form \(u(\text{state}) = 1\) for mRS 0–2 and \(u = c\) (one constant) for every other state — death, bedridden, full care, and the cane-and-help life the patient already lives are all assigned the *same* value. The daughter named prestroke mRS 3 as the success state and unaware survival as the feared state; the RR of mRS 0–2 is invariant to both. Leading with it therefore smuggles in a utility that erases every value she stated — before the relative framing has even hidden the base rate.
+
 ---
 
 ## Chapter 17 — Communicating Uncertainty
 
 **C.17.1.** Under 40 words: “With a skeptical Beta(8, 12) prior, 31 of 62 patients were independent; the posterior mean was 0.48 and the pre-specified success rule was not met.” You had to add the prior, the rule, and the miss. You had to delete “uninformative” and “demonstrated benefit.”
 
-**C.17.2.** Beta(39, 43). Mean 0.476. \(P(\theta > 0.50) = 1 - F_{\text{Beta}}(0.50; 39, 43) \approx 0.33\). \(P(\theta > 0.35) \approx 0.99\). Quoting only 0.99 is spin: it is the probability of beating a bar the trial did not care about. Quoting only 0.33 is also spin if you bury the 0.93 against the real bar of 0.40. Report the pre-specified functional.
+**C.17.2.** Beta(39, 43). Mean 0.476. \(P(\theta > 0.50) = 1 - F_{\text{Beta}}(0.50; 39, 43) \approx 0.33\). \(P(\theta > 0.35) \approx 0.99\). Quoting only 0.99 is spin: it is the probability of beating a bar the trial did not care about. Quoting only 0.33 is also spin if you bury the 0.92 against the real bar of 0.40. Report the pre-specified functional.
 
-**C.17.3.** “Thank you — we agree the prior should be labeled precisely. Beta(8, 12) has mean 0.40 and prior sample size 20; it was chosen to encode a skeptical historical independence rate, not to stay out of the way. ‘Weakly informative’ would describe a prior that rules out cartoons while remaining dominated by 62 observations at any plausible mean. This prior can still move the success probability from 0.96 (flat) to 0.93 (ours) to 0.88 (more skeptical). We will call it skeptical and show the sensitivity, and we will not call it weakly informative.”
+**C.17.3.** “Thank you — we agree the prior should be labeled precisely. Beta(8, 12) has mean 0.40 and prior sample size 20; it was chosen to encode a skeptical historical independence rate, not to stay out of the way. ‘Weakly informative’ would describe a prior that rules out cartoons while remaining dominated by 62 observations at any plausible mean. This prior can still move the success probability from 0.95 (flat) to 0.92 (ours) to 0.89 (more skeptical) — and the rule fails under all three. We will call it skeptical and show the sensitivity, and we will not call it weakly informative.”
 
-**C.17.4.** Sequential Beta starting at (8, 12), adding one Bernoulli at a time toward 31/62. The mean walks from 0.40 toward 0.48; the 95% band narrows toward 0.37–0.58. A naive reader who ignores the pre-specified \(P(\theta>0.40)>0.95\) rule will declare victory when the posterior mean crosses 0.45 (near \(n = 20\) on this path). The 95% ET band never excludes 0.40 — it is still 0.37–0.58 at \(n = 62\) — and the pre-specified functional never reaches 0.95. Mark \(n \approx 20\) on the fan and write “mean rule, not the protocol rule.”
+**C.17.4.** Sequential Beta starting at (8, 12), adding one Bernoulli at a time toward 31/62. The mean walks from 0.40 toward 0.48; the 95% band narrows toward 0.37–0.58. A naive reader who ignores the pre-specified \(P(\theta>0.40)>0.95\) rule will declare victory once the posterior mean crosses and stays above 0.45 (the rounded teaching path first touches 0.45 briefly near \(n = 11\); the sustained crossing is near \(n = 20\)). The 95% ET band never excludes 0.40 — it is still 0.37–0.58 at \(n = 62\) — and the pre-specified functional never reaches 0.95. Mark \(n \approx 20\) on the fan and write “mean rule, not the protocol rule.”
 
 **C.17.6.** Let \(\eta \sim \mathcal{N}(0, 10^2)\) and \(\pi = \operatorname{logit}^{-1}(\eta)\). Then \(\pi \notin (0.01, 0.99)\) iff \(|\eta| > \operatorname{logit}(0.99) = \log 99 \approx 4.595\). The two-tailed Normal probability is \(2\Phi(-4.595/10) = 2\Phi(-0.4595) \approx 0.646\), about two-thirds, not more than 80%. The prior is U-shaped on the probability scale. It is not a point mass at 0 and 1, and it is not “uninformative.”
 
@@ -238,7 +256,7 @@ The interval vanishes when \(T_t \geq T_{tt}\), which solves to \(R \approx 0.08
 
 **C.18.1.** Base rate 0.18, examination LR 2.5: prior odds \(= 0.220 \times 2.5 = 0.549\), prior \(= 0.35\). CTA\(+\): posterior \(0.83\). CTA\(-\): posterior \(0.047\). Suite-free treat threshold \(p^{*} \approx 0.17\): 0.35 still exceeds it, so treat-without-CTA remains defensible *if* the suite is free. It is less attractive than at 0.57. A negative CTA now drops you far below threshold, so CTA is mandatory whenever the suite has opportunity cost, and still wise when it does not. New treat-without-test rule: only if delay is costly *and* CTA is unavailable.
 
-**C.18.2.** Point RR \(= e^{-0.35} \approx 0.70\). Expansion under intensive \(\approx 0.56 \times 0.70 = 0.39\). ARR \(\approx 0.17\). With the chapter’s 0.25 conversion to good mRS, functional ARR \(\approx 0.043\) against 0.03 renal harm. The ledger can flip: a 140 target becomes reasonable in the spot-positive stratum *if* you believe the modifier. Say the modifier was elicited, not estimated from this patient.
+**C.18.2.** Point RR \(= e^{-0.35} \approx 0.70\). Expansion under intensive \(\approx 0.56 \times 0.70 = 0.39\). ARR \(\approx 0.17\). With the chapter’s 0.25 conversion to good mRS, functional ARR \(\approx 0.041\) against 0.03 renal harm. The ledger can flip: a 140 target becomes reasonable in the spot-positive stratum *if* you believe the modifier. Say the modifier was elicited, not estimated from this patient.
 
 **C.18.3.** Class-level median RR \(= e^{-0.20} \approx 0.819\). Mixture after P(AF) \(= 0.05\): \(0.05\times 0.50 + 0.95\times 0.819 = 0.803\). Ischemic risk \(5.0\times 0.803 = 4.015\) per 100, ARR \(= 0.985/100\). \(\Delta EU = 0.00985 - 1.8\times 0.004 = +0.0027\). Barely positive. The colleague smuggled cardioembolic mechanism into an ESUS residue class: \(-0.20\) is an AF-trial number wearing an ESUS label.
 
@@ -295,7 +313,7 @@ A rename then dies before Stan compiles a model on the wrong columns.
 
 **C.22.2.** Eligibility: suspected or imaging-confirmed LVO at first medical contact in the network, last-known-well inside the pre-declared window, both routing strategies still available. Strategies: “mothership EVT” versus “spoke thrombolysis then transfer for EVT,” assigned at first medical contact. Time zero: that contact, not hub-door and not puncture. Follow-up: 90-day mRS on everyone, including those who never reach the hub. Estimand: contrast in 90-day ordinal mRS under the two strategies. Immortal-time error: starting the clock at last-known-well and classifying exposure by whether the patient *arrived* at the hub credits transfer survivors to the drip-and-ship arm (they did arrive) and deletes the dead-en-route from it, so the arrival-required strategy looks safer than it is.
 
-**C.22.3.** Crude RD mixes indication and center volume. The hierarchical intercept without severity partial-pools noisy centers; it removes center-level sampling noise, not confounding by indication. The standardized RD from the full outcome model is the one that adjusts the back-door set and then g-computes. Tell the committee: the middle number is a shrunken association, not a treatment effect; print the standardized contrast or do not print a contrast.
+**C.22.3.** Crude RD mixes indication and center. The hierarchical intercept without severity absorbs the *time-invariant center confounding* (the \(+8\) in the teaching decomposition) along with center-level sampling noise — that is why the OR fell from 2.1 to 1.4. It leaves confounding by indication (the \(-4\)) and any time-zero misalignment untouched. The standardized RD from the full outcome model is the one that adjusts the back-door set and then g-computes. Tell the committee: the middle number is a partially deconfounded association, not a treatment effect; print the standardized contrast or do not print a contrast.
 
 **C.22.4.** Restricting to “no WLST in 72 hours” conditions on a descendant of early severity and of the treatment decision. It closes the path treatment \(\to\) early course \(\to\) WLST \(\to\) mRS and opens collider paths through whatever predicted withdrawal. Offer the ITT contrast in everyone, with WLST as a secondary event, and accept only *baseline* covariates (age, GCS, volume, anticoagulant, prestroke mRS) on the right-hand side.
 
@@ -313,7 +331,7 @@ A rename then dies before Stan compiles a model on the wrong columns.
 
 **C.24.1.** Six sentences: “The estimand is the 90-day ordinal contrast in treated LVO, late versus early window. Complete-case analysis estimates that contrast in the 312 who were found, not in the 400 who were treated. Calling 22% ‘acceptable’ assumes the missing are a coin flip given the covariates you kept — that is MAR, and you did not argue it. Transfers and non-English speakers are over-represented among the 88, so the complete cases are the easy-to-find locals. One MNAR mechanism you cannot rule out from the complete-case table: patients who worsened after a good-looking discharge stop answering the phone. The hole is part of the likelihood, not a footnote.”
 
-**C.24.2.** Complete-case \(P(\text{mRS }0\text{–}2) = 118/312 \approx 0.378\). LOCF adds the 51 discharge 0–2 scores: \(169/400 = 0.423\). Recode the four in-hospital deaths as 6 and shift the 84 living missing one category worse than discharge: independence falls toward the chapter’s teaching 0.36 (the 51 discharge 0–2 are no longer all successes). Put a MAR imputation plus one named MNAR shift in the abstract. Complete-case and LOCF are labeled sensitivity rows, not “the registry result.”
+**C.24.2.** Complete-case \(P(\text{mRS }0\text{–}2) = 118/312 \approx 0.378\). LOCF adds the 51 discharge 0–2 scores: \(169/400 = 0.423\). Recode the four in-hospital deaths as 6 and shift the 84 living missing one category worse than discharge: with the teaching split 10/16/25 of the 51 discharge 0–2 across mRS 0/1/2, only the 26 at discharge 0–1 remain successes, so independence falls to \((118+26)/400 = 0.36\). Put a MAR imputation plus one named MNAR shift in the abstract. Complete-case and LOCF are labeled sensitivity rows, not “the registry result.”
 
 **C.24.3.** Selection steps: presented with late-window LVO \(\to\) taken for EVT \(\to\) CTP obtained \(\to\) favorable map \(\to\) in the 168. The 0.18 is the association of a favorable map with independence *among imaged, treated, late-window patients*. It is not the effect of treating on a favorable map, and it is not the accuracy of CTP in presenting patients.
 

@@ -1,24 +1,18 @@
-# Bayesian Clinical Reasoning
-
-<div class="ebook-hero ebook-hero--split" markdown>
-
-<div class="hero-copy" markdown>
+<div class="ebook-hero" markdown>
 
 <p class="eyebrow">Statistics · Decision analysis · Evidence</p>
 
-# Statistics, Decision Analysis, and Evidence
+# Bayesian Clinical Reasoning
 
 A continuous argument: clinical reasoning is Bayesian updating. Priors are not a confession of bias. They are the pre-test probability you already use — made explicit, checked, and carried through to a threshold and a conversation.
-
-</div>
-
-</div>
 
 <p class="ebook-start">
 <a href="how-to-use.html">How to read this book</a>
 <a class="secondary" href="curriculum/01-why-bayesian-thinking-matters.html">Start Chapter 1</a>
 <a class="secondary" href="evidence-register.html">Evidence register</a>
 </p>
+
+</div>
 
 ## Companion books
 

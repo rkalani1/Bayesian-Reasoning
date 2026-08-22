@@ -89,32 +89,32 @@ nav:
   - How to use this book: how-to-use.md
   - Evidence register: evidence-register.md
   - Book:
-    - Part I — Foundations:
+    - Part I — Foundations of Bayesian clinical thinking:
       - "01. Why Bayesian Thinking Matters": curriculum/01-why-bayesian-thinking-matters.md
       - "02. Probability, Odds, and Uncertainty": curriculum/02-probability-odds-uncertainty.md
       - "03. Bayes’ Theorem": curriculum/03-bayes-theorem.md
       - "04. Priors": curriculum/04-priors.md
-    - Part II — Inference with R:
+    - Part II — Core Bayesian inference with R:
       - "05. Likelihoods and Conjugate Models": curriculum/05-likelihoods-conjugate-models.md
       - "06. Hierarchical Models": curriculum/06-hierarchical-models.md
       - "07. Computational Inference": curriculum/07-computational-inference.md
       - "08. Model Checking": curriculum/08-model-checking.md
       - "09. Estimation, ROPE, and Bayes Factors": curriculum/09-estimation-rope-bayes-factors.md
-    - Part III — Design and Synthesis:
+    - Part III — Design, evidence synthesis, and advanced methods:
       - "10. Sample Size and Adaptive Designs": curriculum/10-sample-size-adaptive-designs.md
       - "11. Diagnostic Accuracy": curriculum/11-diagnostic-accuracy.md
       - "12. Survival and Competing Risks": curriculum/12-survival-competing-risks.md
       - "13. Bayesian Meta-Analysis": curriculum/13-bayesian-meta-analysis.md
-    - Part IV — Decision and Communication:
+    - Part IV — Decision analysis and clinical action:
       - "14. Decision Theory and Thresholds": curriculum/14-decision-theory-thresholds.md
       - "15. Decision Curves and Value of Information": curriculum/15-decision-curves-voi.md
       - "16. Bedside and Shared Decisions": curriculum/16-bedside-shared-decisions.md
       - "17. Communicating Uncertainty": curriculum/17-communicating-uncertainty.md
-    - Part V — Synthesis:
+    - Part V — Synthesis and case studies:
       - "18. Integrated Case Studies": curriculum/18-integrated-case-studies.md
       - "19. A Complete Workflow": curriculum/19-complete-workflow.md
       - "20. Reproducible Pipelines": curriculum/20-reproducible-pipelines.md
-    - Part VI — Identification and institutions:
+    - Part VI — Identification, prediction, and institutions:
       - "21. Transporting Evidence": curriculum/21-transporting-evidence-hte.md
       - "22. Causal Models and the Target Trial": curriculum/22-causal-target-trial.md
       - "23. Clinical Prediction Models": curriculum/23-clinical-prediction-models.md

@@ -130,7 +130,7 @@ The distinction matters because a hospital can have a smaller standardized effec
 
 A **teaching** four-row world, invented so the weighted sums can be done by hand. “Good” here means return to prestroke function or better — already a more honest endpoint for mixed baselines than mRS 0–2.
 
-| Phenotype (teaching) | P(good \| EVT) | P(good \| medical) | Risk difference | Weight in trial | Weight at this hospital |
+| Phenotype (teaching) | P(prestroke-or-better \| EVT) | P(prestroke-or-better \| medical) | Risk difference | Weight in trial | Weight at this hospital |
 |---|---:|---:|---:|---:|---:|
 | 70 years, prestroke 0, ASPECTS 9 | 0.50 | 0.22 | 0.28 | 0.40 | 0.15 |
 | 80 years, prestroke 1, ASPECTS 8 | 0.36 | 0.16 | 0.20 | 0.35 | 0.25 |
@@ -373,13 +373,13 @@ A last discipline, because this chapter will be misread as a reason to deny EVT 
 
 ## Exercises
 
-1. The fellow says “She is DAWN-positive. We take her.” Name which of the three questions that sentence answered, which it pretended to answer, and write six sentences to the daughter that do not smuggle the trial ATE across a failed positivity condition at prestroke mRS 3.
+**21.1.** The fellow says “She is DAWN-positive. We take her.” Name which of the three questions that sentence answered, which it pretended to answer, and write six sentences to the daughter that do not smuggle the trial ATE across a failed positivity condition at prestroke mRS 3.
 
-2. Using only the teaching four-row table, compute the trial-weighted ATE and the hospital-standardized contrast by hand. A colleague wants to quote the hospital number at the bedside because “it is closer to our patients.” Why is it still not Question 3? What single change to the table would make the hospital number *equal* her number?
+**21.2.** Using only the teaching four-row table, compute the trial-weighted ATE and the hospital-standardized contrast by hand. A colleague wants to quote the hospital number at the bedside because “it is closer to our patients.” Why is it still not Question 3? What single change to the table would make the hospital number *equal* her number?
 
-3. A supplement reports an unshrunk odds ratio of 1.05 (interval 0.22 to 5.1) in “patients aged \(\ge 85\)” from a teaching slice with \(n = 16\). Write the hierarchical estimator in words, including what \(\tau_\beta\) is doing. Then write the sentence you put in the note if you *refuse* to shrink this slice toward the ATE. Which assumption are you declining to make?
+**21.3.** A supplement reports an unshrunk odds ratio of 1.05 (interval 0.22 to 5.1) in “patients aged \(\ge 85\)” from a teaching slice with \(n = 16\). Write the hierarchical estimator in words, including what \(\tau_\beta\) is doing. Then write the sentence you put in the note if you *refuse* to shrink this slice toward the ATE. Which assumption are you declining to make?
 
-4. Uncomment the `brm()` call and, once it runs, extract her posterior predictive probabilities for mRS 0–3 and for death under both actions. Report the 80% interval on each contrast. Then refit with `prior(normal(0, 2), class = b, coef = "evt:prestroke")` in place of the skeptical \(0.25\) prior. What happens to her interval, and what does that tell you about whether the data or the prior is doing the transport past prestroke mRS 3?
+**21.4.** Uncomment the `brm()` call and, once it runs, extract her posterior predictive probabilities for mRS 0–3 and for death under both actions. Report the 80% interval on each contrast. Then refit with `prior(normal(0, 2), class = b, coef = "evt:prestroke")` in place of the skeptical \(0.25\) prior. What happens to her interval, and what does that tell you about whether the data or the prior is doing the transport past prestroke mRS 3?
 
 ## Further reading
 

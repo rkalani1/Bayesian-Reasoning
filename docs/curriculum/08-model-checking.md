@@ -36,7 +36,7 @@ p(y^{\mathrm{sim}}) = \int p(y^{\mathrm{sim}} \mid \theta)\, p(\theta)\, d\theta
 
 which is the posterior predictive with the prior in place of the posterior. The discrepancy functions can be the same ones you will use later — overall ICH rate, rate in the anticoagulant slice, rate in the top NIHSS band — and they should be. A check you invent only after seeing the posterior is not a check of the prior.
 
-For the vignette’s Bernoulli ICH model the cheapest prior predictive is a Beta-binomial on the intercept alone. A **teaching** prior \(\pi \sim \operatorname{Beta}(4, 60)\) says the ICH rate is near 6 percent and that you have seen the equivalent of 64 imaginary patients. Draw \(\pi\), then draw 400 Bernoulli trials, 4,000 times. If those 400-patient data sets routinely produce 80 hemorrhages, or routinely produce one, the intercept prior is a cartoon. If they routinely produce something like 15 to 40, the prior is in the world the fellow thinks she works in.
+For the vignette’s Bernoulli ICH model the cheapest prior predictive is a Beta-binomial on the intercept alone. A **teaching** prior \(\pi \sim \operatorname{Beta}(4, 60)\) says the ICH rate is near 6 percent and that you have seen the equivalent of 64 imaginary patients. Draw \(\pi\), then draw 400 Bernoulli trials, 4,000 times. If those 400-patient data sets routinely produce 80 hemorrhages, or routinely produce one, the intercept prior is a cartoon. If they routinely produce something like 10 to 45 (the central 90 percent runs from roughly 8 to 49, centered near 25), the prior is in the world the fellow thinks she works in.
 
 ```r
 # Prior predictive ICH counts in 400 tPA patients, before any MCMC.
@@ -136,7 +136,7 @@ Another leftover check: residual association with a variable you *did not* inclu
 
 Gabry, Simpson, Vehtari, Betancourt, and Gelman’s visualization paper is the right mental model: the check should be a graph you can argue about in a stroke meeting, not a Bayesian \(p\)-value filed in a supplement.
 
-A concrete leftover table, so the idea is not left as a slogan. Suppose the four predicted-probability bins contain \(160\), \(120\), \(80\), and \(40\) patients, with observed ICH counts (teaching numbers) of \(4\), \(6\), \(5\), and \(7\). The model’s posterior-mean predictions in those bins are \(5.1\), \(5.8\), \(4.4\), and \(3.9\). The top bin — forty patients, seven bleeds, prediction \(3.9\) — is the embarrassment. A posterior predictive band for that bin that runs from \(1\) to \(6\) events does not cover \(7\). That is a failed check. It is also localized: the first three bins are compatible with the replications. A Brier score averaged over all \(400\) patients will bury the failure under the well-behaved majority. Do not average. Show the bins.
+A concrete leftover table, so the idea is not left as a slogan. Suppose you cut \(\hat\pi_i\) into four ordered bins at the cohort’s own quantile-style boundaries, containing \(160\), \(120\), \(80\), and \(40\) patients, with observed ICH counts (teaching numbers) of \(4\), \(6\), \(5\), and \(10\). The model’s posterior-mean predictions in those bins are \(5.1\), \(5.8\), \(4.4\), and \(3.9\). The top bin — forty patients, ten bleeds, prediction \(3.9\) — is the embarrassment. The \(95\%\) posterior predictive band for that bin runs from about \(1\) to \(8\) events and does not cover \(10\); the predictive probability of ten or more is about \(0.004\). That is a failed check. It is also localized: the first three bins are compatible with the replications. A Brier score averaged over all \(400\) patients will bury the failure under the well-behaved majority. Do not average. Show the bins.
 
 The same leftover idea applies to a variable you left out. Split `y_rep` by off-hours presentation. If nights systematically produce more ICH than any replication, the linear predictor is missing a shift effect, a staffing effect, or a case-mix effect that travels with the clock. You do not have to believe nights *cause* hemorrhage to accept that a dashboard used at 02:00 is miscalibrated.
 
@@ -336,7 +336,7 @@ The check–revise loop has a stopping rule, or it becomes a second career. Stop
 
 5. **LOO versus a spline.** ELPD difference for a NIHSS spline versus linear NIHSS is \(+2.1\) with SE \(3.4\). A colleague calls this “evidence for nonlinearity.” Rewrite the sentence.
 
-6. **Calibration binning.** You have \(18\) ICH events in \(400\) patients. Why are ten deciles the wrong bins, and what four bins would you defend at a methods conference?
+6. **Calibration binning.** You have \(25\) ICH events in \(400\) patients. Why are ten deciles the wrong bins, and what four bins would you defend at a methods conference?
 
 ## Further reading
 

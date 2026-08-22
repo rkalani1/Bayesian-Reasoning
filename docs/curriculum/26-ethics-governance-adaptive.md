@@ -98,7 +98,7 @@ The closed session then has a script. Compute the pre-declared \(T\)s. Compare t
 
 Chapter 10 treated the OC table as what regulators and a DSMB use to trust a design. It is also what an IRB and a community consultation use to decide whether the design is allowed to meet a patient. The ethical content lives in particular cells.
 
-**Expected number treated on an inferior arm.** Under a truth where evacuation is better by the worthwhile increment, how many patients does the design assign to medicine? Under the reverse truth, how many does it assign to surgery? RAR is sold on shrinking these numbers. The OC table tells you whether the sale is real at your sample size and your adaptation schedule. A tilt that begins at patient 40, caps at 80/20, and sits on noisy ordinal outcomes may save three inferior assignments over a 300-patient comparison. Three is not zero. It is also not the brochure.
+**Expected number treated on an inferior arm.** Under a truth where evacuation is better by the worthwhile increment, how many patients does the design assign to medicine? Under the reverse truth, how many does it assign to surgery? RAR is sold on shrinking these numbers. The OC table tells you whether the sale is real at your sample size and your adaptation schedule. A tilt that begins at patient 40, caps at 80/20, and sits on noisy outcomes saves a few dozen inferior assignments over a 300-patient comparison — the OC table below prices it at about 32 of the 150 a fixed design would assign. Thirty-two is not zero. It is also about a fifth of the arm, not the half the brochure implies.
 
 **Expected number treated on a superior arm that the design failed to recognize.** The false-futility rate. Dropping evacuation when it is truly better, because the first surgeons were learning, is an ethical harm to every subsequent patient who would have been offered a graduated arm.
 
@@ -195,7 +195,7 @@ RAR estimation is not ethically optional. Report the posterior at the stopping t
 
 set.seed(20260818)
 
-rdir <- function(a, b) {
+p_beta_gt <- function(a, b) {
   # Posterior P(p1 > p2) for two independent Betas via Monte Carlo.
   mean(rbeta(4000, a[1], b[1]) > rbeta(4000, a[2], b[2]))
 }
@@ -209,7 +209,7 @@ simulate_rar <- function(p_true = c(surg = 0.38, med = 0.30),
     if (sum(n) < burn) {
       ps <- 0.5
     } else {
-      pp <- rdir(1 + s, 1 + n - s)
+      pp <- p_beta_gt(1 + s, 1 + n - s)
       ps <- 0.2 + 0.6 * pp          # lives in [0.20, 0.80]
     }
     arm <- if (runif(1) < ps) "surg" else "med"
@@ -219,7 +219,7 @@ simulate_rar <- function(p_true = c(surg = 0.38, med = 0.30),
     assign_surg[i] <- arm == "surg"
   }
   list(n = n, s = s, prop_surg = mean(assign_surg),
-       final_pp = rdir(1 + s, 1 + n - s))
+       final_pp = p_beta_gt(1 + s, 1 + n - s))
 }
 
 # Inferior-arm count when surgery is truly better.
@@ -267,7 +267,7 @@ On the ten-minute clock: if the daughter’s question has revealed that the fami
 - National Research Council. *The Prevention and Treatment of Missing Data in Clinical Trials*. Washington, DC: National Academies Press; 2010. Missingness is a governance problem as well as a likelihood problem.
 - Wendler D, Dickert NW, Silbergleit R, Kim SYH, Brown J. Targeted consent for research on standard of care interventions in the emergency setting. *Critical Care Medicine*. 2017;45:e105–e110.
 - Ellenberg SS, Fleming TR, DeMets DL. *Data Monitoring Committees in Clinical Trials*. 2nd ed. Chichester: Wiley; 2019.
-- Gillespie M, et al. Equity considerations in adaptive trial design and reporting — read the current CONSORT-equity and ACE materials alongside this chapter’s equity functionals.
+- Dimairo M, Pallmann P, Wason J, et al. The Adaptive designs CONSORT Extension (ACE) statement. *BMJ*. 2020;369:m115. Read with Welch VA, et al. CONSORT-Equity 2017 extension. *BMJ*. 2017;359:j5085, alongside this chapter’s equity functionals.
 
 !!! success "Key Takeaway"
     Equipoise is a community posterior with a time stamp. Response-adaptive randomization is an ethical offer only if consent can name the tilt without converting it into a promise, if the DSMB charter watches pre-declared functionals rather than a mood, if the operating-characteristics table shows a real reduction in inferior assignments at the \(n\) you will actually enroll, and if equity splits are part of those functionals rather than a discussion paragraph. Protocol, SAP, consent, and closed minutes are four copies of one experiment. When they diverge, the patient was consented to a trial you did not run. The first patient at your hospital, facing a 70/30 sheet, is the audit.

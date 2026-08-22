@@ -150,6 +150,9 @@ T_t = \frac{(1-Sp)\, H}{(1-Sp)\, H + Se\cdot B}, \qquad
 T_{tt} = \frac{Sp\cdot H}{Sp\cdot H + (1-Se)\, B}.
 \]
 
+!!! note "Mathematical Detail"
+    Both closed forms come from the same move that produced \(p^{\star}\): write the expected utilities as lines in \(p\) and solve for the crossing. Testing beats waiting when \(p\,Se\,B - (1-p)(1-Sp)\,H - R > 0\); setting the left side to zero and solving for \(p\) gives \(T_t\). Testing beats immediate treatment when \((1-p)\,Sp\,H - p\,(1-Se)\,B - R > 0\); the same move gives \(T_{tt}\).
+
 A perfect test (\(Se = Sp = 1\), \(R = 0\)) drives \(T_t\) to 0 and \(T_{tt}\) to 1: you always test, because the test is free and decisive. A useless test (\(Se + Sp = 1\)) makes the testing interval vanish. A dangerous test (\(R\) large) can make \(T_t > T_{tt}\), which is the model’s way of saying “do not buy this test.”
 
 ```mermaid
@@ -286,7 +289,7 @@ p_{Rx}^{\star} = \frac{0.30}{0.70} \approx 0.43.
 A perfusion study, for teaching, has \(Se = 0.80\), \(Sp = 0.70\), and a delay-and-contrast disutility \(R = 0.02\). Then
 
 \[
-T_t \approx 0.268, \qquad T_{tt} \approx 0.655 at R = 0.02 (or 0.220 and 0.724 if R = 0).
+T_t \approx 0.268, \qquad T_{tt} \approx 0.655 \quad \text{at } R = 0.02 \text{ (or } 0.220 \text{ and } 0.724 \text{ if } R = 0\text{)}.
 \]
 
 If your posterior that this is *disabling* ischemia — not “any stroke,” disabling ischemia — is 0.55, you are inside the testing interval. If it is 0.75, you treat without waiting for perfusion. If it is 0.15, you wait. The sister’s stronger \(B/H\) lowers every threshold. The banner’s milder view of aphasia raises them.

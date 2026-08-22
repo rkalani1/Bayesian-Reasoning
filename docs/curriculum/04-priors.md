@@ -53,7 +53,7 @@ The ethical content of a prior is almost entirely in the scale. A tight prior ar
 | Informative | Bring a registry or previous trial in as knowledge | Normal(0.4, 0.15) | Launders hope or an incomparable population |
 | Weakly informative | Regularize; let the current data speak | Normal(0, 1.5) or t(3, 0, 2.5) | Still too wide on tiny samples if tails matter |
 | Skeptical | Require evidence to overcome “no effect” | Normal(0, 0.2) | Can delay a real benefit in a rare, grave disease |
-| Enthusiastic | Sensitivity analysis; “even if we hoped…” | Normal(0.5, 0.2) | As a primary prior, it is advocacy |
+| Enthusiastic | Sensitivity analysis; “even if we hoped…” | Normal(0.4, 0.2) | As a primary prior, it is advocacy |
 | Hierarchical | Share strength across centers, trials, subgroups | \(\theta_j \sim \operatorname{Normal}(\mu, \tau)\) | Shrinkage can hide a truly different site |
 
 !!! note "Mathematical Detail"
@@ -130,7 +130,7 @@ Three responses, in order of honesty:
 
 ## Default priors in brms, and why they are not a cop-out
 
-`brms` will not let you pretend you have no prior. If you stay silent it still regularizes intercepts and group-level SDs with weakly informative half-t defaults. The factory default for class = "b" (population coefficients) is an improper flat prior. That is not hygiene for a treatment effect, and it fails under separation. Specify scientific coefficients yourself. `prior = NULL` is the flat-coefficient analysis; name it that way.
+`brms` will not let you pretend you have no prior. If you stay silent it still regularizes intercepts and group-level SDs with weakly informative Student-t defaults (a full Student-t(3, 0, 2.5) on the intercept; half-t on the group-level SDs). The factory default for class = "b" (population coefficients) is an improper flat prior. That is not hygiene for a treatment effect, and it fails under separation. Specify scientific coefficients yourself. `prior = NULL` is the flat-coefficient analysis; name it that way.
 
 Defaults are not scientific claims about BAO. They are numerical hygiene. The moment the coefficient *is* the scientific claim — the EVT effect — you specify the prior yourself, in writing, with the implied odds-ratio interval attached.
 

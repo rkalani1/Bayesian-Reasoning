@@ -96,7 +96,7 @@ The posterior mean, mode, and variance are
 
 \[
 \mathbb{E}[\theta \mid y] = \frac{a+s}{a+b+n}, \qquad
-\mathrm{Mode}(\theta \mid y) = \frac{a+s-1}{a+b+n-2}\ (a+s>1),\qquad
+\mathrm{Mode}(\theta \mid y) = \frac{a+s-1}{a+b+n-2}\ (a+s>1,\ b+n-s>1),\qquad
 \mathrm{Var}(\theta \mid y) = \frac{\tilde a\,\tilde b}{(\tilde a+\tilde b)^2(\tilde a+\tilde b+1)},
 \]
 
@@ -113,11 +113,11 @@ Label these as teaching numbers. They are invented for the exercise; they are no
 The data moved the mean by less than three tenths of a percentage point. That is not a failure of Bayesian updating. It is the prior doing the job it was hired to do. Forty-eight patients with two events are compatible with a wide range of \(\theta\); one hundred fifty pseudo-observations are not easily overthrown by two events.
 
 !!! warning "Common Pitfall"
-    Residents often treat a “historical rate of \(6\%\)” as a point-mass prior. A point mass does not update. If the committee’s prior knowledge is worth anything, encode it as a Beta with a finite pseudo-count. If it is worth nothing, say so and use a weakly informative Beta(\(1\), \(1\)) or Beta(\(2\), \(2\)). Do not hide a dogma inside a decimal.
+    Residents often treat a “historical rate of \(6\%\)” as a point-mass prior. A point mass does not update. If the committee’s prior knowledge is worth anything, encode it as a Beta with a finite pseudo-count. If it is worth nothing, say so and use a gently regularizing Beta(\(2\), \(2\)) — though see below for why even a flat Beta(\(1\), \(1\)) is a poor default for a rare event. Do not hide a dogma inside a decimal.
 
 ### Credible interval and tail probability
 
-The equal-tailed \(95\%\) credible interval is the \(0.025\) and \(0.975\) quantiles of Beta(\(10\), \(188\)). In R this is `qbeta(c(0.025, 0.975), 10, 188)`, which returns approximately \(0.025\) to \(0.085\) on these teaching numbers. The posterior probability that \(\theta > 0.06\) is `1 - pbeta(0.06, 10, 188)`, approximately \(0.27\).
+The equal-tailed \(95\%\) credible interval is the \(0.025\) and \(0.975\) quantiles of Beta(\(10\), \(188\)). In R this is `qbeta(c(0.025, 0.975), 10, 188)`, which returns approximately \(0.025\) to \(0.085\) on these teaching numbers. The posterior probability that \(\theta > 0.06\) is `1 - pbeta(0.06, 10, 188)`, approximately \(0.25\).
 
 Notice what you have and have not shown. You have not shown that the hospital is “safe.” You have shown that, under this prior and this likelihood, about one quarter of the posterior mass still sits above the review threshold. A frequentist exact test of \(H_0: \theta = 0.06\) against this sample would produce a large \(p\)-value and a tempting misreading (“no evidence of a problem”). The posterior tail is the quantity the committee actually asked for.
 
@@ -214,7 +214,7 @@ Prior Beta(\(8\), \(142\)). Data \(s=2\), \(n=48\). Posterior Beta(\(10\), \(188
 
 1. **Posterior.** Mean \(10/198 \approx 0.0505\). The sample proportion \(0.0417\) pulled the prior mean \(0.0533\) slightly downward. The committee should hear the posterior mean, the prior mean, and the sample proportion in one sentence, so nobody can later claim that “Bayes ignored the two hemorrhages.”
 2. **Equal-tailed \(95\%\) CrI.** Approximately \(0.025\) to \(0.085\) (teaching numbers; compute with `qbeta`). The interval still covers the \(6\%\) review threshold. An interval that covers the threshold is not a finding of innocence.
-3. **\(P(\theta > 0.06 \mid y)\).** Approximately \(0.27\). If the committee’s decision rule is “review the protocol if this probability exceeds \(0.25\),” the protocol gets reviewed. If the rule is \(0.50\), it does not. The statistician’s job is to report the probability and refuse to invent the threshold after seeing it.
+3. **\(P(\theta > 0.06 \mid y)\).** Approximately \(0.25\). If the committee’s decision rule is “review the protocol if this probability exceeds \(0.20\),” the protocol gets reviewed. If the rule is \(0.50\), it does not. The statistician’s job is to report the probability and refuse to invent the threshold after seeing it.
 4. **Predictive tail.** Draw \(\theta^{(s)} \sim \mathrm{Beta}(10,188)\), then \(y^{\star(s)} \sim \mathrm{Binomial}(50, \theta^{(s)})\), and count the fraction with \(y^\star \ge 4\). On these teaching numbers the fraction is about 0.26 (plug-in binomial tail at 0.0505 is about 0.24). That is the planning number for next quarter’s quality dashboard. It is larger than the plug-in binomial tail evaluated at \(0.0505\), because the plug-in pretends \(\theta\) is known.
 
 The arithmetic is enough for this vignette. The moment the committee asks whether sICH risk differs by door-to-needle time, by off-hours presentation, or by transferring hospital, conjugacy ends and the next chapter begins.

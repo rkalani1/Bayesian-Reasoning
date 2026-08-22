@@ -384,7 +384,7 @@ Fourteen days is enough if you stop trying to resurrect the 01:14 object and sta
 
 ## Exercises
 
-**20.1.** Write a `.gitignore` for a project that also uses `cmdstanr`’s default `.cmdstan/` directory and writes `*.stan` files into `fits/`. Which of those should be committed?
+**20.1.** Write a `.gitignore` for a project whose team pinned the `cmdstanr` toolchain into a project-local `.cmdstan/` directory (the default install lives outside the project, in your home directory) and that writes `*.stan` files into `fits/`. Which of those should be committed?
 
 **20.2.** A colleague commits `data/raw/evt_extract.csv` to a private GitHub repository “because it is private.” Give three reasons this is still the wrong action.
 

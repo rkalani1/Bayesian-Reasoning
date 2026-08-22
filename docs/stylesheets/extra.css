@@ -24,69 +24,14 @@
   --ebook-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
 }
 
-/* Programmatic captions, full-resolution affordance, and non-color link cues. */
-.md-typeset p a:not(.figure-zoom),
+/* Non-color link cues. */
+.md-typeset p a,
 .md-typeset li a,
 .md-typeset td a,
 .md-typeset figcaption a {
   text-decoration: underline;
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.16em;
-}
-
-.teaching-figure {
-  margin: 1.25rem 0 1.7rem;
-}
-.figure-zoom {
-  display: block;
-  color: inherit;
-  cursor: zoom-in;
-  text-decoration: none !important;
-}
-.figure-zoom-hint {
-  display: inline-block;
-  margin-left: 0.45rem;
-  color: var(--ebook-primary);
-  font-family: var(--ebook-sans);
-  font-size: 0.78em;
-  font-style: normal;
-  font-weight: 600;
-}
-.opening-figure-gallery {
-  margin: 0.85rem 0 1.2rem;
-  border: 1px solid var(--ebook-rule);
-  border-radius: 0.8rem;
-  background: var(--ebook-surface);
-}
-.opening-figure-gallery > summary {
-  cursor: pointer;
-  padding: 0.72rem 0.9rem;
-  color: var(--ebook-deep);
-  font-family: var(--ebook-sans);
-  font-weight: 650;
-}
-.opening-figure-gallery[open] {
-  padding: 0 0.9rem 0.8rem;
-}
-
-@media screen and (max-width: 560px) {
-  /* The wide validation-layers image is illegible at phone widths; keep the
-     caption so its claim is not silently dropped from small screens. */
-  .md-typeset .feature-figure img {
-    display: none;
-  }
-  .md-typeset .feature-figure {
-    padding: 0.85rem 0.95rem;
-  }
-  .md-typeset .feature-figure figcaption {
-    margin: 0;
-    max-width: none;
-    text-align: left;
-  }
-  .figure-zoom-hint {
-    display: block;
-    margin: 0.35rem 0 0;
-  }
 }
 
 /* ==========================================================================
@@ -122,8 +67,7 @@
   }
 
   .md-nav__link:focus-visible,
-  .md-typeset summary:focus-visible,
-  .figure-zoom:focus-visible {
+  .md-typeset summary:focus-visible {
     outline: 2px solid var(--ebook-primary);
     outline-offset: 3px;
   }
@@ -132,51 +76,18 @@
     isolation: isolate;
   }
 
-  .route-grid > a {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .route-grid > a::after {
-    content: "";
-    position: absolute;
-    inset: auto 1.2rem 0;
-    height: 3px;
-    border-radius: 999px 999px 0 0;
-    background: linear-gradient(90deg, var(--ebook-primary), #d6a927);
-    opacity: 0;
-    transform: scaleX(0.35);
-    transform-origin: left;
-    transition: opacity 180ms ease, transform 180ms ease;
-  }
-
-  .route-grid > a:is(:hover, :focus-visible)::after {
-    opacity: 1;
-    transform: scaleX(1);
-  }
-
   .md-typeset table {
     font-variant-numeric: tabular-nums;
   }
 }
 
 @media (hover: none) {
-  .route-grid > a:hover,
   .chapter-list a:hover {
     transform: none;
   }
 }
 
 @media print {
-  .figure-zoom-hint {
-    display: none !important;
-  }
-  .opening-figure-gallery > summary {
-    display: none !important;
-  }
-  .opening-figure-gallery:not([open]) > *:not(summary) {
-    display: block !important;
-  }
   .md-content__inner::after {
     content: "Bayesian Clinical Reasoning";
     display: block;
@@ -189,53 +100,9 @@
 }
 
 /* ==========================================================================
-   Post-launch model-path composition (OBS-007, OBS-008)
+   Hero call-to-action row (inside the teal hero card)
    ========================================================================== */
 @media screen {
-  /* Neutralize Material's generic <details> chrome (admonition icon, blue
-     left border, white surface) — this disclosure is hero furniture. */
-  .md-typeset details.model-path-disclosure {
-    min-width: 0;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-radius: 0.7rem;
-    background: transparent;
-    box-shadow: none;
-    font-size: inherit;
-  }
-
-  .md-typeset .model-path-disclosure > summary {
-    min-height: 44px;
-    align-items: center;
-    padding: 0.68rem 2.2rem 0.68rem 0.85rem;
-    border: 1px solid rgba(255, 255, 255, 0.34);
-    border-radius: 0.7rem;
-    background: #134e4a;
-    color: #fff;
-    cursor: pointer;
-    font-family: var(--ebook-sans);
-    font-weight: 650;
-    list-style: none;
-  }
-
-  .md-typeset .model-path-disclosure > summary::before {
-    display: none;
-  }
-
-  .md-typeset .model-path-disclosure > summary:hover {
-    background: #042f2e;
-  }
-
-  .model-path-disclosure > summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .model-path-disclosure > summary:focus-visible {
-    outline: 3px solid #fff;
-    outline-offset: 3px;
-  }
-
   .ebook-hero .ebook-start {
     position: relative;
     z-index: 2;
@@ -262,111 +129,11 @@
     background: #f8fafc;
     color: #115e59 !important;
   }
-
-  .md-typeset ol.model-path-steps {
-    position: relative;
-    z-index: 2;
-    display: none;
-    margin: 0.25rem 0 0.65rem;
-    padding: 0;
-    border-radius: 0.65rem;
-    overflow: hidden;
-    list-style: none;
-  }
-
-  .model-path-steps li {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0 0.42rem;
-    align-items: center;
-    max-width: none;
-    min-width: 0;
-    padding: 0.48rem 0.55rem;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(4, 47, 46, 0.24);
-  }
-
-  .model-path-steps li:last-child {
-    grid-column: 1 / -1;
-  }
-
-  .model-path-steps span {
-    grid-row: 1 / 3;
-    color: #99f6e4;
-    font: 700 0.72rem/1 var(--ebook-sans);
-  }
-
-  .model-path-steps strong {
-    color: #fff;
-    font-size: 0.82rem;
-    line-height: 1.1;
-  }
-
-  .model-path-steps small {
-    color: rgba(255, 255, 255, 0.76);
-    font-size: 0.68rem;
-    line-height: 1.15;
-  }
-}
-
-@media screen and (min-width: 901px) {
-  .md-content:has(.ebook-hero--split) {
-    max-width: 56rem;
-  }
-
-  /* Material sets html { font-size: 125% }, so 1rem = 20px here: the art
-     track floor is 320px — legible, without crushing the copy column. */
-  .ebook-hero--split {
-    grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
-  }
-
-  /* The long title needs two lines beside the art; cap the split-hero H1
-     below the stacked-hero size so it never breaks into three. */
-  .ebook-hero--split .hero-copy h1 {
-    font-size: clamp(1.7rem, 1.1rem + 1.25vw, 2.1rem) !important;
-  }
-
-  .model-path-disclosure > summary {
-    display: none;
-  }
-
-  .model-path-disclosure:not([open]) > .hero-art {
-    display: block;
-  }
-
-  .model-path-disclosure .hero-art img {
-    width: 100%;
-  }
 }
 
 @media screen and (max-width: 900px) {
   .ebook-hero {
     padding: clamp(1.35rem, 5vw, 1.85rem);
-  }
-
-  .ebook-hero--split {
-    align-items: start;
-  }
-
-  .md-typeset ol.model-path-steps {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .md-typeset ol.model-path-steps li {
-    margin: 0;
-  }
-
-  .md-typeset details.model-path-disclosure {
-    margin-top: 0.15rem;
-  }
-
-  .model-path-disclosure[open] > .hero-art {
-    margin-top: 0.75rem;
-  }
-
-  .ebook-hero .meta {
-    margin-top: 0.5rem;
   }
 }
 
@@ -396,148 +163,9 @@
     overflow-x: clip;
   }
 
-  /* Column tracks are owned by the breakpoint blocks: ≥901px gives the
-     model-path art a readable minmax(22rem, .95fr) track; ≤900px stacks. */
-  .ebook-hero--split {
-    display: grid;
-    gap: clamp(1rem, 2.5vw, 2rem);
-    align-items: center;
-  }
-
-  .ebook-hero--split .hero-copy,
-  .ebook-hero--split .hero-art {
-    position: relative;
-    z-index: 1;
-    min-width: 0;
-  }
-
-  .ebook-hero--split .hero-art img {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin: 0;
-    border: 0;
-    filter: drop-shadow(0 18px 30px rgba(15, 23, 42, 0.20));
-  }
-
-  .ebook-hero--split .hero-art {
-    width: 100%;
-    margin: 0.15rem 0 0;
-  }
-
-  .route-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.9rem;
-    margin: 1rem 0 2.25rem;
-  }
-
-  .route-grid > a {
-    display: grid;
-    gap: 0.26rem;
-    min-height: 8.4rem;
-    padding: 1.15rem 1.2rem;
-    color: var(--ebook-ink);
-    text-decoration: none;
-    background: rgba(255, 255, 255, 0.84);
-    border: 1px solid rgba(15, 118, 110, 0.18);
-    border-radius: var(--ebook-radius);
-    box-shadow: var(--ebook-shadow);
-    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-  }
-
-  .route-grid > a:hover {
-    transform: translateY(-3px);
-    border-color: rgba(15, 118, 110, 0.46);
-    box-shadow: 0 16px 34px rgba(15, 76, 72, 0.11);
-  }
-
-  .route-grid strong {
-    font-family: var(--ebook-serif);
-    font-size: 1.08rem;
-    line-height: 1.25;
-  }
-
-  .route-grid > a > span:last-child {
-    color: var(--ebook-muted);
-    font-size: 0.85rem;
-    line-height: 1.5;
-  }
-
-  .route-kicker {
-    color: var(--ebook-deep);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-  }
-
-  .feature-figure {
-    margin: 1.1rem 0 1.75rem;
-    padding: clamp(0.8rem, 2vw, 1.25rem);
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.90), rgba(236, 253, 245, 0.72));
-    border: 1px solid rgba(15, 118, 110, 0.16);
-    border-radius: var(--ebook-radius);
-    box-shadow: var(--ebook-shadow);
-  }
-
-  .feature-figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin: 0;
-    border: 0;
-    box-shadow: none;
-  }
-
-  .feature-figure figcaption {
-    margin: 0.65rem auto 0;
-    max-width: 52rem;
-    color: var(--ebook-muted);
-    font-size: 0.78rem;
-    line-height: 1.45;
-    text-align: center;
-  }
-
   .md-typeset .admonition.note > .admonition-title {
     font-family: var(--ebook-sans);
     letter-spacing: 0.01em;
-  }
-
-  [data-md-color-scheme="slate"] .route-grid > a,
-  [data-md-color-scheme="slate"] .feature-figure {
-    background: rgba(15, 23, 42, 0.72);
-    border-color: rgba(94, 234, 212, 0.22);
-  }
-
-  [data-md-color-scheme="slate"] .route-grid > a {
-    color: #ecfdf5;
-  }
-}
-
-@media screen and (max-width: 900px) {
-  .ebook-hero--split {
-    grid-template-columns: 1fr;
-  }
-
-  .ebook-hero--split .hero-art {
-    width: 100%;
-    margin-inline: auto;
-  }
-}
-
-@media screen and (max-width: 560px) {
-  .route-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .route-grid > a {
-    min-height: 5.75rem;
-  }
-
-  .ebook-hero--split .hero-art {
-    width: 100%;
-    margin-left: 0;
   }
 }
 
@@ -556,30 +184,8 @@
 }
 
 @media print {
-  .ebook-hero--split {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 1rem !important;
-    align-items: center !important;
-  }
-
-  .ebook-hero--split .hero-art {
-    display: none !important;
-  }
-
-  .route-grid {
-    display: none !important;
-  }
-
   .ebook-start {
     display: none !important;
-  }
-
-  .feature-figure {
-    padding: 0 !important;
-    border: 0 !important;
-    box-shadow: none !important;
-    break-inside: avoid;
   }
 }
 
@@ -830,20 +436,6 @@ html {
   position: relative;
   z-index: 1;
 }
-.ebook-hero .meta {
-  margin-top: 1.25rem;
-  font-size: 0.82rem;
-  opacity: 0.8;
-  letter-spacing: 0.01em;
-  position: relative;
-  z-index: 1;
-}
-.ebook-hero .meta a {
-  color: #fff !important;
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-}
-
 /* CTA row */
 .ebook-start {
   display: flex;
@@ -1396,10 +988,6 @@ html {
     font-size: 0.96rem;
     line-height: 1.52;
   }
-  .ebook-hero .meta {
-    margin-top: 1rem;
-    font-size: 0.78rem;
-  }
   .ebook-start {
     flex-direction: column;
     align-items: stretch;
@@ -1659,13 +1247,9 @@ html {
     text-shadow: none !important;
   }
   .ebook-hero p,
-  .ebook-hero .meta,
   .ebook-hero .eyebrow {
     color: #222 !important;
     opacity: 1 !important;
-  }
-  .ebook-hero .meta a {
-    color: #0f766e !important;
   }
 
   .ebook-start a {

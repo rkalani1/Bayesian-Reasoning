@@ -64,16 +64,16 @@ Two priors can and often should differ. The *design prior* encodes the uncertain
 !!! warning "Common Pitfall"
     Do not report assurance computed under an enthusiastic design prior as if it were power at a clinically minimal effect. Reviewers who know the difference will treat the number as marketing. State the prior, plot the power curve, and give assurance as a second number.
 
-A compact way to talk to a DSMB or a rare-disease steering committee is a small table of *operating characteristics* (OC) under a handful of truths, plus one row that averages them. Teaching numbers for a two-arm binary trial with 1:1 randomization and a posterior-probability success rule \(P(\delta > 0 \mid y) > 0.975\):
+A compact way to talk to a DSMB or a rare-disease steering committee is a small table of *operating characteristics* (OC) under a handful of truths, plus one row that averages them. Teaching numbers for a two-arm binary trial, 1:1 randomization, control rate 0.45, uniform Beta(1, 1) analysis priors, looks every 10 patients per arm up to a maximum of 80 per arm, and a posterior-probability success rule \(P(\delta > 0 \mid y) > 0.975\) applied at every look — a deliberately larger trial than the vignette’s 80-patient feasibility ceiling:
 
-| Assumed true \(\delta\) | Approx. power / stop-for-efficacy rate | Typical stopping \(n\) (both arms) | Comment |
+| Assumed true \(\delta\) | Approx. stop-for-efficacy rate | Typical stopping \(n\) (per arm) | Comment |
 | --- | ---: | ---: | --- |
-| 0.00 | 0.03–0.05 | 80 (max) | Type I under this rule and these looks |
-| 0.08 | 0.28 | 70 | Minimal interesting effect |
-| 0.20 | 0.78 | 52 | Hoped-for effect |
-| Design prior (mixture) | Assurance 0.51 | 58 | The number patients actually face |
+| 0.00 | 0.08 | 80 (max) | Trial-wise type I — inflated above 0.05 by the repeated looks (see below) |
+| 0.08 | 0.29 | 68 | Minimal interesting effect |
+| 0.20 | 0.80 | 46 | Hoped-for effect |
+| Design prior (50/50 mixture of 0.08 and 0.20) | Assurance 0.55 | 57 | The number patients actually face |
 
-Those cells are **teaching numbers** generated from the kind of Monte Carlo you will write below. They are not results from any published encephalitis trial. The qualitative lesson is stable: if the hoped-for effect is in the right tail of a defensible prior, assurance sits well below power-at-the-hope, and adaptive stopping buys you more on the typical \(n\) than on the assurance itself.
+Those cells are **teaching numbers** generated from the kind of Monte Carlo you will write below; rerun it and they will reproduce to within simulation error. They are not results from any published encephalitis trial. The qualitative lesson is stable: if the hoped-for effect is in the right tail of a defensible prior, assurance sits well below power-at-the-hope, and adaptive stopping buys you more on the typical \(n\) than on the assurance itself. The 0.08 in the null row is the calibration warning of the next section made concrete.
 
 ## Posterior-probability stopping
 
@@ -107,16 +107,16 @@ Goldilocks designs (Broglio, Connor, Berry) use this idea to pick a sample size 
 !!! note "Mathematical Detail"
     PPoS is not the posterior probability of a positive effect. It is the posterior predictive probability of a *future decision*. If the success criterion is \(P(\delta > 0 \mid y_{\text{all}}) > 0.975\), then PPoS can be small even when \(P(\delta > 0 \mid y_{\text{obs}}) = 0.90\). Quoting the two numbers as if they were interchangeable is the most common communication failure at a Bayesian DSMB.
 
-A second teaching table, still with invented looks at an encephalitis trial, shows why both numbers belong in the closed session:
+A second teaching table, still with invented looks at an encephalitis trial (uniform analysis priors; final success rule \(P(\delta > 0 \mid y_{\text{all}}) > 0.975\) at \(N = 40\) per arm), shows why both numbers belong in the closed session:
 
 | Look (\(n\) per arm) | Successes Tx / Ctrl | \(P(\delta > 0 \mid y)\) | PPoS to \(N=40\) per arm | Action under a Goldilocks rule |
 | --- | --- | ---: | ---: | --- |
-| 10 / 10 | 7 / 4 | 0.89 | 0.41 | Continue (middle band) |
-| 20 / 20 | 14 / 8 | 0.96 | 0.71 | Continue; efficacy close |
-| 20 / 20 | 9 / 9 | 0.50 | 0.06 | Stop for futility |
-| 30 / 30 | 22 / 12 | 0.991 | — | Stop for efficacy |
+| 10 / 10 | 7 / 4 | 0.90 | 0.63 | Continue (middle band) |
+| 20 / 20 | 14 / 8 | 0.97 | 0.77 | Continue; efficacy close |
+| 20 / 20 | 9 / 9 | 0.50 | 0.02 | Stop for futility |
+| 30 / 30 | 22 / 12 | 0.995 | — | Stop for efficacy |
 
-Again: **teaching numbers**. The pattern is what you carry to the next protocol. Early noisy leads have mediocre PPoS. Clear mid-trial nulls have tiny PPoS. Spectacular late leads have already crossed the PP bar.
+Again: **teaching numbers**; the Monte Carlo below reproduces them. The pattern is what you carry to the next protocol. An early lead that looks strong (0.90) still leaves real doubt about the final bar (PPoS 0.63 — a middle band, not a triumph). Clear mid-trial nulls have tiny PPoS. Spectacular late leads have already crossed the PP bar.
 
 ## Platform trials, arm drop, arm add
 

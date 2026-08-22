@@ -18,7 +18,7 @@ After working this chapter you should be able to:
 
 A seven-hospital stroke network wants a 90-day mRS \(0\)–\(2\) probability on every admission note, ischemic and ICH, available at the moment the attending signs. The intended user is a resident counseling a family at 08:00. The two comprehensive centers have three years of teaching-quality registry data: \(920\) patients with a locked 90-day mRS, plus the usual cemetery of incomplete rows. Legal at signature: age, pre-morbid mRS, NIHSS or GCS, last-known-well to door, systolic pressure, glucose, anticoagulant use, ICH volume and location when already measured, receiving hospital. Illegal: 24-hour NIHSS, TICI grade, hematoma expansion, aspiration pneumonia, later rehab destination.
 
-A fellow has already fit a 14-predictor frequentist logistic in a point-and-click tool. The printed AUC is \(0.84\). Two of the fourteen predictors are day-2 variables. The fellow wants the equation in the EHR next month and has drafted a title that begins “Externally validated predictor of favorable outcome.” The quality committee asks whether the product is “TRIPOD-compliant.” The CMIO asks for a single number, not a posterior.
+A fellow has already fit a 14-predictor frequentist logistic in a point-and-click tool. The printed AUC is \(0.84\). Two of the fourteen predictors are post-baseline variables (the 24-hour NIHSS and the procedural TICI grade). The fellow wants the equation in the EHR next month and has drafted a title that begins “Externally validated predictor of favorable outcome.” The quality committee asks whether the product is “TRIPOD-compliant.” The CMIO asks for a single number, not a posterior.
 
 Before any software, write four sentences and do not soften them. (1) The estimand: prognosis under the *observed* care policy, diagnosis of a present state, or predicted benefit of a treatment the patient has not yet received. (2) The prediction time: which columns are legal. (3) The action the number is allowed to change, and the action it is forbidden to change. (4) What would make you refuse go-live even if the AUC were \(0.90\).
 
@@ -244,7 +244,7 @@ Read the pipeline in lifecycle order. Generate only legal predictors. Put a hier
 
 **(1) Estimand.** Prognosis under the network’s observed care policy. Not diagnosis of LVO or of hematoma expansion. Not the benefit of EVT or of surgical evacuation.
 
-**(2) Prediction time.** Columns known when the attending signs: age, pre-morbid mRS, admission NIHSS or GCS, last-known-well to door, systolic pressure, glucose, anticoagulant, ICH volume and location if already measured, hospital. Day-2 NIHSS, TICI grade, expansion, pneumonia, and discharge destination are illegal. The fellow’s 14-predictor fit is already disqualified, before anyone discusses AUC.
+**(2) Prediction time.** Columns known when the attending signs: age, pre-morbid mRS, admission NIHSS or GCS, last-known-well to door, systolic pressure, glucose, anticoagulant, ICH volume and location if already measured, hospital. The 24-hour NIHSS, TICI grade, expansion, pneumonia, and discharge destination are illegal. The fellow’s 14-predictor fit is already disqualified, before anyone discusses AUC.
 
 **(3) Allowed action; forbidden action.** Allowed: a calibrated percentage for counseling, with a band, and perhaps an earlier goals-of-care conversation if the decision curve supports that threshold. Forbidden: withholding a transfer or a procedure that would have been offered in the absence of the number. The prohibition belongs on the note.
 
@@ -260,7 +260,7 @@ What you will actually build is smaller than the fellow’s GUI: an ischemic sur
 
 3. **Intercept only.** At a new spoke, \(n = 90\) with \(28\) mRS \(0\)–\(2\) events, the locked model’s mean predicted probability is \(0.41\) and the observed rate is \(0.31\). The calibration slope posterior is \(0.94\) (\(95\%\) interval \(0.61\) to \(1.28\)). Do you recalibrate the intercept, re-estimate the slope, or refuse the go-live? Write the sentence that belongs in the abstract.
 
-4. **Same model, three graphs.** You are handed an AUC of \(0.81\), a calibration plot whose top bin sits above the predictive band, and a decision curve that beats treat-all only for \(p_t < 0.08\). The service will not open a goals-of-care meeting below a predicted dependence risk of \(0.30\) (that is, they will not act unless \(\hat\pi\) for mRS \(0\)–\(2\) is below \(0.70\)). What do you tell the quality committee, in five sentences, about putting this model on the admission note?
+4. **Same model, three graphs.** You are handed an AUC of \(0.81\), a calibration plot whose top bin sits above the predictive band, and a decision curve — thresholds on predicted dependence risk, \(1-\hat\pi\) — that beats treat-all only for \(p_t < 0.08\). The service will not open a goals-of-care meeting below a predicted dependence risk of \(0.30\) (that is, they will not act unless \(\hat\pi\) for mRS \(0\)–\(2\) is below \(0.70\)). What do you tell the quality committee, in five sentences, about putting this model on the admission note?
 
 ## Further reading
 

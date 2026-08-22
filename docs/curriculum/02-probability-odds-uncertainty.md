@@ -16,7 +16,7 @@ After working this chapter you should be able to:
 
 ## Clinical vignette
 
-You are called to the ICU step-down. Mr. R is 62. He was last normal at 18:40. At 20:15 he could not stand. CT at 20:50 shows a 24 mL left putaminal hematoma, no intraventricular blood, spot sign called “probable” by the night resident. INR 1.0. He takes aspirin. Systolic pressure is 188 mm Hg on a nicardipine drip that has not yet bitten. The fellow wants a repeat CT in two hours “because expansion is likely.” The intern has already told the family that expansion is “a real possibility.” The charge nurse asks whether she should hold the next dose of labetalol “if he’s stable, since it might not grow.”
+You are called to the ICU step-down. Mr. R is 62. He was last normal at 18:40. At 20:15 he could not stand. CT and CTA at 20:50 show a 24 mL left putaminal hematoma, no intraventricular blood, CTA spot sign called “probable” by the night resident. INR 1.0. He takes aspirin. Systolic pressure is 188 mm Hg on a nicardipine drip that has not yet bitten. The fellow wants a repeat CT in two hours “because expansion is likely.” The intern has already told the family that expansion is “a real possibility.” The charge nurse asks whether she should hold the next dose of labetalol “if he’s stable, since it might not grow.”
 
 Before any formula, write four sentences:
 
@@ -294,8 +294,8 @@ The counseling sentence: “Out of ten people like him, about two will have the 
 - Deeks JJ, Altman DG. Diagnostic tests 4: likelihood ratios. *BMJ.* 2004;329(7458):168–169. The shortest correct account of what an LR is for.
 - Sox HC, Higgins MC, Owens DK. *Medical Decision Making*. 2nd ed. Wiley-Blackwell; 2013. Probability, odds, and the bedside arithmetic this chapter insists on.
 - Hemphill JC 3rd, Greenberg SM, Anderson CS, et al. Guidelines for the management of spontaneous intracerebral hemorrhage. *Stroke.* 2015;46(7):2032–2060. Use for the structure of the clinical problem; do not mine it for unofficial probabilities.
-- Gelman A, Hill J, Vehtari A. *Regression and Other Stories*. Cambridge University Press; 2021. Chapter 9 on probability and uncertainty, including the calibration mindset.
+- Gelman A, Hill J, Vehtari A. *Regression and Other Stories*. Cambridge University Press; 2020. The early chapters on probability, inference, and simulation, including the calibration mindset.
 - Morgan DJ, Pineles L, Owczarzak J, et al. Accuracy of practitioner estimates of probability of diagnosis before and after testing. *JAMA Intern Med.* 2021;181(6):747–755. Empiric evidence that the profession this book addresses is miscalibrated in exactly the way the chapter describes.
 
 !!! success "Key Takeaway"
-    Probability, odds, likelihood, and belief are four jobs. Assign each word one job and the rest of diagnostic reasoning becomes arithmetic. Adjectives are not calibrated; natural frequencies and likelihood ratios are. Aleatory uncertainty is a reason to decide, epistemic uncertainty is a reason to look, and a 95 percent sensitive test in a 2 percent disease is a 27 percent disease. If you cannot say Mr. R’s expansion risk as a number that would survive a 10,000-patient replay, you are not reasoning. You are narrating.
+    Probability, odds, likelihood, and belief are four jobs. Assign each word one job and the rest of diagnostic reasoning becomes arithmetic. Adjectives are not calibrated; natural frequencies and likelihood ratios are. Aleatory uncertainty is a reason to decide, epistemic uncertainty is a reason to look, and a 95 percent sensitive test in a 2 percent disease is a 28 percent disease. If you cannot say Mr. R’s expansion risk as a number that would survive a 10,000-patient replay, you are not reasoning. You are narrating.
