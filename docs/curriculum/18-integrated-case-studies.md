@@ -119,7 +119,7 @@ That is the prognostic prior for the next six hours. It is not yet a treatment d
 
 ### Likelihood of the intervention
 
-Two publicly known trials — INTERACT2 and ATACH-2 — tested intensive systolic targets near 140 mm Hg against less intensive targets near 180 mm Hg. INTERACT2’s primary ordinal outcome sat just on the unhelpful side of a conventional 0.05 threshold; ATACH-2 did not show functional benefit and recorded more renal adverse events at the most intensive target. Those are design facts, not a license to invent their point estimates here.
+Two publicly known trials — INTERACT2 and ATACH-2 — tested intensive systolic targets near 140 mm Hg against less intensive targets near 180 mm Hg. INTERACT2’s primary dichotomous outcome (death or major disability) sat just on the unhelpful side of a conventional 0.05 threshold, while its prespecified secondary ordinal analysis sat just on the other side; ATACH-2 did not show functional benefit and recorded more renal adverse events at the most intensive target. Those are design facts, not a license to invent their point estimates here.
 
 For teaching, encode the *effect of targeting SBP \(< 140\) versus \(< 180\)* on expansion as a risk ratio with prior
 
@@ -169,7 +169,7 @@ Encode the relative risk of ischemic recurrence, anticoagulant versus antiplatel
 \log \text{RR}_{\text{isc}} \sim \mathcal{N}(0,\; 0.15^{2}).
 \]
 
-Mean relative risk 1.0; a 26% relative benefit or harm sits at the edge of a 95% prior interval. Separately, the excess symptomatic ICH rate on anticoagulant versus aspirin has a teaching value of 0.4 per 100 patient-years, with less uncertainty.
+Mean relative risk 1.0; a 26% relative benefit — or, by the asymmetry of the RR scale, a 34% relative harm — sits at the edge of the 95% prior interval. Separately, the excess symptomatic ICH rate on anticoagulant versus aspirin has a teaching value of 0.4 per 100 patient-years, with less uncertainty.
 
 ### Likelihood
 
@@ -212,7 +212,7 @@ That sentence is the decision. The table is why you can defend it.
 
 A Phase 2 randomized trial of a complement inhibitor versus placebo in a rare inflammatory myopathy. Primary endpoint: change in 6-minute walk distance (6MWD) at week 12, meters. Historical untreated change is about \(0 \pm 40\) m. A clinically important improvement is 40 m. The sponsor’s enthusiastic prior was \(\mathcal{N}(50, 25^{2})\) on the treatment contrast. The DSMB asked for a skeptical prior, \(\mathcal{N}(10, 30^{2})\), which puts 40 m at one standard deviation above the mean and allows a harmful effect.
 
-Fourteen of forty participants have completed week 12: 8 active, 6 placebo. **Teaching data:** mean change \(+22\) m (SD 38) on active, \(+4\) m (SD 41) on placebo.
+Fourteen of forty participants have completed week 12: 8 active, 6 placebo. **Teaching data:** mean change \(+22\) m (SD 39) on active, \(+4\) m (SD 39) on placebo — consistent with the teaching \(\sigma = 40\) below.
 
 ### Likelihood, posterior, and posterior predictive
 
@@ -244,13 +244,15 @@ library(dplyr)
 
 set.seed(20260818)
 
-# Observed completers (teaching numbers)
+# Observed completers (teaching numbers; means 22 and 4, SDs ~39)
 d_obs <- data.frame(
   arm = factor(c(rep("active", 8), rep("placebo", 6)),
                levels = c("placebo", "active")),
-  y   = c(18, 41, -12, 35, 22, 9, 55, 8,    # active, mean ~22
-          12, -15, 30, -8, 5, 0)            # placebo, mean ~4
+  y   = c(2, 60, -38, 48, 22, -4, 82, 4,    # active, mean 22
+          -16, -44, 60, -26, 22, 28)        # placebo, mean 4
 )
+# Conjugate check for the fit below (known sigma = 40):
+# posterior mean 15.3, sd 17.5, P(delta>0) ~ .81, P(delta>40) ~ .08
 
 priors <- c(
   prior(normal(0, 40), class = Intercept),          # placebo mean change
@@ -302,7 +304,8 @@ go_rule <- apply(y_rep, 1, function(yp) {
 })
 
 rowMeans(go_rule)
-# Interpret: share of predictive worlds that GO / PAUSE / STOP.
+# Interpret: mean predictive p_gt20, then the share of predictive
+# worlds that GO and that PAUSE (STOP = 1 - go - pause).
 ```
 
 You should not invent the printed `rowMeans` until you run the block. The *structure* of the answer is what the DSMB needs: a predictive probability of eventually meeting the go rule, not a current \(p\)-value and not a current posterior mean alone.
@@ -382,7 +385,7 @@ Second, **the posterior predictive is the go/no-go object**, not the posterior o
 
 **Clinic 4.** Class-level RR posterior centered at 1.0. Mixture RR given negative 30-day monitor \(\approx 0.975\). Net expected utility of anticoagulation is negative unless you believe in at least a 14% relative ischemic benefit. Sentence: stay on antiplatelet; longer monitor is optional information, not a moral duty.
 
-**Zoom.** Skeptical posterior \(\delta \approx \mathcal{N}(15.3, 17.5^{2})\). \(P(\delta > 40) \approx 0.08\). Vote on the posterior predictive probability of eventually clearing the predeclared go rule, not on whether 14 meters “looks promising.”
+**Zoom.** Skeptical posterior \(\delta \approx \mathcal{N}(15.3, 17.5^{2})\). \(P(\delta > 40) \approx 0.08\). Vote on the posterior predictive probability of eventually clearing the predeclared go rule, not on whether 15 meters “looks promising.”
 
 **Clinic 7.** Withdrawal recurrence \(\approx 0.24\), extra risk \(\approx 0.12\), under her named 0.15 bar. Sentence: 24 versus 12 in 100; the driving rule is a separate utility, not a reason to change the 24.
 

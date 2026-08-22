@@ -100,16 +100,16 @@ flowchart LR
 | Model | Withhold according to the prediction | \(TP/n - (FP/n)\, p_t/(1-p_t)\) | Ranking plus calibration beat both defaults |
 | Unusable model | — | below both defaults | You have an ROC without a decision |
 
-A second table, with **teaching counts** at \(p_t = 0.15\) in the 1,000-person cohort, shows the arithmetic without pretending these are trial results.
+A second table, with **teaching counts** at \(p_t = 0.15\) in the 1,000-person cohort, shows the arithmetic without pretending these are trial results. The \(\kappa\) row is the talk’s own operating point applied to 60 hematomas and 940 non-hematomas: \(TP = 0.70 \times 60 = 42\), \(FP = (1 - 0.75) \times 940 = 235\).
 
 | Rule at \(p_t = 0.15\) | TP | FP | NB | Versus treat-all |
 | --- | --- | --- | --- | --- |
 | Treat none | 0 | 0 | 0.000 | worse if treat-all is positive |
 | Treat all | 60 | 940 | \(0.060 - 0.940\cdot 0.176 \approx -0.106\) | reference |
 | Clinical score | 30 | 120 | \(0.030 - 0.120\cdot 0.176 \approx 0.009\) | better than both defaults |
-| Marker \(\kappa\) | 42 | 180 | \(0.042 - 0.180\cdot 0.176 \approx 0.010\) | barely above the score |
+| Marker \(\kappa\) | 42 | 235 | \(0.042 - 0.235\cdot 0.176 \approx 0.001\) | barely beats treat-none; falls below the score |
 
-Teaching numbers. At this one threshold \(\kappa\) buys about one extra net true positive per 1,000 people relative to the clinical score. Whether 12 minutes of magnet time is worth that increment is not a property of the AUC.
+Teaching numbers. At this one threshold the clinical score nets about nine true positives per 1,000 people; \(\kappa\), for all its extra AUC, nets about one, because its false positives eat the difference at the \(p_t/(1-p_t)\) exchange rate. Whether 12 minutes of magnet time is worth anything here is not a property of the AUC — and the AUC of 0.81 did not survive the false-positive charge.
 
 The orientation of the curve is easy to get backwards, and getting it backwards is how a service ends up quoting a handsome net benefit for a test it should not have ordered. Standard published decision curves usually evaluate a model that *detects the event you would treat*. Alteplase’s default, in an eligible patient, is the opposite: you treat the ischemia, and you would change course only if a hemorrhage prediction were dire enough. A curve that treats “any later hematoma” as the event, and “withhold” as the positive action, is a curve about *exceptions* to a default. Report that orientation in the figure legend. A reader who assumes the usual “detect-and-treat” orientation will think treat-all’s negative net benefit means “never give alteplase,” which is the opposite of the clinical default at NIHSS 7.
 
@@ -129,15 +129,17 @@ Decision curves ask whether a *current* model beats simple defaults. Value of in
 Let \(a^{\star}\) be the action that maximizes expected utility under today’s posterior. Let \(a(\theta)\) be the action you would choose if you knew the parameter \(\theta\). The expected value of perfect information is
 
 \[
-EVPI = \mathbb{E}\bigl[U(a(\theta), \theta)\bigr] - U\bigl(a^{\star}\bigr).
+EVPI = \mathbb{E}\bigl[U(a(\theta), \theta)\bigr] - \mathbb{E}\bigl[U(a^{\star}, \theta)\bigr].
 \]
+
+Both expectations are over today’s posterior for \(\theta\); the second term is the expected utility of the best single action chosen *before* seeing \(\theta\). Written this way, EVPI is an expected regret, so it can never be negative.
 
 It is the most you should pay, in utility units, for an oracle that revealed \(\theta\) before you acted. If EVPI is smaller than the expected harm of waiting for any realistic study — minutes of untreated ischemia, dollars, or both — you should stop. No finite study can be worth more than the oracle.
 
 The expected value of sample information for a study of design \(d\) is smaller:
 
 \[
-EVSI(d) = \mathbb{E}_{y_d}\Bigl[\max_a \mathbb{E}\bigl[U(a,\theta)\mid y_d\bigr]\Bigr] - U(a^{\star}).
+EVSI(d) = \mathbb{E}_{y_d}\Bigl[\max_a \mathbb{E}\bigl[U(a,\theta)\mid y_d\bigr]\Bigr] - \mathbb{E}\bigl[U(a^{\star}, \theta)\bigr].
 \]
 
 You imagine the data you do not yet have, update, re-choose, and average the gain. EVSI rises with sample size and with how much the decision is sitting on a knife edge. It is near zero when you are already far from the threshold, or when the study will not measure the parameter the decision actually uses.
@@ -189,7 +191,7 @@ When the “test” is a continuous marker, the decision curve already contains 
 
 ## Teaching plot and a synthetic curve in R
 
-The plot you should be able to sketch on a board has \(p_t\) on \([0.01, 0.40]\), net benefit on a vertical axis that is allowed to go negative, a horizontal line at 0 (treat none), a descending line (treat all), and two model curves. Annotate the interval where the candidate model is on top. If you cannot see that interval without a magnifying glass, the marker is not a clinical contribution.
+The plot you should be able to sketch on a board has \(p_t\) on \([0.02, 0.40]\), net benefit on a vertical axis that is allowed to go negative, a horizontal line at 0 (treat none), a descending line (treat all), and two model curves. Annotate the interval where the candidate model is on top. If you cannot see that interval without a magnifying glass, the marker is not a clinical contribution.
 
 ```r
 # Synthetic decision curve for a teaching hemorrhage marker.
@@ -264,7 +266,7 @@ The fellow asked whether to acquire \(\kappa\) before alteplase. That is a Pauke
 
 First, name \(p_t\). For an otherwise eligible NIHSS 7 at 110 minutes, most services still treat at hemorrhage probabilities well above the 6% teaching base rate. A clinician who would withhold only above 15–20% has announced that **treat-none on this curve** (give the drug) is the default. Table treat-all is the opposite action — withhold from everyone — and its net benefit of about \(-0.106\) at \(p_t = 0.15\) is expected, because we have oriented the curve around finding hemorrhages while the clinical default is to accept the base-rate hemorrhage in exchange for the ischemic benefit. The relevant comparison is therefore not “does \(\kappa\) beat treat-none at detecting blood” but “does a positive \(\kappa\) move this man across the withhold threshold, after a 12-minute delay.”
 
-Second, look at the increment. Teaching counts gave \(\kappa\) a net-benefit edge of about 0.001 over a clinical score at \(p_t = 0.15\): one extra net true positive per 1,000 people. Even if those counts were real, they do not pay for a delay that consumes a sliver of alteplase’s time-dependent benefit in a man who is already a treatment candidate.
+Second, look at the increment. At the talk’s own operating point the teaching counts put \(\kappa\) *below* the clinical score at \(p_t = 0.15\) — about 0.001 versus 0.009, call it eight net true positives per 1,000 given away. The AUC of 0.81 did not survive the false-positive charge. Even if \(\kappa\) had scraped out a small edge, it would not pay for a delay that consumes a sliver of alteplase’s time-dependent benefit in a man who is already a treatment candidate.
 
 Third, apply the VOI test. The decision is not sitting on a knife edge. The man is eligible, the occlusion is distal but the deficit is real, and nothing about a marker with teaching sensitivity 0.70 will flip a default that was not already trembling. EVPI for the marker’s likelihood ratio, in this single decision, is small. EVSI of a 12-minute scan is smaller. EVSI of a 400-person AUC study that does not record changed actions is smaller still.
 

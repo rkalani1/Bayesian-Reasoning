@@ -46,7 +46,7 @@ sudo apt install build-essential g++ libxml2-dev libssl-dev \
 
 **Windows.** Install R from CRAN. Install Rtools for the matching R major version (Rtools44 for R 4.4, and so on). Add Rtools to the PATH the way the Rtools installer offers. Restart the machine once. This is not folklore; Windows will not compile Stan without it.
 
-Check the install from a terminal:
+Check the install — `R --version` from a terminal, or from inside an R session:
 
 ```r
 # Should print an R version >= 4.3 for this book
@@ -233,6 +233,8 @@ fit <- brm(
 
 print(fit, digits = 2)
 # You are looking for a completed sample, not for a scientific result.
+# Pass: all four chains finish, Rhat ~ 1.00 on both rows, zero divergence
+# warnings. Anything else: fix the toolchain first (see the failures table).
 ```
 
 ---

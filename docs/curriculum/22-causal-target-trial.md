@@ -8,7 +8,7 @@ This chapter is the work Chapter 6 deferred. Write the DAG. Name the target tria
 
 ## Clinical vignette
 
-The same eight-center endovascular network from Chapter 6 now wants a causal sentence. Over twelve months the registry recorded \(1{,}240\) large-vessel occlusions treated with EVT. A new aspiration catheter was used in a minority of cases. Crude TICI 2b/3 was \(0.86\) where the new catheter was used and \(0.74\) where it was not. Center volumes are still \(410\), \(265\), \(180\), \(140\), \(95\), \(72\), \(48\), and \(30\). The four largest centers adopted first. They are also the good ones: on-site anesthesia, shorter CT-to-puncture, operators who already reperfused more often last year on the old device. The quality committee has a slide that says “OR \(2.1\), \(p < 0.001\)” and a purchase order. A junior analyst has added `(1 | center)` and the odds ratio fell to \(1.4\). The committee calls that “center-adjusted” and asks you to sign the memo.
+The same eight-center endovascular network from Chapter 6 now wants a causal sentence. Over twelve months the registry recorded \(1{,}240\) large-vessel occlusions treated with EVT. A new aspiration catheter was used in about six of every ten cases — heavily at the early-adopting centers, sparsely elsewhere. Crude TICI 2b/3 was \(0.86\) where the new catheter was used and \(0.74\) where it was not. Center volumes are still \(410\), \(265\), \(180\), \(140\), \(95\), \(72\), \(48\), and \(30\). The four largest centers adopted first. They are also the good ones: on-site anesthesia, shorter CT-to-puncture, operators who already reperfused more often last year on the old device. The quality committee has a slide that says “OR \(2.1\), \(p < 0.001\)” and a purchase order. A junior analyst has added `(1 | center)` and the odds ratio fell to \(1.4\). The committee calls that “center-adjusted” and asks you to sign the memo.
 
 ## Learning objectives
 
@@ -280,21 +280,21 @@ The refusal is a written object. It names the trial you could *not* write, the a
 
 ## Exercises
 
-1. **Defend the DAG.** A colleague wants to add post-procedure PH2 hemorrhage to the teaching DAG as a parent of the outcome and a child of treatment, and then “adjust for it” in the day-90 mRS model. Write six sentences: what the new arrows claim, whether PH2 is a confounder, a mediator, or a collider for the ITT functional, and what estimand you would be reporting if you conditioned on it.
+**22.1. Defend the DAG.** A colleague wants to add post-procedure PH2 hemorrhage to the teaching DAG as a parent of the outcome and a child of treatment, and then “adjust for it” in the day-90 mRS model. Write six sentences: what the new arrows claim, whether PH2 is a confounder, a mediator, or a collider for the ITT functional, and what estimand you would be reporting if you conditioned on it.
 
-2. **Write the protocol.** For a mothership-versus-drip-and-ship contrast in the same network, write eligibility, the two strategies, time zero, follow-up, and the estimand, each in one sentence. Then write one sentence naming the immortal-time error you would commit if you classified exposure by whether the patient *arrived* at the hub and started follow-up at last-known-well.
+**22.2. Write the protocol.** For a mothership-versus-drip-and-ship contrast in the same network, write eligibility, the two strategies, time zero, follow-up, and the estimand, each in one sentence. Then write one sentence naming the immortal-time error you would commit if you classified exposure by whether the patient *arrived* at the hub and started follow-up at last-known-well.
 
-3. **What the intercept missed.** Using the teaching simulation (run it), compare the crude risk difference, `exp(b_treatment)` from `reperfusion ~ treatment + (1 | center)` with no severity term, and the standardized risk difference from the full outcome model. Which bias did partial pooling remove? Which did it leave? What would you tell the committee that has already printed the middle number?
+**22.3. What the intercept missed.** Using the teaching simulation (run it), compare the crude risk difference, `exp(b_treatment)` from `reperfusion ~ treatment + (1 | center)` with no severity term, and the standardized risk difference from the full outcome model. Which bias did partial pooling remove? Which did it leave? What would you tell the committee that has already printed the middle number?
 
-4. **Collider or mediator.** An ICU colleague proposes restricting the day-90 mRS analysis to patients “who were given a chance,” meaning no WLST in the first 72 hours. Draw (in words) the paths that restriction opens and the path it closes. What contrast would you offer instead, and which baseline variables would you accept as covariates?
+**22.4. Collider or mediator.** An ICU colleague proposes restricting the day-90 mRS analysis to patients “who were given a chance,” meaning no WLST in the first 72 hours. Draw (in words) the paths that restriction opens and the path it closes. What contrast would you offer instead, and which baseline variables would you accept as covariates?
 
 ## Further reading
 
 - Hernán MA, Robins JM. Using big data to emulate a target trial when a randomized trial is not available. *Am J Epidemiol*. 2016;183:758-764. The protocol items this chapter treats as mandatory.
 - Hernán MA, Robins JM. *Causal Inference: What If*. Chapman & Hall/CRC; 2020. Target trials, the g-formula, and writing strategies before models.
-- Greenland S, Pearl J, Robins JM. Causal diagrams for epidemiologic research. *Am J Epidemiol*. 1999;149:208-213. Rules for reading a DAG you are willing to defend.
+- Greenland S, Pearl J, Robins JM. Causal diagrams for epidemiologic research. *Epidemiology*. 1999;10(1):37-48. Rules for reading a DAG you are willing to defend.
 - Hernán MA, Hernández-Díaz S, Robins JM. A structural approach to selection bias. *Epidemiology*. 2004;15:615-625. Conditioning on a collider, including “among survivors.”
-- Snowden JM, Rose S, Mortimer KM. Implementation of G-computation on a simulated data set. *Epidemiology*. 2011;22:718-723. Standardization as a practical estimator.
+- Snowden JM, Rose S, Mortimer KM. Implementation of G-computation on a simulated data set: demonstration of a causal inference technique. *Am J Epidemiol*. 2011;173(7):731-738. Standardization as a practical estimator.
 - Keil AP, Edwards JK, Richardson DB, Naimi AI, Cole SR. The parametric g-formula for time-to-event data. *Epidemiology*. 2014;25:889-897. g-computation when follow-up, not a binary TICI, is the structure.
 - Hernán MA. The C-word: scientific euphemisms do not improve causal inference from observational data. *Am J Public Health*. 2018;108:616-619. Why “associated with” is not a safer claim than a named estimand.
 - Becker KJ et al. Withdrawal of support in intracerebral hemorrhage may lead to self-fulfilling prophecies. *Neurology*. 2001;56:766-772. WLST as a decision that uses the same prognosis the treatment is trying to change.

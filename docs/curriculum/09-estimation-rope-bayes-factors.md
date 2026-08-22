@@ -272,7 +272,7 @@ Finally, \(P(\delta < 0 \mid y)\) under a symmetric prior and a symmetric likeli
 
 3. **ROPE construction.** For a 90-day mRS \(0\)–\(2\) risk difference in a mild-stroke trial, defend a ROPE of \((-0.02, 0.02)\) or reject it. What cost and harm information would change your width?
 
-4. **Bayes factor restraint.** A colleague computes \(\mathrm{BF}_{10} = 6\) for the vignette using a Normal(\(0\), \(20^2\)) prior under \(M_1\). Why is this factor hard to interpret, and what prior would you have demanded in the protocol?
+4. **Bayes factor restraint.** A colleague computes \(\mathrm{BF}_{01} = 4\) for the vignette — “evidence for no effect” — using a Normal(\(0\), \(20^2\)) prior under \(M_1\). Why is this factor hard to interpret, and what prior would you have demanded in the protocol?
 
 5. **Map the objects.** Using the table above, assign each of the following to estimate / test / decide: a DSMB futility look; a label claim that the drug “improves NIHSS”; a grant progress report; a shared decision with a single eligible patient.
 

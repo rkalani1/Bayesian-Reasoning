@@ -41,7 +41,7 @@ This book uses **teaching numbers** unless a fact is public scientific knowledge
 | STARD | Diagnostic accuracy |
 | TRIPOD / TRIPOD-AI | Prediction models |
 | PRISMA | Systematic reviews |
-| ROSES-BA / BAYESIAN reporting proposals | Bayesian analyses in medical journals |
+| ROBUST (Sung 2005) / BARG (Kruschke 2021) | Bayesian analyses in medical journals |
 | GRADE | Guideline certainty |
 
 ## Landmark neurology / stroke *design* facts used as teaching context

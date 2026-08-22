@@ -83,34 +83,34 @@ A working memory version of the nomogram uses a single anchor you can do without
 
 The plastic card is a pair of vertical axes with a log-odds spine. Left axis: prior probability. Middle: likelihood ratio. Right: posterior probability. A straight edge from a prior through an LR is the odds form of Bayes drawn as a ray. Nothing on the card is more sophisticated than \(o' = o \times \operatorname{LR}\). The reason to draw it, rather than only multiply, is to *see* that the same LR is a long trip in the middle of the probability scale and a shrug at the ends.
 
-Ms. K’s **teaching** numbers make two rays, not a family of them. Prior probability of a proximal target: 0.15. One ray through LR = 3 (the vignette’s multiplier for “this is a real acute stroke” — cortical DWI with a quiet FLAIR). One ray through LR = 20 (the vignette’s multiplier for a proximal LVO on CTA). They are two different questions. They are drawn from the same prior so that the nomogram’s geometry is visible before the reconstruction finishes.
+Ms. K’s **teaching** numbers make two rays, not a family of them. Prior probability of a proximal target: 0.15. One ray through LR = 2 (the vignette’s modest DWI multiplier for the *target-vessel* question — a cortical DWI lesion makes a proximal occlusion somewhat more likely, far from proof). One ray through LR = 20 (the vignette’s multiplier for a proximal LVO on CTA). Both rays answer the same question — is there a proximal target? — from the same prior, so the nomogram’s geometry is visible before the reconstruction finishes.
 
 Convert once, on paper.
 
 - Prior 0.15 is prior odds \(0.15/0.85 \approx 0.176\).
-- Ray 1, LR 3: posterior odds \(0.529\), posterior probability \(0.529/1.529 \approx 0.35\).
+- Ray 1, LR 2: posterior odds \(0.353\), posterior probability \(0.353/1.353 \approx 0.26\).
 - Ray 2, LR 20: posterior odds \(3.53\), posterior probability \(3.53/4.53 \approx 0.78\).
 
 The sequential product in the next section (DWI then CTA) is a third calculation: it multiplies both LRs, and it answers a stacked question. The nomogram’s two rays do not stack. Each ray is “what if this were the only new datum.” That is what the card was for.
 
-Do not read the next picture as a multiplication table. Both rays start at the same prior, 0.15. The numbers 0.35 and 0.78 are those two posteriors, not the posteriors of the 0.30 and 0.70 ticks.
+Do not read the next picture as a multiplication table. Both rays start at the same prior, 0.15. The numbers 0.26 and 0.78 are those two posteriors, not the posteriors of the 0.30 and 0.70 ticks.
 
 ```mermaid
 flowchart LR
-  Prior["Prior 0.15<br/>odds 0.176"] --> R1["Ray 1: LR 3<br/>acute-ischemia question"]
-  Prior --> R2["Ray 2: LR 20<br/>proximal-target question"]
-  R1 --> P1["Posterior 0.35"]
+  Prior["Prior 0.15<br/>odds 0.176"] --> R1["Ray 1: LR 2<br/>DWI, target-vessel question"]
+  Prior --> R2["Ray 2: LR 20<br/>CTA, same question"]
+  R1 --> P1["Posterior 0.26"]
   R2 --> P2["Posterior 0.78"]
 ```
 
-The ticks are not to scale. The log-odds spine of a printed Fagan card is. What you need to carry is the *shape*: from 0.15, an LR of 3 is a move you can feel (0.15 → 0.35) and an LR of 20 is a move that crosses most diagnostic thresholds you would defend for “is there a target?” (0.15 → 0.78) and still may not cross a treatment threshold for “should we puncture *her*?” A third ray, not drawn, is the one the intern wants: an LR large enough to take 0.15 across 0.50 *and* across a high treatment threshold in one step. No CTA produces that ray by itself. The nomogram is how you notice before you order the test in order to feel busy.
+The ticks are not to scale. The log-odds spine of a printed Fagan card is. What you need to carry is the *shape*: from 0.15, an LR of 2 is a move you can feel (0.15 → 0.26) and an LR of 20 is a move that crosses most diagnostic thresholds you would defend for “is there a target?” (0.15 → 0.78) and still may not cross a treatment threshold for “should we puncture *her*?” A third ray, not drawn, is the one the intern wants: an LR large enough to take 0.15 across 0.50 *and* across a high treatment threshold in one step. No CTA produces that ray by itself. The nomogram is how you notice before you order the test in order to feel busy.
 
 ```mermaid
 flowchart LR
-  Prior[Prior 0.15] -->|ray 1: LR 3| R1[Posterior about 0.35]
+  Prior[Prior 0.15] -->|ray 1: LR 2| R1[Posterior about 0.26]
   Prior -->|ray 2: LR 20| R2[Posterior about 0.78]
-  R1 --> Q1[Acute ischemia: modest move]
-  R2 --> Q2[Proximal target: crosses diagnosis]
+  R1 --> Q1[DWI alone: modest move]
+  R2 --> Q2[CTA: crosses diagnosis]
   Q2 --> Q3[May still miss the treatment threshold]
 ```
 
@@ -120,7 +120,7 @@ First, a ray that starts at 0.15 and goes through LR = 1 lands at 0.15. That is 
 
 The card also shows, without arithmetic, why Ms. K’s clean-CTA branch and her M1-cutoff branch cannot be averaged into a single “CTA is informative” sentence. One ray goes up. The other, through the vignette’s LR = 0.15 *against* a target, goes down from the same 0.15 prior: odds \(0.176 \times 0.15 \approx 0.026\), probability about 0.026. Those are two posteriors. A nomogram with one ray labeled “the CTA” is a decoration.
 
-Carry the two rays into the sequential section that follows. If you later multiply the *acute-ischemia* LR of 3 by the *vessel* LR of 20 onto the same LVO prior, you have changed the question mid-product. LR = 3 updates “is this a real acute stroke?”; LR = 20 updates “is there a proximal target?” Those are different states. The sequential vessel path in this chapter is prior 0.15, then a modest DWI LR for *target* (about 2), then CTA LR 20: 0.15 → 0.26 → 0.88. That is a different object from ray 2 alone (0.15 → 0.78). The card keeps the objects from collapsing into one adjective.
+Carry the two rays into the sequential section that follows. The temptation to resist: the vignette also quotes an *acute-ischemia* LR of 3 (cortical DWI with a quiet FLAIR, for “is this a real acute stroke?”). If you multiply that LR of 3 by the *vessel* LR of 20 onto the same LVO prior, you have changed the question mid-product. LR = 3 updates “is this a real acute stroke?”; LR = 20 updates “is there a proximal target?” Those are different states. The sequential vessel path in this chapter is prior 0.15, then the modest DWI LR for *target* (ray 1’s LR of 2), then CTA LR 20: 0.15 → 0.26 → 0.88. That is a different object from ray 2 alone (0.15 → 0.78). The card keeps the objects from collapsing into one adjective.
 
 !!! tip "Clinical Pearl"
     Draw the prior tick and the two LR ticks before the report arrives. If even the LR-20 ray cannot reach the threshold you have already named, the test is not a decision tool. It is a picture for someone else.
@@ -224,7 +224,7 @@ A 34-year-old with a thunderclap headache, normal neurologic exam, arrived at ho
 
 Is that below the threshold for LP? It depends on the treatment (really, the *next-test*) threshold. LP is low-yield but not free: pain, false-positive xanthochromia, delay, an incidental aneurysm hunt. Some services, at hour three with an attending CT read, now sit below their LP threshold at a posterior of 0.5 percent. Some do not, because their utility for missed SAH is enormous and their harm for LP is small. Bayes does not pick the threshold. It tells you that you are arguing about utilities, not about whether “CT rules out SAH.”
 
-Move the clock to hour eighteen, drop the **teaching** sensitivity to 0.85, and the LR− becomes 0.15. Same prior, posterior about 0.016. The same service that skipped LP at hour three may now be above its testing threshold. The scan did not become worse metaphysics. Time changed the likelihood.
+Move the clock to hour eighteen, drop the **teaching** sensitivity to 0.85, and the LR− becomes 0.15. Same prior, posterior about 0.017. The same service that skipped LP at hour three may now be above its testing threshold. The scan did not become worse metaphysics. Time changed the likelihood.
 
 !!! warning "Common Pitfall"
     “CT is 95 percent sensitive, therefore a negative CT leaves a 5 percent risk” is the sensitivity-as-posterior error from Chapter 1, wearing an SAH badge. The residual risk after a negative CT is a function of the prior *and* the LR−. At a prior of 0.01 it is tiny. At a prior of 0.40 it is not.
@@ -307,7 +307,7 @@ Second, the binary-state model is a convenience. “LVO present” is not the sa
 
 ## Worked solution to the opening vignette
 
-1. **The unknown is stacked.** There is a diagnostic unknown (is there a target vessel?) and a therapeutic unknown (conditional on a target, does EVT have net benefit given her clock, her NIHSS, and her small DWI?). Treating them as one word — “she is DAWN-like” — is how a mismatch becomes a mandate.
+1. **The unknown is stacked.** There is a diagnostic unknown (is there a target vessel?) and a therapeutic unknown (conditional on a target, does EVT have net benefit given her clock, her NIHSS, and her small DWI?). Treating them as one word — “she is DAWN-like” — is how a mismatch becomes a mandate. The fellow has also fused two different mismatches: DWI/FLAIR mismatch is the WAKE-UP *thrombolysis* criterion (a surrogate for onset within about 4.5 hours), while DAWN selected *thrombectomy* patients on a clinical–core mismatch. Same word, different likelihoods, different treatments.
 
 2. **Order and prior.** Exam and clock first (they built the 0.15), then DWI/FLAIR (acute ischemia, modest LR for a *target*), then CTA (the actual vessel). The **teaching** prior at the first imaging step is 0.15, not 0.50. Found-down plus NIHSS 8 is not a coin flip for M1 occlusion.
 

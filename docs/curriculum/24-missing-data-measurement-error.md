@@ -85,7 +85,7 @@ A compact teaching table for the vignette, still invented:
 | MNAR, “missing are better” | The opposite tilt | Under-correction if nursing-home nonresponse dominates |
 | LOCF | Discharge mRS equals day-90 mRS | Recovery after discharge is defined out of existence |
 
-The complete-case day-90 mRS 0–2 rate is \(118/312 \approx 0.38\). If the 88 followed the same distribution as the observed, the registry rate would be the same. If the 88 followed their discharge distribution (LOCF), you would add 51 extra 0–2 scores and the rate would be \(169/400 = 0.42\). If the 84 living missing patients were systematically one mRS step worse than a MAR imputation from discharge and covariates would predict, the rate falls back toward 0.36. Those three numbers — 0.38, 0.42, 0.36 — are **teaching functionals** of three different joints. Quoting one of them as “the registry’s 90-day independence rate” without naming the joint is how posters get written.
+The complete-case day-90 mRS 0–2 rate is \(118/312 \approx 0.38\). If the 88 followed the same distribution as the observed, the registry rate would be the same. If the 88 followed their discharge distribution (LOCF), you would add 51 extra 0–2 scores and the rate would be \(169/400 = 0.42\). If the 84 living missing patients ended one mRS category worse than discharge — with the 51 at discharge mRS 0–2 splitting 10/16/25 across mRS 0/1/2 (a **teaching split**), so only the \(10+16=26\) at discharge mRS 0–1 still land at 0–2 — the rate falls to \((118+26)/400 = 0.36\). Those three numbers — 0.38, 0.42, 0.36 — are **teaching functionals** of three different joints. Quoting one of them as “the registry’s 90-day independence rate” without naming the joint is how posters get written.
 
 ## Joint Bayesian imputation, IPW, and LOCF are different models
 
@@ -211,9 +211,10 @@ eta <- -0.4 + 0.85 * dc_mrs + 0.25 * window_late + 0.03 * nihss_true
 y_star <- pmin(6, pmax(0, round(eta + rnorm(n, 0, 0.8))))
 
 # Missingness depends on language, transfer, and discharge (MAR given these).
-psi <- -1.6 + 1.1 * lang_ne + 1.3 * transfer - 0.25 * dc_mrs
-r <- rbinom(n, 1, plogis(psi))
-y_obs <- ifelse(r == 1, y_star, NA_real_)
+psi  <- -1.2 + 1.1 * lang_ne + 1.3 * transfer - 0.25 * dc_mrs  # lp for MISSING
+miss <- rbinom(n, 1, plogis(psi))
+y_obs <- ifelse(miss == 1, NA_real_, y_star)
+mean(miss)  # ~0.22, enriched in non-English speakers and transfers (the vignette's signature)
 
 reg <- data.frame(
   y90 = y_obs,
@@ -224,6 +225,9 @@ reg <- data.frame(
   transfer = transfer,
   age = age
 )
+# brms ordinal families refuse responses below 1: recode mRS 0-6 as an
+# ordered factor so 0 is a level, not an illegal integer.
+reg$y90 <- ordered(reg$y90, levels = 0:6)
 
 # Ordinal outcome under MAR: NA rows drop from the outcome likelihood.
 # Include predictors of missingness so the complete-case restriction is
@@ -318,7 +322,7 @@ On the numbers: do not quote \(118/312 = 38\%\) independence as the registry res
 
 1. **Bedside / board.** A reviewer writes: “22% missing is acceptable; analysis was complete-case, so no imputation bias.” Draft a six-sentence reply that names the estimand, the MAR assumption the reviewer just made, and one MNAR mechanism the complete-case table cannot rule out. Do not mention software.
 
-2. **Mechanisms.** Using the teaching counts, compute the complete-case and LOCF estimates of \(P(\text{mRS } 0\text{–}2)\). Then invent a third estimate under the assumption that the 84 living missing patients have the same discharge distribution shifted one category worse (mRS 6 stays 6; mRS 5 stays 5). Which of the three would you put in an abstract, and what would the other two be called?
+2. **Mechanisms.** Using the teaching counts, compute the complete-case and LOCF estimates of \(P(\text{mRS } 0\text{–}2)\). Then invent a third estimate under the assumption that the 84 living missing patients have the same discharge distribution shifted one category worse (mRS 6 stays 6; mRS 5 stays 5; use the chapter’s teaching split of the 51 discharge mRS 0–2 into 10/16/25 across mRS 0/1/2). Which of the three would you put in an abstract, and what would the other two be called?
 
 3. **Verification.** A late-window paper reports that favorable CTP predicts independence after EVT with posterior mean risk difference 0.18, estimated in the 168 imaged and treated patients. List the selection steps between “presented with LVO after 6 hours” and “in this likelihood,” and write the estimand that 0.18 actually belongs to.
 

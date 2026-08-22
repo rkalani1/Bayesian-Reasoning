@@ -140,7 +140,7 @@ Rank plots are the more sensitive modern default. For each chain, replace draws 
 !!! warning "Common Pitfall"
     Interpreting a pretty density from a broken chain is the characteristic computational malpractice of applied Bayesian work. The density estimator does not know about \(\widehat{R}\). It will happily smooth four disagreeing chains into one authoritative hill. If you show a density, show the rank plot in the appendix. If you cannot be bothered to look at the rank plot, you are not ready to look at the density.
 
-A teaching failure mode, so the warning has a face. Chain 1 and chain 2 explore `b_spot` near \(-0.6\). Chain 3 spends the first half of sampling near \(+0.4\) and then jumps. Chain 4 never leaves \(+0.2\). The pooled kernel density is unimodal at \(-0.3\) with a thick right shoulder — the shape of a “soft” finding. The printed \(95\%\) ETI just includes zero, or just excludes it, depending on how much of chain 3’s jump you keep. \(\widehat{R}\) on `b_spot` is \(1.08\). The fellow’s abstract has already chosen the prettier of the two intervals. The correct next sentence is not a scientific one. It is “this posterior does not exist yet.”
+A teaching failure mode, so the warning has a face. Chain 1 and chain 2 explore `b_spot` near \(-0.6\). Chain 3 spends the first half of sampling near \(+0.4\) and then jumps. Chain 4 never leaves \(+0.2\). The pooled kernel density is unimodal at \(-0.3\) with a thick right shoulder — the shape of a “soft” finding. The printed \(95\%\) ETI just includes zero, or just excludes it, depending on how much of chain 3’s jump you keep. \(\widehat{R}\) on `b_spot` is \(1.5\). The fellow’s abstract has already chosen the prettier of the two intervals. The correct next sentence is not a scientific one. It is “this posterior does not exist yet.”
 
 ## Seeds, cores, and the appearance of reproducibility
 
@@ -164,7 +164,7 @@ Initialization deserves one paragraph because it produces a characteristic false
 
 Do not read the density. Pull the summary. Four chains exist so that you can distrust them. A single pretty density is the thing you are not allowed to start with.
 
-On a healthy fit of this size (\(620\) patients, four continuous predictors plus an intercept, Bernoulli likelihood), you expect \(\widehat{R} \le 1.01\) on every population-level coefficient, bulk ESS in the thousands if you took \(4000\) post-warmup draws, and zero divergences. The spot-sign coefficient’s interval is then a real object, and you may discuss it as an association in an observational teaching dataset.
+On a healthy fit of this size (\(620\) patients, the spot indicator plus four continuous predictors and an intercept, Bernoulli likelihood), you expect \(\widehat{R} \le 1.01\) on every population-level coefficient, bulk ESS in the thousands from the skeleton’s \(4 \times 3000 = 12{,}000\) post-warmup draws, and zero divergences. The spot-sign coefficient’s interval is then a real object, and you may discuss it as an association in an observational teaching dataset.
 
 If instead you see \(\widehat{R} = 1.04\) on `b_spot`, tail ESS \(180\), and \(14\) divergences, the abstract is not written. The interval that “just excludes zero” is exactly the kind of interval that flips when a chain is allowed to finish its job. Practical moves, in order:
 
@@ -262,7 +262,7 @@ Parallel chains on `cores = 4` do not multiply ESS by four if the bottleneck is 
 
 2. **\(\widehat{R}\) arithmetic, conceptually.** Chain A lives near \(-0.1\), chain B near \(-1.1\), both with small within-chain variance. Why is the pooled density unimodal-looking after a wide kernel, and why is \(\widehat{R}\) nevertheless large?
 
-3. **adapt_delta policy.** You have \(3\) divergences in \(4000\) post-warmup draws of an intercept-only logistic, and \(240\) divergences in a eight-center hierarchical logistic with \(\tau\) posterior piled near zero. Write the different next step for each.
+3. **adapt_delta policy.** You have \(3\) divergences in \(4000\) post-warmup draws of an intercept-only logistic, and \(240\) divergences in an eight-center hierarchical logistic with \(\tau\) posterior piled near zero. Write the different next step for each.
 
 4. **ESS and a knife-edge interval.** Tail ESS for `b_spot` is \(220\). The \(95\%\) central interval is \((-1.18, -0.02)\). What do you tell the fellow who wants to write “statistically significant”? What change in the computation would make you willing to discuss the interval at all?
 

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-A field guide to the words, the three pieces of mathematics the rest of the book leans on, a reading list that is not a cargo cult, and five mini-checklists you can put next to a manuscript. Definitions are operational. If a term here disagrees with a chapter, the chapter’s worked example wins.
+A field guide to the words, the four pieces of mathematics the rest of the book leans on, a reading list that is not a cargo cult, and five mini-checklists you can put next to a manuscript. Definitions are operational. If a term here disagrees with a chapter, the chapter’s worked example wins.
 
 Checklists are memory aids, not official society policy and not a license to submit.
 
@@ -16,6 +16,10 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **Anchoring.** Staying too close to the first number seen. The first NIHSS, the first radiologist’s adjective, last year’s base rate.
 
+**Assurance.** Expected power under a design prior. Not power at a hoped-for \(\delta\).
+
+**ATE / CATE.** Average treatment effect versus conditional (subgroup) average treatment effect. Neither is this patient’s posterior predictive (Chapter 21).
+
 **Availability.** Judging probability by the ease of recall. The last fatal tPA ICH you saw is not a likelihood.
 
 **BAO.** Basilar-artery occlusion. A posterior-circulation LVO; not interchangeable with anterior ICA/M1 in priors or transport (Chapter 4).
@@ -24,17 +28,21 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **Base-rate neglect.** Reporting a likelihood (or a stereotype) as a posterior.
 
-**Bayes’ theorem.** \(p(\theta \mid y) \propto p(y \mid \theta)\, p(\theta)\). Odds form: posterior odds \(=\) prior odds \(\times\) LR.
-
 **Bayes factor.** The ratio of marginal likelihoods of two models (or hypotheses), \(BF_{10} = p(y \mid M_1)/p(y \mid M_0)\). It updates prior model odds to posterior model odds. Not a posterior probability, not a p-value, and not a substitute for a ROPE (Chapter 9).
 
 **Bayesian workflow.** The computational cousin of Chapter 19: specify, fit, check, modify, decide. Not a synonym for “we used `brms`.”
+
+**Bayes’ theorem.** \(p(\theta \mid y) \propto p(y \mid \theta)\, p(\theta)\). Odds form: posterior odds \(=\) prior odds \(\times\) LR.
 
 **Brier score.** Mean squared error of a probability. A calibration-friendly proper scoring rule.
 
 **Calibration.** Among days you said 0.30, the event happened about 30% of the time. Discrimination can be fine while calibration is not.
 
+**CIF.** Cumulative incidence function. The probability of having entered a state by time \(t\) in the presence of competing events. Not \(1-\mathrm{KM}\) with the competitor censored (Chapter 12).
+
 **cmdstanr.** R interface to CmdStan. Preferred `brms` backend in this book.
+
+**Collider / confounder / mediator.** Adjustment language. A collider is a common effect; conditioning on it opens a path. A confounder is a common cause. A mediator is on the path from treatment to outcome (Chapter 22).
 
 **Commensurate prior.** A hierarchical device for borrowing from historical data that lets the current data down-weight the history when they disagree.
 
@@ -42,11 +50,17 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **Conjugate prior.** A prior that stays in the same family after the likelihood: Beta with binomial, Normal with Normal known-variance.
 
+**Consistency / positivity.** Causal identification pair. Consistency: the observed outcome under the assigned strategy is the potential outcome of that strategy. Positivity: every covariate pattern you will quote has a nonzero chance of each strategy (Chapters 21–22).
+
 **Conversation.** Step 8. The posterior and the threshold in a sentence a non-statistician can use.
 
 **Credible interval.** A posterior interval. This book uses equal-tailed intervals (ETIs) as the default in tables, and HDIs when the posterior is clearly skewed (Chapter 9).
 
 **CRIT-APP.** The curriculum’s structured critical-appraisal companion: design, selection, intervention, outcome, follow-up, analysis, applicability, abstract honesty. It moves priors. It does not pick Friday’s cutoff.
+
+**DAG.** Directed acyclic graph. Every arrow is an intervention claim; every missing arrow is a claim of no direct effect (Chapter 22).
+
+**Decision curve.** A plot of net benefit against threshold probability \(p_t\) for a model and for the treat-all / treat-none defaults (Chapter 15).
 
 **Decision threshold.** The posterior probability (or expected utility) at which the action flips. Diagnostic and treatment thresholds are different objects (Chapter 14).
 
@@ -60,9 +74,15 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **Elicitation.** Writing a prior from expert judgment on an observable scale before the new data are shown (Appendix B).
 
-**ETI.** Equal-tailed interval. The central posterior interval with equal probability outside each tail. Default table interval in this book; not an HDI unless the posterior is symmetric.
+**ELPD.** Expected log predictive density. What LOO and WAIC estimate (Chapter 8).
+
+**Equipoise / RAR.** Community uncertainty that licenses randomization; response-adaptive randomization that tilts allocation as posteriors move (Chapter 26).
 
 **ESUS.** Embolic stroke of undetermined source. A residue class, not an indication (Chapter 18 Case 3).
+
+**EtD.** Evidence-to-Decision table. GRADE’s recommendation machine, not a certainty rating (Chapter 25).
+
+**ETI.** Equal-tailed interval. The central posterior interval with equal probability outside each tail. Default table interval in this book; not an HDI unless the posterior is symmetric.
 
 **EVPI / EVSI.** Expected value of perfect / sample information. What a clairvoyant, or a study of size \(n\), is worth under your utility.
 
@@ -72,13 +92,13 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **File-refit.** `brms` option that reloads an archived fit unless the model or data changed. A pipeline feature, not a convenience (Chapter 20).
 
+**g-computation / standardization.** Average \(E(Y \mid A=a, X)\) over a named mix of \(X\). How a fitted outcome model becomes a transported ATE (Chapters 21–22).
+
 **Go/no-go.** A Phase 2 decision rule, preferably on the posterior predictive probability of eventual success, not on \(P(\delta > 0 \mid y_{\text{now}})\).
 
 **GRADE.** A framework for rating certainty of evidence and strength of recommendation. This book treats its domains as Bayesian objects — bias, \(\tau\), transport, threshold, selection — not as a separate qualitative universe (Chapter 25).
 
 **HDI.** Highest-density interval. The shortest interval containing a stated posterior probability.
-
-**HTE.** Heterogeneity of treatment effect. A posterior on a modifier, or a risk-based contrast, not a forest-plot row of unshrunk slices (Chapter 21).
 
 **Hierarchical model.** Parameters that are themselves drawn from a shared distribution. Shrinkage lives here (Chapter 6).
 
@@ -86,7 +106,13 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **Historical borrowing.** Using previous studies as part of the prior or as a hierarchical group. \(\tau\) *is* the borrowing.
 
+**HTE.** Heterogeneity of treatment effect. A posterior on a modifier, or a risk-based contrast, not a forest-plot row of unshrunk slices (Chapter 21).
+
+**Immortal time.** A stretch of follow-up an exposed person must survive in order to be counted as exposed. A time-zero defect, not confounding (Chapter 22).
+
 **Informative missingness.** The fact of missingness carries information about the missing value. CTA not done because LVO seemed unlikely.
+
+**IPW / LOCF / selection model.** Inverse-probability weighting, last-observation-carried-forward, and \(p(R \mid Y, X)\). Named alternatives to a joint imputation / pattern-mixture stack (Chapter 24).
 
 **Jeffreys prior.** A formal default (Beta(0.5, 0.5) for a binomial). Rarely a clinical prior.
 
@@ -100,6 +126,8 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **LVO.** Large-vessel occlusion. ICA, M1, or proximal M2 unless a chapter says otherwise. Basilar occlusion is named separately (BAO).
 
+**MAP prior.** Meta-analytic predictive prior for a new control (or a new center). The posterior predictive of the historical model (Chapter 13).
+
 **MAR / MCAR / MNAR.** Missing at random / completely at random / not at random. Statements about \(p(R \mid Y, X)\), not about how hard you tried to call (Chapter 24).
 
 **MCID.** Minimal clinically important difference. A utility in disguise. Should appear in go/no-go priors (Appendix B).
@@ -110,7 +138,11 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **mRS.** Modified Rankin Scale, 0–6. An ordinal outcome; collapsing to 0–2 is a decision, not a law.
 
+**Net benefit.** \(NB = \mathrm{Se}\,\pi - (1-\mathrm{Sp})(1-\pi)\,p_t/(1-p_t)\). Expected utility scaled so one true positive is worth one unit (Chapter 15).
+
 **NIHSS.** National Institutes of Health Stroke Scale, 0–42. Bounded, discrete, rater-noisy.
+
+**Pareto-\(k\).** PSIS-LOO tail diagnostic. Comfortable below 0.5; watch 0.5–0.7; unreliable above 0.7 (Chapter 8).
 
 **Partial pooling.** The hierarchical compromise between a separate estimate per group and a single pooled estimate.
 
@@ -121,6 +153,8 @@ Checklists are memory aids, not official society policy and not a license to sub
 **Posterior.** \(p(\theta \mid y)\). The prior reweighted by the likelihood.
 
 **Posterior predictive.** \(p(\tilde{y} \mid y) = \int p(\tilde{y} \mid \theta)\, p(\theta \mid y)\, d\theta\). The go/no-go object and the PPC object.
+
+**Power prior.** Historical likelihood raised to \(a_0 \in [0,1]\). \(a_0 = 1\) is maximal borrowing, not modesty (Chapter 4).
 
 **PPC.** Posterior predictive check. Compare replicated data to observed data, in the slice the decision uses.
 
@@ -136,6 +170,8 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **Representativeness.** Judging probability by similarity to a prototype. “Classic LVO” is a prototype.
 
+**RMST.** Restricted mean survival time, \(\int_0^\tau S(t)\,dt\). Expected days alive out of \(\tau\) (Chapter 12).
+
 **ROPE.** Region of practical equivalence. An interval around a null that you have already called “not a decision-changing effect” (Chapter 9).
 
 **Seed.** An integer that makes a sampler’s draws repeatable *within a toolchain*. Decision-reproducibility is the real target.
@@ -145,6 +181,8 @@ Checklists are memory aids, not official society policy and not a license to sub
 **Shrinkage.** Movement of a group estimate toward the grand mean, stronger when \(n_j\) is small or \(\tau\) is small.
 
 **Skeptical prior.** A prior centered near “no important effect,” used so that a go requires data (Chapter 18 Case 4).
+
+**Spectrum bias / verification bias.** Wrong sampling frame for Se/Sp; missing reference standard in those who were not referred (Chapter 11).
 
 **Spot sign.** CTA contrast within an ICH. A marker for expansion, not a treatment.
 
@@ -158,60 +196,21 @@ Checklists are memory aids, not official society policy and not a license to sub
 
 **Test threshold.** The prior below which even a good test is not worth doing. See also \(T_t\) / \(T_{tt}\).
 
-**ATE / CATE.** Average treatment effect versus conditional (subgroup) average treatment effect. Neither is this patient’s posterior predictive (Chapter 21).
-
-**Assurance.** Expected power under a design prior. Not power at a hoped-for \(\delta\).
-
-**CIF.** Cumulative incidence function. The probability of having entered a state by time \(t\) in the presence of competing events. Not \(1-\mathrm{KM}\) with the competitor censored (Chapter 12).
-
-**Collider / confounder / mediator.** Adjustment language. A collider is a common effect; conditioning on it opens a path. A confounder is a common cause. A mediator is on the path from treatment to outcome (Chapter 22).
-
-**Consistency / positivity.** Causal identification pair. Consistency: the observed outcome under the assigned strategy is the potential outcome of that strategy. Positivity: every covariate pattern you will quote has a nonzero chance of each strategy (Chapters 21–22).
-
-**DAG.** Directed acyclic graph. Every arrow is an intervention claim; every missing arrow is a claim of no direct effect (Chapter 22).
-
-**Decision curve.** A plot of net benefit against threshold probability \(p_t\) for a model and for the treat-all / treat-none defaults (Chapter 15).
-
-**ELPD.** Expected log predictive density. What LOO and WAIC estimate (Chapter 8).
-
-**Equipoise / RAR.** Community uncertainty that licenses randomization; response-adaptive randomization that tilts allocation as posteriors move (Chapter 26).
-
-**EtD.** Evidence-to-Decision table. GRADE’s recommendation machine, not a certainty rating (Chapter 25).
-
-**g-computation / standardization.** Average \(E(Y \mid A=a, X)\) over a named mix of \(X\). How a fitted outcome model becomes a transported ATE (Chapters 21–22).
-
-**Immortal time.** A stretch of follow-up an exposed person must survive in order to be counted as exposed. A time-zero defect, not confounding (Chapter 22).
-
-**IPW / LOCF / selection model.** Inverse-probability weighting, last-observation-carried-forward, and \(p(R \mid Y, X)\). Named alternatives to a joint imputation / pattern-mixture stack (Chapter 24).
-
-**MAP prior.** Meta-analytic predictive prior for a new control (or a new center). The posterior predictive of the historical model (Chapter 13).
-
-**Net benefit.** \(NB = \mathrm{Se}\,\pi - (1-\mathrm{Sp})(1-\pi)\,p_t/(1-p_t)\). Expected utility scaled so one true positive is worth one unit (Chapter 15).
-
-**Pareto-\(k\).** PSIS-LOO tail diagnostic. Comfortable below 0.5; watch 0.5–0.7; unreliable above 0.7 (Chapter 8).
-
-**Power prior.** Historical likelihood raised to \(a_0 \in [0,1]\). \(a_0 = 1\) is maximal borrowing, not modesty (Chapter 4).
-
-**RMST.** Restricted mean survival time, \(\int_0^\tau S(t)\,dt\). Expected days alive out of \(\tau\) (Chapter 12).
-
-**Spectrum bias / verification bias.** Wrong sampling frame for Se/Sp; missing reference standard in those who were not referred (Chapter 11).
-
-**\(T_t\) / \(T_{tt}\).** Testing and test–treatment thresholds. Below \(T_t\), wait; between \(T_t\) and \(T_{tt}\), test; above \(T_{tt}\), treat without the test (Chapter 14).
+**Transport.** Moving an estimate from a trial or a hospital into a new population. Hierarchical structure, not hope.
 
 **Treat-all / treat-none.** Default strategies on a decision curve. Treat-none has \(NB = 0\). Names flip when the “positive” action is withholding (Chapter 15).
 
-**UW-mRS.** Utility-weighted modified Rankin Scale. A scored version of the ordinal outcome; the weights are a utility, not a likelihood (Chapters 12, 25).
-
-**WAIC.** Widely applicable information criterion. A sibling of PSIS-LOO; still read the Pareto-\(k\) (Chapter 8).
-
-
-**Transport.** Moving an estimate from a trial or a hospital into a new population. Hierarchical structure, not hope.
-
 **Treat threshold.** The prior above which you treat without further testing.
+
+**\(T_t\) / \(T_{tt}\).** Testing and test–treatment thresholds. Below \(T_t\), wait; between \(T_t\) and \(T_{tt}\), test; above \(T_{tt}\), treat without the test (Chapter 14).
 
 **Utility.** A numerical encoding of how much an outcome is worth, including harms. Elicited, not estimated from `brms`.
 
+**UW-mRS.** Utility-weighted modified Rankin Scale. A scored version of the ordinal outcome; the weights are a utility, not a likelihood (Chapters 12, 25).
+
 **Value of information.** The expected utility gained by buying a datum before acting. Clock-aware in stroke.
+
+**WAIC.** Widely applicable information criterion. A sibling of PSIS-LOO; prefer PSIS-LOO, whose Pareto-\(k\) tells you when either approximation can be trusted (Chapter 8).
 
 **Weakly informative prior.** A prior that rules out cartoons but does not pretend to be empty. Relative to the expected likelihood.
 
@@ -316,10 +315,11 @@ Grouped so a resident can pick one shelf.
 **Reporting and regulation**
 
 - Bossuyt PM, et al. STARD 2015. *BMJ*. 2015;351:h5527.
-- Schulz KF, Altman DG, Moers D, CONSORT Group. CONSORT 2010. *BMJ*. 2010;340:c332. (Use the current CONSORT extension relevant to your design.)
+- Schulz KF, Altman DG, Moher D, CONSORT Group. CONSORT 2010. *BMJ*. 2010;340:c332. (Use the current CONSORT extension relevant to your design.)
 - Collins GS, Reitsma JB, Altman DG, Moons KGM. TRIPOD. *Ann Intern Med*. 2015;162:55–63.
 - U.S. Food and Drug Administration. Guidance for the Use of Bayesian Statistics in Medical Device Clinical Trials. 2010.
-- Sung L, et al. Guidance for Bayesian analyses in oncology. Various FDA/EMA reflections; start with the 2010 device guidance and the 2020 Bayesian oncology workshop reports.
+- Sung L, Hayden J, Greenberg ML, Koren G, Feldman BM, Tomlinson GA. Seven items were identified for inclusion when reporting a Bayesian analysis of a clinical study. *J Clin Epidemiol*. 2005;58(3):261–268.
+- U.S. Food and Drug Administration. *Guidance for the Use of Bayesian Statistics in Medical Device Clinical Trials*. 2010.
 
 **Neurology trials whose *designs* this book uses (do not lift tables or figures)**
 
@@ -441,4 +441,4 @@ The twelve rows also diagnose a common stroke-guideline failure mode. Rows 2–4
 Chapters 18–20 are the practice of the same objects: a loop, a sentence, and a file someone else can rebuild.
 
 !!! success "Key Takeaway"
-    Fifty-odd words, three formulas, one reading list, five checklists. The Beta update, the logit translation, and the \(H/(B+H)\) threshold are the only mathematics most bedside decisions need; `brms` is how you extend them when the likelihood is no longer conjugate. Report the prior, the slice-wise check, the utility, and the bundle. If a term in the glossary does not change an action or a sentence, you did not need it this week.
+    A hundred-odd words, four formulas, one reading list, five checklists. The Beta update, the logit translation, the HDI definition, and the \(H/(B+H)\) threshold are the only mathematics most bedside decisions need; `brms` is how you extend them when the likelihood is no longer conjugate. Report the prior, the slice-wise check, the utility, and the bundle. If a term in the glossary does not change an action or a sentence, you did not need it this week.

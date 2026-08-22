@@ -16,7 +16,7 @@ After working this chapter you should be able to:
 
 ## Clinical vignette
 
-You are the statistical coauthor on a single-arm Bayesian trial of a late-window reperfusion adjunct. The pre-specified success rule was \(P(\theta > 0.40 \mid y) > 0.95\), where \(\theta\) is the probability of 90-day mRS 0–2. You used a Beta(8, 12) prior, mean 0.40, to encode a skeptical 40% success rate. The trial stopped at \(n = 62\) with 31 successes. The posterior is Beta(39, 43). Posterior mean 0.48; 95% equal-tailed interval 0.37 to 0.58; posterior probability of \(\theta > 0.40\) is 0.93. The success rule was not met.
+You are the statistical coauthor on a single-arm Bayesian trial of a late-window reperfusion adjunct. The pre-specified success rule was \(P(\theta > 0.40 \mid y) > 0.95\), where \(\theta\) is the probability of 90-day mRS 0–2. You used a Beta(8, 12) prior, mean 0.40, to encode a skeptical 40% success rate. The trial stopped at \(n = 62\) with 31 successes. The posterior is Beta(39, 43). Posterior mean 0.48; 95% equal-tailed interval 0.37 to 0.58; posterior probability of \(\theta > 0.40\) is 0.92. The success rule was not met.
 
 The principal investigator drafts the abstract: “The prior was uninformative. Bayesian analysis demonstrated a clinically meaningful benefit (posterior mean 48%).” The journal is a clinical neurology weekly. The PI also wants a tweet. A family of a future candidate will read the hospital press release.
 
@@ -29,10 +29,10 @@ Words for uncertainty — possible, likely, rare, cannot exclude — do not have
 Numbers without words fail too. A credible interval dumped into a results section does not tell the reader whether the interval is equal-tailed or highest-posterior-density, whether the parameter is on the probability scale or the log-odds scale, or whether the decision rule used the interval at all. The discipline is *paired* reporting: a number, a unit, a parameter name, and one clause of interpretation that does not overreach.
 
 For patients: “In 100 people like those we studied, we expect between 37 and 58 to be independent at three months. We had hoped to be quite sure the number was above 40. We are not that sure.”
-For colleagues: “Posterior mean 0.48; 95% ET interval 0.37–0.58; \(P(\theta > 0.40 \mid y) = 0.93\); pre-specified threshold 0.95; prior Beta(8, 12).”
+For colleagues: “Posterior mean 0.48; 95% ET interval 0.37–0.58; \(P(\theta > 0.40 \mid y) = 0.92\); pre-specified threshold 0.95; prior Beta(8, 12).”
 For journals: those colleague numbers, plus the prior justification, the operating characteristics of the stopping rule, and a sensitivity table.
 
-Colleagues are the audience most often given the worst of both worlds: too technical for a family, too vague for a methods reviewer. Sign-out, a radiology huddle, and a journal club each need a different slice of the same posterior. At sign-out, give the decision functional and whether it fired: “Pre-specified \(P(\theta > 0.40) > 0.95\) not met; we are at 0.93; do not write ‘positive trial’ in the discharge summary.” In a huddle, give the absolute risks that change a scan or a procedure. In journal club, give the prior, the operating characteristics, and one alternate-prior posterior. If you use three different \(\theta\)s in those three rooms, you have created three papers.
+Colleagues are the audience most often given the worst of both worlds: too technical for a family, too vague for a methods reviewer. Sign-out, a radiology huddle, and a journal club each need a different slice of the same posterior. At sign-out, give the decision functional and whether it fired: “Pre-specified \(P(\theta > 0.40) > 0.95\) not met; we are at 0.92; do not write ‘positive trial’ in the discharge summary.” In a huddle, give the absolute risks that change a scan or a procedure. In journal club, give the prior, the operating characteristics, and one alternate-prior posterior. If you use three different \(\theta\)s in those three rooms, you have created three papers.
 
 !!! tip "Clinical Pearl"
     If a sentence still works after you delete every number, it is not a results sentence. It is a press release.
@@ -50,7 +50,7 @@ A complete posterior report, in running text, has six parts. They can occupy one
 
 Teaching paragraph for the vignette:
 
-“The primary parameter \(\theta\) was the 90-day mRS 0–2 probability under the adjunct. A Beta(8, 12) prior (mean 0.40) encoded a skeptical historical rate. With 31 successes in 62 patients the posterior was Beta(39, 43): mean 0.48, 95% equal-tailed interval 0.37 to 0.58, \(P(\theta > 0.40 \mid y) = 0.93\). The pre-specified success rule required this probability to exceed 0.95 and was not met. Under a flatter Beta(1, 1) prior the posterior probability is 0.96; under a more skeptical Beta(16, 24) it is 0.88.”
+“The primary parameter \(\theta\) was the 90-day mRS 0–2 probability under the adjunct. A Beta(8, 12) prior (mean 0.40) encoded a skeptical historical rate. With 31 successes in 62 patients the posterior was Beta(39, 43): mean 0.48, 95% equal-tailed interval 0.37 to 0.58, \(P(\theta > 0.40 \mid y) = 0.92\). The pre-specified success rule required this probability to exceed 0.95 and was not met. Under a flatter Beta(1, 1) prior the posterior probability is 0.95 (0.946, so the rule fails there too); under a more skeptical Beta(16, 24) it is 0.89.”
 
 That paragraph can be audited. The PI’s draft cannot.
 
@@ -59,9 +59,9 @@ That paragraph can be audited. The PI’s draft cannot.
 
 ## Reporting families: CONSORT, Sung/ROBUST, BARG
 
-There is no single “CONSORT-Bayesian” statute that replaces CONSORT. What people mean by that label, and by neighbouring labels such as ROSES-BA or “BAYESIAN reporting,” is a *stack*. CONSORT (now the 2025 statement) still governs randomised trials. The Adaptive designs CONSORT Extension (ACE) governs designs that can stop or tilt, which is where most Bayesian stroke trials live. Sung and colleagues (2005) published a seven-item set for Bayes used in clinical studies — later discussed as ROBUST, and in some teaching notes grouped with related Bayes-in-clinical-studies checklists under names such as ROSES-BA. Kruschke’s Bayesian Analysis Reporting Guidelines (BARG, 2021) are the modern general-purpose “how to write a posterior” standard. Ferreira and colleagues (2020) wrote the clinician-facing companion: what a service chief must be able to extract from a Bayesian RCT. FDA’s 2010 device guidance governs priors as design objects when the product is a device. TRIPOD governs prediction models. Use the stack, not a rival church.
+There is no single “CONSORT-Bayesian” statute that replaces CONSORT. What people mean by that label is a *stack*. CONSORT (now the 2025 statement) still governs randomised trials. The Adaptive designs CONSORT Extension (ACE) governs designs that can stop or tilt, which is where most Bayesian stroke trials live. Sung and colleagues (2005) published a seven-item set for Bayes used in clinical studies — later discussed as ROBUST. Kruschke’s Bayesian Analysis Reporting Guidelines (BARG, 2021) are the modern general-purpose “how to write a posterior” standard. Ferreira and colleagues (2020) wrote the clinician-facing companion: what a service chief must be able to extract from a Bayesian RCT. FDA’s 2010 device guidance governs priors as design objects when the product is a device. TRIPOD governs prediction models. Use the stack, not a rival church.
 
-The Sung items, which every Bayesian clinical paper should still satisfy even if BARG is also used, are prior specification, justification of the prior, sensitivity to the prior, the statistical model, the posterior (not only a point), the software, and the limitations of the Bayesian choices. BARG adds visualization of the full posterior, MCMC diagnostics and effective sample size, and an explicit decision rule. ACE adds the timing and effect of adaptations. If you can tick those three layers, you have done what “CONSORT-Bayesian / ROSES-BA / BAYESIAN reporting” is trying to name.
+The Sung items, which every Bayesian clinical paper should still satisfy even if BARG is also used, are prior specification, justification of the prior, sensitivity to the prior, the statistical model, the posterior (not only a point), the software, and the limitations of the Bayesian choices. BARG adds visualization of the full posterior, MCMC diagnostics and effective sample size, and an explicit decision rule. ACE adds the timing and effect of adaptations. If you can tick those three layers, you have done what “CONSORT-Bayesian” reporting is trying to name.
 
 | Source | What it insists on | Typical gap if ignored |
 | --- | --- | --- |
@@ -224,15 +224,15 @@ ggplot(fan, aes(n, mid)) +
 
 Abstract (teaching, ≤80 words):
 
-“In a pre-specified Bayesian single-arm design, 31 of 62 patients reached 90-day mRS 0–2. With a skeptical Beta(8, 12) prior the posterior mean was 0.48 (95% ET interval 0.37–0.58). The success rule, \(P(\theta > 0.40 \mid y) > 0.95\), was not met (observed 0.93). Sensitivity to flatter and more skeptical priors is reported. This is not evidence of no effect; it is a failure to cross a pre-specified threshold.”
+“In a pre-specified Bayesian single-arm design, 31 of 62 patients reached 90-day mRS 0–2. With a skeptical Beta(8, 12) prior the posterior mean was 0.48 (95% ET interval 0.37–0.58). The success rule, \(P(\theta > 0.40 \mid y) > 0.95\), was not met (observed 0.92). Sensitivity to flatter and more skeptical priors is reported. This is not evidence of no effect; it is a failure to cross a pre-specified threshold.”
 
 Tweet:
 
-“62 pts, 31 independent at 90d. Posterior mean 48% (37–58). We required >95% probability that the true rate exceeds 40%. We reached 93%. Threshold not met. Prior was skeptical, not ‘uninformative.’”
+“62 pts, 31 independent at 90d. Posterior mean 48% (37–58). We required >95% probability that the true rate exceeds 40%. We reached 92%. Threshold not met. Prior was skeptical, not ‘uninformative.’”
 
 Pamphlet:
 
-“We studied a new treatment in 62 people. About 48 in 100 were independent at three months, but the true number could reasonably be as low as 37 or as high as 58. We had set a high bar for calling the treatment a success. We did not meet that bar. Your own decision should use these ranges, not a yes-or-no slogan.”
+“We studied a new treatment in 62 people. 31 of them — 50 in 100 — were independent at three months. Allowing for chance, the true rate is probably near 48 in 100, and could reasonably be as low as 37 or as high as 58. We had set a high bar for calling the treatment a success. We did not meet that bar. Your own decision should use these ranges, not a yes-or-no slogan.”
 
 The PI’s sentence fails every row of the checklist: the prior was not uninformative, “clinically meaningful benefit” was not the decision functional, and the missed threshold was omitted. Educational texts only. Not a press strategy for a real trial.
 

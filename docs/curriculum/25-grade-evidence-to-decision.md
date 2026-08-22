@@ -16,11 +16,11 @@ After working this chapter you should be able to:
 
 ## Clinical vignette
 
-You are the methodologist on a national stroke guideline panel. The question, locked last year, is: in adults with anterior-circulation LVO last known well 6–24 hours earlier, should EVT plus usual care be used rather than usual care alone? The panel has agreed to talk in 90-day utility-weighted mRS and in the simpler contrast \(P(\text{mRS } 0\text{–}2)\). Three posteriors sit in the evidence profile. They are **teaching posteriors**, built to look like the shape of the late-window literature without being a meta-analysis of named trials.
+You are the methodologist on a national stroke guideline panel. The question, locked last year, is: in adults with anterior-circulation LVO last known well 6–24 hours earlier, should EVT plus usual care be used rather than usual care alone? The panel has agreed to talk in 90-day utility-weighted mRS and in the simpler contrast \(P(\text{mRS } 0\text{–}2)\). Three posteriors sit in the evidence profile. They are **teaching posteriors**, built to look like the shape of the late-window literature without being a meta-analysis of named trials; each is summarized as Normal(mean, \(0.036^2\)), so every probability in the table can be reproduced by hand or with the R block below.
 
 | Source (teaching) | Population | Posterior mean \(\delta\) on UW-mRS (EVT − control) | 95% ET interval | \(P(\delta > 0 \mid y)\) | \(P(\delta > 0.03 \mid y)\) |
 | --- | --- | ---: | --- | ---: | ---: |
-| A: tightly selected, imaging-rich RCT analogue | Age ≤ 80, NIHSS ≥ 10, core < 50 mL, mismatch | 0.14 | 0.07 to 0.21 | 0.999 | 0.99 |
+| A: tightly selected, imaging-rich RCT analogue | Age ≤ 80, NIHSS ≥ 10, core < 50 mL, mismatch | 0.14 | 0.07 to 0.21 | >0.999 | 0.999 |
 | B: less selected RCT analogue | Broader core, some perfusion-ineligible | 0.08 | 0.01 to 0.15 | 0.98 | 0.91 |
 | C: target-trial emulation in a national registry | Consecutive late-window LVO, treated and not | 0.04 | −0.03 to 0.11 | 0.86 | 0.61 |
 
@@ -88,11 +88,11 @@ Teaching translation of the three posteriors, before any EtD:
 
 | Question the posterior is allowed to answer | Best source | \(P(\delta > 0.03 \mid y)\) | Certainty for *that* question (teaching judgment) |
 | --- | --- | ---: | --- |
-| Imaging-selected late-window LVO, trial-like patients | A | 0.99 | Moderate-to-high: residual concern is transport to less expert systems, not the sign of \(\delta\) |
+| Imaging-selected late-window LVO, trial-like patients | A | 0.999 | Moderate-to-high: residual concern is transport to less expert systems, not the sign of \(\delta\) |
 | Intermediate imaging, RCT-like care | B | 0.91 | Moderate: one analogue, looser selection, still not consecutive |
 | Consecutive late-window LVO in ordinary systems | C, with A/B as priors on a transport increment | 0.61 | Low-to-moderate: confounding, missing data, measurement, and a small mean |
 
-The 0.999, the 0.98, and the 0.86 do not appear in the last column. They answered a different question.
+The >0.999, the 0.98, and the 0.86 do not appear in the last column. They answered a different question.
 
 ## Evidence-to-decision is expected utility with more arguments
 
@@ -142,7 +142,7 @@ The same machinery applies when the question is not “treat or not” but “te
 
 A class-of-recommendation sentence should be a function of (i) the predictive distribution of benefit and harm in the *target* patient, (ii) the panel’s thresholds, and (iii) the EtD constraints. A posterior interval for a trial estimand is an input. A prediction interval — or a posterior predictive interval — for the next patient, or the next hospital, is closer to what the fellow at 02:00 needs.
 
-For a new imaging-selected patient in a trial-like system, the predictive distribution of the UW-mRS increment, using source A and a modest between-system \(\tau\), might still live above 0.03. For a new consecutive late-window patient at an ordinary hub, drawing from a hierarchical combination of A, B, and C that *refuses* to treat A as exchangeable with C and instead uses A to inform a transport prior, the predictive interval might be −0.04 to 0.12, with 0.64 of the mass above 0.03. Those two intervals justify two sentences, not one.
+For a new imaging-selected patient in a trial-like system, the predictive distribution of the UW-mRS increment, using source A and a modest between-system \(\tau\), might still live above 0.03. For a new consecutive late-window patient at an ordinary hub, drawing from a combination that *refuses* to treat A as exchangeable with C and instead uses A to inform a transport prior, the predictive interval might run from just below zero to 0.11, with about 0.8 of the mass above 0.03 — the R block below produces exactly this object. Those two intervals justify two sentences, not one.
 
 House-style templates that keep the posterior honest:
 
@@ -162,7 +162,7 @@ flowchart TD
   V[Values resources equity feasibility] --> EU
   EU --> Gap{EU gap vs thresholds}
   Gap -->|well above, stable to v| I[Class I in that stratum]
-  Gap -->|above, flips with v or feasibility| --> IIa[Class IIa]
+  Gap -->|above, flips with v or feasibility| IIa[Class IIa]
   Gap -->|straddles, hostile prior eats it| IIb[Class IIb]
   Gap -->|below a harm threshold| III[Class III]
   Pred --> Sent[One sentence: class, certainty, stratum, fellow can act]
@@ -250,7 +250,7 @@ quantile(ratio, c(0.1, 0.5, 0.9))
 
 ## Worked solution to the opening vignette
 
-**What would lower certainty in A.** Transport. A is not biased toward a false positive for *its own* estimand in any way the teaching table can see; \(P(\delta > 0.03 \mid y) = 0.99\) and the interval is away from the threshold. Certainty falls when the question silently becomes “all late-window LVO,” when the mRS was unblinded, when imaging exclusion happened after randomization, or when the next hospital is not a trial site. Those are indirectness and risk-of-bias priors, not a smaller \(P(\delta > 0 \mid y)\).
+**What would lower certainty in A.** Transport. A is not biased toward a false positive for *its own* estimand in any way the teaching table can see; \(P(\delta > 0.03 \mid y) = 0.999\) and the interval is away from the threshold. Certainty falls when the question silently becomes “all late-window LVO,” when the mRS was unblinded, when imaging exclusion happened after randomization, or when the next hospital is not a trial site. Those are indirectness and risk-of-bias priors, not a smaller \(P(\delta > 0 \mid y)\).
 
 **What would raise certainty in C.** A pre-registered target-trial protocol, a richer confounder model with a bias analysis that does not eat the 0.04, better day-90 ascertainment (Chapter 24), and either a second registry that replicates the increment or a transport prior from A/B that the panel is willing to sign. The interval including zero is not, by itself, low certainty. It is imprecision relative to a threshold near zero. Relative to a worthwhile increment of 0.03 it is more serious: only 0.61 of the mass clears that bar.
 

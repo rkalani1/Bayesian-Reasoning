@@ -320,7 +320,7 @@ If you later analyze the network, do not compute Se/Sp only among the 80 who rea
 
 5. **STARD audit.** Take any published CTA-for-LVO paper you have on your hard drive. Score it against four STARD items: consecutive enrollment, indeterminates, blinding, and pre-declared cut. Do not use this textbook as a source of those data.
 
-6. **Latent class.** Write the complete-data likelihood for two binary tests and a latent \(D\), then say which parameter is not identified from a single population if the tests are conditionally independent. What second population, in a telestroke network, would supply the Hui–Walter contrast?
+6. **Latent class.** Write the complete-data likelihood for two binary tests and a latent \(D\), then count parameters against the degrees of freedom in the observed \(2\times 2\) table and explain why the single-population model is under-identified even with conditional independence (five parameters, three degrees of freedom). What second population, in a telestroke network, would supply the Hui–Walter contrast?
 
 ## Further reading
 

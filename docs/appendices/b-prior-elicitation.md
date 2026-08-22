@@ -66,10 +66,10 @@ If \(s^{2} \geq \mu(1-\mu)\), the expert was more uncertain than a Bernoulli dra
 |---|---|---|---|---|
 | LVO among NIHSS \(\geq 10\), mothership | 0.35 | 0.20–0.52 | Beta(8, 15) | 23 |
 | 90-day mRS 0–2 after EVT, early window | 0.46 | 0.32–0.60 | Beta(16, 19) | 35 |
-| Spot-sign-positive expansion, deep ICH | 0.55 | 0.35–0.74 | Beta(9, 7) | 16 |
-| Annual AF detection after negative 30-day monitor | 0.08 | 0.03–0.18 | Beta(3, 34) | 37 |
+| Spot-sign-positive expansion, deep ICH | 0.55 | 0.35–0.74 | Beta(9, 8) | 17 |
+| Annual AF detection after negative 30-day monitor | 0.08 | 0.03–0.18 | Beta(3, 32) | 35 |
 
-Read the Beta back in words before you dismiss the expert: “Beta(8, 15) means your best guess is 35 in 100, and you have given us about as much information as twenty-three imaginary patients.” If they flinch, flatten it.
+Fitted Betas are rounded to integer hyperparameters, so your own `fit_beta` run will land within a pseudo-observation or two of these. Read the Beta back in words before you dismiss the expert: “Beta(8, 15) means your best guess is 35 in 100, and you have given us about as much information as twenty-three imaginary patients.” If they flinch, flatten it.
 
 ```r
 # Fit a Beta to elicited q05, median, q95 by least squares on the CDF.
@@ -122,9 +122,9 @@ A Normal approximation: \(\theta \sim \mathcal{N}(\mu, \sigma^{2})\) with \(\mu 
 | Teaching example | \(p_{0}\) | Median \(p_{1}\) | 90% on \(p_{1}\) | \(\mu_{\log\text{OR}}\) | \(\sigma\) |
 |---|---|---|---|---|---|
 | EVT vs medical, early LVO, mRS 0–2 | 0.30 | 0.44 | 0.36–0.52 | 0.61 | 0.20 |
-| Intensive vs standard BP, ICH expansion | 0.30 | 0.26 | 0.18–0.36 | −0.19 | 0.28 |
+| Intensive vs standard BP, ICH expansion | 0.30 | 0.26 | 0.18–0.36 | −0.20 | 0.28 |
 | Anticoag vs antiplatelet, ESUS recurrence | 0.05 | 0.05 | 0.035–0.07 | 0.00 | 0.22 |
-| Complement inhibitor vs placebo, 12-week response | 0.20 | 0.32 | 0.18–0.50 | 0.63 | 0.45 |
+| Complement inhibitor vs placebo, 12-week response | 0.20 | 0.32 | 0.18–0.50 | 0.63 | 0.46 |
 
 !!! note "Mathematical Detail"
     Odds ratios and risk ratios diverge when \(p_{0}\) is not small. For ESUS at 5% annual risk they almost coincide. For mRS 0–2 at 30% they do not. Always convert through the *odds* if the model is logistic. Telling an expert “the log-OR is 0.61” is how elicitation sessions end early.
@@ -165,7 +165,7 @@ Average them. Put a half-Normal or a half-\(t\) on \(\tau\) with that scale, not
 | Teaching example | \(\pi_{0}\) | Unusually good | Implied \(\tau\) | Recommended prior |
 |---|---|---|---|---|
 | Hospital intercept, EVT mRS 0–2 | 0.46 | 0.58 | 0.38 | Half-\(t_{3}(0, 0.5)\) |
-| Site intercept, NIHSS change | — (use points) | \(+4\) NIHSS vs mean | \(\tau \approx 2\) points | Half-\(t_{3}(0, 3)\) |
+| Site intercept, NIHSS change | — (use points) | \(+4\) NIHSS vs mean | \(\tau \approx 3\) points | Half-\(t_{3}(0, 3)\) |
 | Study intercept, log-OR meta-analysis | OR 1.0 | OR 1.6 | 0.37 | Half-\(t_{3}(0, 0.5)\) |
 | Rater intercept, mRS (collapsed) | 0.40 | 0.50 | 0.32 | Half-\(t_{3}(0, 0.4)\) |
 

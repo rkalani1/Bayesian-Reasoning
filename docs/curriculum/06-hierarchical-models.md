@@ -18,7 +18,7 @@ After working this chapter you should be able to:
 
 A regional endovascular network includes eight centers. Over twelve months the network recorded \(1{,}240\) patients with large-vessel occlusion who underwent EVT. The binary outcome for this teaching analysis is successful reperfusion, TICI 2b/3. A new aspiration catheter was adopted at different times; the treatment indicator is \(1\) if the case used the new catheter and \(0\) otherwise. Center volumes (teaching numbers) are \(410\), \(265\), \(180\), \(140\), \(95\), \(72\), \(48\), and \(30\).
 
-Crude reperfusion proportions range from \(0.61\) at the smallest center to \(0.84\) at a mid-volume center. The network quality committee wants a center-adjusted treatment effect and a list of “outlier centers.” A junior analyst has already fit eight separate logistics and an eighth-as-dummy fixed-effects logistic. Both are wrong in opposite directions. Your job is to write the hierarchical model, say what it shrinks, and refuse the league table if the data cannot support one.
+Crude reperfusion proportions range from \(0.60\) at the smallest center to \(0.84\) at a mid-volume center. The network quality committee wants a center-adjusted treatment effect and a list of “outlier centers.” A junior analyst has already fit eight separate logistics and an eighth-as-dummy fixed-effects logistic. Both are wrong in opposite directions. Your job is to write the hierarchical model, say what it shrinks, and refuse the league table if the data cannot support one.
 
 Before any software, write four sentences: (1) what would make these eight centers *not* exchangeable; (2) whether the catheter was adopted in a way that confounds treatment with center; (3) what a ninth hospital should be told to expect; (4) what you will not print, even if a forest plot is requested.
 
@@ -30,7 +30,7 @@ Three default responses exist.
 
 **Complete pooling.** Ignore center. Fit `reperfusion ~ treatment`. Every patient informs a single intercept. The treatment coefficient is a precision-weighted blend of within-center and between-center contrasts, which is not in general the within-center effect you think you are quoting. Center-level confounding (the catheter arrived first at the best centers) is absorbed into the treatment term.
 
-**No pooling.** Fit a separate intercept for each center with no relationship among them, either as eight separate models or as `reperfusion ~ treatment + factor(center)` with a flat prior on each dummy. Small centers get noisy intercepts. The smallest center’s \(0.61\) proportion on \(30\) patients is treated as a fact. Predictions for a ninth center do not exist, because the model has no place to put a new intercept.
+**No pooling.** Fit a separate intercept for each center with no relationship among them, either as eight separate models or as `reperfusion ~ treatment + factor(center)` with a flat prior on each dummy. Small centers get noisy intercepts. The smallest center’s \(0.60\) proportion on \(30\) patients is treated as a fact. Predictions for a ninth center do not exist, because the model has no place to put a new intercept.
 
 **Partial pooling.** Give the center intercepts a common distribution,
 
@@ -189,10 +189,10 @@ Fit it. Before anyone looks at center ranks, report four numbers:
 
 1. The posterior of \(\beta\), on the odds-ratio scale, with a \(95\%\) credible interval. This is the network-level association after partial pooling of intercepts.
 2. The posterior of \(\tau\). If \(\tau\) is around \(0.15\) on the logit scale, centers barely differ. If it is around \(0.6\), “the network rate” is a headline, not a description.
-3. A posterior predictive reperfusion rate for a *new* center that has not yet adopted the catheter, obtained by drawing \(\alpha_{\mathrm{new}} \sim \mathrm{Normal}(\mu_\alpha,\tau)\) and inverting the logit. That number is what a ninth hospital should plan on, not the \(0.84\) trophy from the mid-volume center.
+3. A posterior predictive reperfusion rate for a *new* center that has not yet adopted the catheter, obtained by drawing \(\alpha_{\mathrm{new}} \sim \mathrm{Normal}(\mu_\alpha,\tau^2)\) and inverting the logit. That number is what a ninth hospital should plan on, not the \(0.84\) trophy from the mid-volume center.
 4. The shrunk intercepts for the \(n=30\) and \(n=410\) centers. The small center moves toward the network; the large center barely moves. Show that pair and stop. You have taught shrinkage. You have not published a ranking.
 
-If the quality committee still wants outliers, apply the pre-committed posterior-probability rule above. On typical teaching draws with \(\tau \approx 0.25\) and these volumes, the \(n=30\) center with a crude rate of \(0.61\) will shrink into the pack and will not meet a \(P(\alpha_j < \mu_\alpha - 0.4) > 0.9\) criterion. That is the analysis working. The junior analyst’s separate logistic had already printed that center in red.
+If the quality committee still wants outliers, apply the pre-committed posterior-probability rule above. On typical teaching draws with \(\tau \approx 0.25\) and these volumes, the \(n=30\) center with a crude rate of \(0.60\) will shrink into the pack and will not meet a \(P(\alpha_j < \mu_\alpha - 0.4) > 0.9\) criterion. That is the analysis working. The junior analyst’s separate logistic had already printed that center in red.
 
 !!! example "R Deep Dive"
     Simulated teaching data, a full `brms` specification, and a `tidybayes` interval plot of center intercepts. The data are invented. Do not treat the printed object names as results until you run the block.
@@ -278,7 +278,7 @@ It is not automatically better with more grouping factors. `(1 | center) + (1 | 
 
 ## Exercises
 
-1. **Bedside interpretation.** Center C8 has a crude reperfusion rate of \(0.61\) on \(30\) patients. After partial pooling its posterior mean intercept corresponds to \(0.74\). A chief of staff asks, “So you think our number is wrong?” Write the six-sentence answer.
+1. **Bedside interpretation.** Center C8 has a crude reperfusion rate of \(0.60\) on \(30\) patients. After partial pooling its posterior mean intercept corresponds to \(0.74\). A chief of staff asks, “So you think our number is wrong?” Write the six-sentence answer.
 
 2. **Overlap check.** Construct a teaching table in which four centers used the new catheter in \(>90\%\) of cases and four used it in \(<10\%\). What happens to the interpretation of \(\beta\) in `y ~ treatment + (1 | center)`? What term would you add?
 

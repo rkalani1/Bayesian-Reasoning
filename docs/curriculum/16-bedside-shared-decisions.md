@@ -115,7 +115,7 @@ A usable script is short. It is not a disclosure dump.
 
 “She has a clot in a large artery on the left. That is why she cannot speak or move the right side. We can try to pull the clot out, or we can care for her without that procedure.”
 
-“I want to be honest about the numbers we have. They are not a promise about her. In people something like this, without the procedure, about 40 in 100 do not survive three months. With it, about 33 in 100. A few more, maybe 13 in 100, get back to the cane-and-help life she already has. Some are left needing full care either way.”
+“I want to be honest about the numbers we have. They are not a promise about her. In people with something like this, without the procedure, about 40 in 100 do not survive three months. With it, about 33 in 100 — although the numbers are blurry enough that I cannot promise the procedure lowers the chance of dying. What I am more confident about: maybe 13 in 100 more get back to the cane-and-help life she already has. Some are left needing full care either way.”
 
 “You said she did not want to be kept alive without knowing people, and she did not want to miss the wedding. Those point in different directions. The procedure raises the chance she is alive in October and raises the chance she is herself. It also means a late-night transfer, a puncture, and a chance we do all of that and she is no better.”
 
@@ -134,7 +134,7 @@ Notice what the script refused to do. It did not say “the prior was weakly inf
 
 The chart is a letter to the next clinician and to your future self at 90 days. It should contain four things.
 
-The posterior you used, in absolute frequencies, with the action contrast. “Teaching model: death 40% vs 33%; return to prestroke function (mRS ≤ 3) 22% vs 35%” is enough. A full table is better.
+The posterior you used, in absolute frequencies, with the action contrast. “Teaching model: death 40% vs 33% (80% interval for the reduction: −2 to +16 per 100); return to prestroke function (mRS ≤ 3) 22% vs 35%” is enough. A full table is better.
 
 The values the family named, in their words. “Did not want to be a vegetable. Wanted a chance to attend a grandson’s wedding.” Do not translate these into mRS until you have written the words.
 
@@ -241,7 +241,7 @@ c(
 ```
 
 !!! example "R Deep Dive"
-    The Dirichlet cloud is a way to keep the spoken frequencies from hardening into false precision. If the 80% interval for the death contrast includes zero, say “the model is not sure death is lower” rather than “death falls from 40 to 33.” The daughter can tolerate a blurred contrast. She cannot tolerate a fake sharp one.
+    The Dirichlet cloud is a way to keep the spoken frequencies from hardening into false precision. If the 80% interval for the death contrast includes zero, say “the model is not sure death is lower” rather than “death falls from 40 to 33.” The teaching posterior above *does* trigger this rule: the 80% interval for the death reduction runs from about −2 to +16 per 100 (\(P(\text{EVT lowers death}) \approx 0.85\)) — which is exactly why the script hedges the death contrast and leans on the sturdier return-to-prestroke contrast instead. The daughter can tolerate a blurred contrast. She cannot tolerate a fake sharp one.
 
 ## Worked solution to the opening vignette
 

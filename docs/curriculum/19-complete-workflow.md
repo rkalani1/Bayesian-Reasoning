@@ -160,9 +160,13 @@ set.seed(19)
 # d has columns: lvo (0/1), nihss (prehospital), age, transfer (0/1)
 # Specification only — comment the sampler until d exists.
 
+# Priors derived from the step-2 anchors, so step 4 encodes step 2:
+#   slope     = (qlogis(0.38) - qlogis(0.22)) / 4 = 0.19 per NIHSS point
+#   intercept = qlogis(0.22) - 0.19 * 8           = -2.8 (p ~ 0.06 at NIHSS 0;
+#   the marginal 0.15 prevalence lives at typical alert NIHSS, not NIHSS 0)
 priors <- c(
-  prior(normal(-1.7, 0.8), class = Intercept),  # ~0.15 at NIHSS 0, loose
-  prior(normal(0.12, 0.06), class = b, coef = nihss),
+  prior(normal(-2.8, 0.8), class = Intercept),
+  prior(normal(0.19, 0.06), class = b, coef = nihss),
   prior(normal(0, 0.5), class = b)              # other coefficients
 )
 
@@ -189,7 +193,7 @@ priors <- c(
 # Report the 90% intervals to operations, not the log-odds slope.
 ```
 
-Step 5 then asks for `pp_check(fit_lvo, type = "bars_grouped", group = "nihss_bin")` and for a calibration slice at NIHSS 6–9. Step 6 is the `median_qi` table. Step 7 multiplies those probabilities by suite-time costs.
+Step 5 then asks for a grouped bar check — e.g. `pp_check(fit_lvo, type = "bars_grouped", group = "nihss_bin", newdata = transform(d, nihss_bin = cut(nihss, c(0, 5, 9, 13, 42))))`, the bin variable being created on the way in because only formula variables survive into the fitted object’s data — and for a calibration slice at NIHSS 6–9. Step 6 is the `median_qi` table. Step 7 multiplies those probabilities by suite-time costs.
 
 ```mermaid
 flowchart LR
@@ -260,7 +264,7 @@ You do not have to refit the booster in `brms` to be Bayesian about it. You do h
 
 The ten steps are an operations wrapper around a standard Bayesian decision problem. Two places where trained statisticians still skip steps:
 
-**Step 2 is a proper probability, not a regularization trick.** Putting `normal(0, 1)` on every coefficient because McElreath’s default is nearby is not elicitation. If the coefficient is a log-odds increment per NIHSS point, historical data say it lives near 0.10–0.15, not near 2. The prior in the code block above is still lazy; a spline with a structured prior on first differences would be more honest, and would be elicited by asking clinicians for \(p(\text{LVO})\) at four NIHSS anchors rather than for a slope.
+**Step 2 is a proper probability, not a regularization trick.** Putting `normal(0, 1)` on every coefficient because McElreath’s default is nearby is not elicitation. If the coefficient is a log-odds increment per NIHSS point, plausible values live near 0.1–0.2, not near 2 — the step-2 anchors imply 0.19, which is where the code block’s prior mean comes from. The two-anchor linear prior is still a simplification; a spline with a structured prior on first differences would be more honest, and would be elicited by asking clinicians for \(p(\text{LVO})\) at four NIHSS anchors rather than for a slope.
 
 **Step 7 requires a utility, not a posterior probability cutoff.** \(P(\pi_{12} > \pi_{8} \mid y) = 0.99\) can be true and still not justify moving the cutoff if the suite-cost difference is large. Write \(u(\text{cutoff}, \theta)\) explicitly, even if it is a back-of-envelope linear loss. Then compute the expected-utility surface over the candidate cutoffs and the posterior of \(\theta\). If you cannot get the operations chief to agree on \(u\), the honest output of the analysis is that surface, not a recommended number.
 
